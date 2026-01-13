@@ -34,18 +34,6 @@ const LandingPage = ({ showWelcome, setShowWelcome }) => {
           <Achievements />
           <Leadership />
           <ContactPage />
-          <footer>
-            <center>
-              <hr className="my-3 border-gray-400 opacity-15 sm:mx-auto lg:my-6 text-center" />
-              <span className="block text-sm pb-4 text-gray-500 text-center dark:text-gray-400">
-                © 2025{" "}
-                <a href="https://ifaz.site" className="hover:underline">
-                  Ifaz Ikram
-                </a>
-                . All Rights Reserved.
-              </span>
-            </center>
-          </footer>
         </>
       )}
     </>
@@ -55,17 +43,10 @@ const LandingPage = ({ showWelcome, setShowWelcome }) => {
 const ProjectPageLayout = () => (
   <>
     <ProjectDetails />
-    <footer>
-      <center>
-        <hr className="my-3 border-gray-400 opacity-15 sm:mx-auto lg:my-6 text-center" />
-        <span className="block text-sm pb-4 text-gray-500 text-center dark:text-gray-400">
-          © 2025{" "}
-          <a href="https://ifaz.site" className="hover:underline">
-            Ifaz Ikram
-          </a>
-          . All Rights Reserved.
-        </span>
-      </center>
+    <footer className="w-full border-t border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark py-8 mt-12">
+      <div className="max-w-7xl mx-auto px-6 text-center text-sm text-text-secondary-light dark:text-text-secondary-dark font-mono">
+        <span>© 2024 Ifaz Ikram. Built with engineering precision.</span>
+      </div>
     </footer>
   </>
 );

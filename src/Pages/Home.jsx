@@ -5,7 +5,6 @@ import {
   Mail,
   ExternalLink,
   Instagram,
-  Sparkles,
 } from "lucide-react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import AOS from "aos";
@@ -18,31 +17,24 @@ const StatusBadge = memo(() => (
     data-aos="zoom-in"
     data-aos-delay="400"
   >
-    <div className="relative group">
-      <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6366f1] to-[#a855f7] rounded-full blur opacity-30 group-hover:opacity-50 transition duration-1000"></div>
-      <div className="relative px-3 sm:px-4 py-2 rounded-full bg-black/40 backdrop-blur-xl border border-white/10">
-        <span className="bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-transparent bg-clip-text sm:text-sm text-[0.7rem] font-medium flex items-center">
-          <Sparkles className="sm:w-4 sm:h-4 w-3 h-3 mr-2 text-blue-400" />
-          Ready to Innovate
-        </span>
-      </div>
+    <div className="inline-flex items-center space-x-2 bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark px-3 py-1.5 rounded text-xs font-mono text-text-secondary-light dark:text-text-secondary-dark">
+      <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+      <span>Ready to Innovate</span>
     </div>
   </div>
 ));
 
 const MainTitle = memo(() => (
   <div className="space-y-2" data-aos="fade-up" data-aos-delay="600">
-    <h1 className="text-5xl sm:text-6xl md:text-6xl lg:text-6xl xl:text-7xl font-bold tracking-tight">
+    <h1 className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1]">
       <span className="relative inline-block">
-        <span className="absolute -inset-2 bg-gradient-to-r from-[#6366f1] to-[#a855f7] blur-2xl opacity-20"></span>
-        <span className="relative bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
+        <span className="text-text-light dark:text-text-dark">
           Web
         </span>
       </span>
       <br />
       <span className="relative inline-block mt-2">
-        <span className="absolute -inset-2 bg-gradient-to-r from-[#6366f1] to-[#a855f7] blur-2xl opacity-20"></span>
-        <span className="relative bg-gradient-to-r from-[#6366f1] to-[#a855f7] bg-clip-text text-transparent">
+        <span className="text-primary">
           Developer
         </span>
       </span>
@@ -51,40 +43,27 @@ const MainTitle = memo(() => (
 ));
 
 const TechStack = memo(({ tech }) => (
-  <div className="px-4 py-2 hidden sm:block rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-sm text-gray-300 hover:bg-white/10 transition-colors">
+  <div className="px-4 py-2 hidden sm:block border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark text-sm text-text-secondary-light dark:text-text-secondary-dark font-mono rounded hover:border-primary hover:text-primary transition-colors cursor-default">
     {tech}
   </div>
 ));
 
-const CTAButton = memo(({ href, text, icon: Icon }) => (
+const CTAButton = memo(({ href, text, icon: Icon, primary }) => (
   <a href={href}>
-    <button className="group relative w-[160px]">
-      <div className="absolute -inset-0.5 bg-gradient-to-r from-[#4f52c9] to-[#8644c5] rounded-xl opacity-50 blur-md group-hover:opacity-90 transition-all duration-700"></div>
-      <div className="relative h-11 bg-[#030014] backdrop-blur-xl rounded-lg border border-white/10 leading-none overflow-hidden">
-        <div className="absolute inset-0 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 bg-gradient-to-r from-[#4f52c9]/20 to-[#8644c5]/20"></div>
-        <span className="absolute inset-0 flex items-center justify-center gap-2 text-sm group-hover:gap-3 transition-all duration-300">
-          <span className="bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent font-medium z-10">
-            {text}
-          </span>
-          <Icon
-            className={`w-4 h-4 text-gray-200 ${text === "Contact"
-                ? "group-hover:translate-x-1"
-                : "group-hover:rotate-45"
-              } transform transition-all duration-300 z-10`}
-          />
-        </span>
-      </div>
+    <button className={`group relative inline-flex items-center justify-center px-8 py-3 font-medium rounded transition-all duration-300 ${primary
+      ? "bg-primary hover:bg-blue-700 text-white"
+      : "bg-transparent border border-border-light dark:border-border-dark text-text-light dark:text-text-dark hover:bg-surface-light dark:hover:bg-surface-dark hover:border-primary"
+      }`}>
+      <span>{text}</span>
+      <Icon className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
     </button>
   </a>
 ));
 
 const SocialLink = memo(({ icon: Icon, link }) => (
   <a href={link} target="_blank" rel="noopener noreferrer">
-    <button className="group relative p-3">
-      <div className="absolute inset-0 bg-gradient-to-r from-[#6366f1] to-[#a855f7] rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
-      <div className="relative rounded-xl bg-black/50 backdrop-blur-xl p-2 flex items-center justify-center border border-white/10 group-hover:border-white/20 transition-all duration-300">
-        <Icon className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
-      </div>
+    <button className="w-10 h-10 flex items-center justify-center border border-border-light dark:border-border-dark rounded text-text-secondary-light dark:text-text-secondary-dark hover:text-primary hover:border-primary bg-surface-light dark:bg-surface-dark transition-colors">
+      <Icon className="w-5 h-5" />
     </button>
   </a>
 ));
@@ -167,13 +146,17 @@ const Home = () => {
     },
     style: { width: "100%", height: "100%" },
     className: `w-full h-full transition-all duration-500 ${isHovering
-        ? "scale-[180%] sm:scale-[160%] md:scale-[150%] lg:scale-[145%] rotate-2"
-        : "scale-[175%] sm:scale-[155%] md:scale-[145%] lg:scale-[140%]"
+      ? "scale-[180%] sm:scale-[160%] md:scale-[150%] lg:scale-[145%] rotate-2"
+      : "scale-[175%] sm:scale-[155%] md:scale-[145%] lg:scale-[140%]"
       }`,
   };
 
   return (
-    <div className="min-h-screen bg-[#030014] overflow-hidden" id="Home">
+    <div className="min-h-screen overflow-hidden font-sans" id="Home">
+      {/* Decorative Elements */}
+      <div className="absolute right-0 top-1/4 w-1/3 h-1/2 border-l border-t border-border-light dark:border-border-dark opacity-50 pointer-events-none hidden lg:block"></div>
+      <div className="absolute right-20 bottom-20 w-24 h-24 border border-dashed border-primary/30 pointer-events-none hidden lg:block"></div>
+
       <div
         className={`relative z-10 transition-all duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"
           }`}
@@ -196,20 +179,20 @@ const Home = () => {
                   data-aos="fade-up"
                   data-aos-delay="800"
                 >
-                  <span className="text-xl md:text-2xl bg-gradient-to-r from-gray-100 to-gray-300 bg-clip-text text-transparent font-light">
+                  <span className="text-xl md:text-2xl text-text-secondary-light dark:text-text-secondary-dark font-mono font-medium">
                     {text}
                   </span>
-                  <span className="w-[3px] h-6 bg-gradient-to-t from-[#6366f1] to-[#a855f7] ml-1 animate-blink"></span>
+                  <span className="w-[3px] h-6 bg-primary ml-1 animate-pulse"></span>
                 </div>
 
                 {/* Description */}
                 <p
-                  className="text-base md:text-lg text-gray-400 max-w-xl leading-relaxed font-light"
+                  className="text-lg text-text-secondary-light dark:text-text-secondary-dark max-w-2xl leading-relaxed"
                   data-aos="fade-up"
                   data-aos-delay="1000"
                 >
                   Building scalable full-stack and cross-platform solutions
-                  with modern web technologies.
+                  with modern web technologies. Focused on performance, clean architecture, and maintainable code.
                 </p>
 
                 {/* Tech Stack */}
@@ -225,16 +208,17 @@ const Home = () => {
 
                 {/* CTA Buttons */}
                 <div
-                  className="flex flex-row gap-3 w-full justify-start"
+                  className="flex flex-col sm:flex-row gap-4 w-full justify-start"
                   data-aos="fade-up"
                   data-aos-delay="1400"
                 >
                   <CTAButton
                     href="#Portofolio"
-                    text="Projects"
+                    text="View Projects"
                     icon={ExternalLink}
+                    primary={true}
                   />
-                  <CTAButton href="#Contact" text="Contact" icon={Mail} />
+                  <CTAButton href="#Contact" text="Contact Me" icon={Mail} primary={false} />
                 </div>
 
                 {/* Social Links */}
@@ -260,7 +244,7 @@ const Home = () => {
             >
               <div className="relative w-full opacity-90">
                 <div
-                  className={`absolute inset-0 bg-gradient-to-r from-[#6366f1]/10 to-[#a855f7]/10 rounded-3xl blur-3xl transition-all duration-700 ease-in-out ${isHovering ? "opacity-50 scale-105" : "opacity-20 scale-100"
+                  className={`absolute inset-0 bg-gradient-to-r from-primary/10 to-blue-400/10 rounded-3xl blur-3xl transition-all duration-700 ease-in-out ${isHovering ? "opacity-50 scale-105" : "opacity-20 scale-100"
                     }`}
                 ></div>
 
@@ -276,7 +260,7 @@ const Home = () => {
                     }`}
                 >
                   <div
-                    className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-br from-indigo-500/10 to-purple-500/10 blur-3xl animate-[pulse_6s_cubic-bezier(0.4,0,0.6,1)_infinite] transition-all duration-700 ${isHovering ? "scale-110" : "scale-100"
+                    className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-br from-primary/10 to-blue-400/10 blur-3xl animate-[pulse_6s_cubic-bezier(0.4,0,0.6,1)_infinite] transition-all duration-700 ${isHovering ? "scale-110" : "scale-100"
                       }`}
                   ></div>
                 </div>
@@ -284,6 +268,17 @@ const Home = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Decorative SVG */}
+      <div className="hidden lg:block absolute right-10 bottom-10 opacity-10 dark:opacity-20 text-text-light dark:text-text-dark">
+        <svg fill="none" height="200" viewBox="0 0 200 200" width="200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="99" stroke="currentColor" strokeWidth="1"></circle>
+          <circle cx="100" cy="100" r="70" stroke="currentColor" strokeDasharray="4 4" strokeWidth="1"></circle>
+          <path d="M100 0V200" stroke="currentColor" strokeWidth="1"></path>
+          <path d="M0 100H200" stroke="currentColor" strokeWidth="1"></path>
+          <rect height="30" stroke="currentColor" strokeWidth="1" width="30" x="85" y="85"></rect>
+        </svg>
       </div>
     </div>
   );

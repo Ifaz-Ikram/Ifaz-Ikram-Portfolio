@@ -5,34 +5,38 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				primary: '#1A237E', // Deep Navy Blue for accent
+				primary: '#2563EB', // Utilitarian engineer blue
 				background: {
-					light: '#F5F5F5',
-					dark: '#0D0D15', // Deep utilitarian dark
+					light: '#F8FAFC', // Slate 50
+					dark: '#0F172A', // Slate 900
+				},
+				surface: {
+					light: '#FFFFFF',
+					dark: '#1E293B',
 				},
 				border: {
-					light: '#D4D4D4',
+					light: '#E2E8F0',
 					dark: '#334155',
 				},
 				text: {
-					light: '#111111',
-					dark: '#E0E0E0',
+					light: '#0F172A',
+					dark: '#F8FAFC',
+					'secondary-light': '#475569',
+					'secondary-dark': '#94A3B8',
 				},
 				grid: {
-					light: '#E0E0E0',
-					dark: '#1F1F28',
+					light: '#E2E8F0',
+					dark: '#334155',
 				}
 			},
 			fontFamily: {
-				display: ['JetBrains Mono', 'monospace'],
+				sans: ['Inter', 'sans-serif'],
+				display: ['Inter', 'sans-serif'],
 				mono: ['JetBrains Mono', 'monospace'],
 			},
 			backgroundImage: {
-				'grid-pattern-light': "linear-gradient(to right, #E0E0E0 1px, transparent 1px), linear-gradient(to bottom, #E0E0E0 1px, transparent 1px)",
-				'grid-pattern-dark': "linear-gradient(to right, #1F1F28 1px, transparent 1px), linear-gradient(to bottom, #1F1F28 1px, transparent 1px)",
-			},
-			backgroundSize: {
-				'grid-pattern': '40px 40px',
+				'grid-light': "linear-gradient(to right, #E2E8F0 1px, transparent 1px), linear-gradient(to bottom, #E2E8F0 1px, transparent 1px)",
+				'grid-dark': "linear-gradient(to right, #334155 1px, transparent 1px), linear-gradient(to bottom, #334155 1px, transparent 1px)",
 			},
 			backdropBlur: {
 				sm: '4px',

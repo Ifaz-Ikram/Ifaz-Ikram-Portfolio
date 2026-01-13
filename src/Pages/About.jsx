@@ -14,7 +14,7 @@ const Header = memo(() => (
     </h2>
     <div className="absolute top-1/2 left-0 w-full h-px bg-border-light dark:bg-border-dark -z-10"></div>
     <div
-      className="inline-block bg-background-light dark:bg-background-dark px-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs font-mono text-neutral-400 uppercase tracking-widest"
+      className="inline-block bg-background-light dark:bg-background-dark px-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs font-mono text-text-secondary-light dark:text-text-secondary-dark uppercase tracking-widest"
       data-aos="zoom-in-up"
       data-aos-duration="800"
     >
@@ -30,7 +30,7 @@ const ProfileImage = memo(() => (
     data-aos-duration="1000"
   >
     <div className="absolute inset-0 border border-dashed border-border-light dark:border-border-dark rounded-full scale-110 pointer-events-none"></div>
-    <div className="relative w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-2 border-border-light dark:border-border-dark p-1 bg-white dark:bg-slate-800 group">
+    <div className="relative w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-2 border-border-light dark:border-border-dark p-1 bg-surface-light dark:bg-surface-dark group">
       <img
         src="/ifaz.jpeg"
         alt="Ifaz Ikram Headshot"
@@ -45,14 +45,14 @@ const StatCard = memo(({ icon: Icon, value, label, description, animation }) => 
   <div
     data-aos={animation}
     data-aos-duration={1300}
-    className="group border border-border-light dark:border-border-dark p-6 flex flex-col justify-between h-48 hover:border-primary dark:hover:border-blue-400 transition-colors bg-white dark:bg-transparent hover:scale-105 duration-300"
+    className="group border border-border-light dark:border-border-dark p-6 flex flex-col justify-between h-48 hover:border-primary dark:hover:border-primary transition-colors bg-surface-light dark:bg-surface-dark hover:scale-105 duration-300"
   >
     <div className="flex justify-between items-start">
-      <div className="bg-neutral-100 dark:bg-slate-800 p-2 rounded text-neutral-700 dark:text-slate-300 transition-transform group-hover:rotate-6">
+      <div className="bg-background-light dark:bg-background-dark p-2 rounded text-text-secondary-light dark:text-text-secondary-dark transition-transform group-hover:rotate-6">
         <Icon className="w-6 h-6" />
       </div>
       <span
-        className="font-mono text-5xl font-bold text-primary dark:text-blue-400"
+        className="font-mono text-5xl font-bold text-primary"
         data-aos="fade-up-left"
         data-aos-duration="1500"
         data-aos-anchor-placement="top-bottom"
@@ -62,7 +62,7 @@ const StatCard = memo(({ icon: Icon, value, label, description, animation }) => 
     </div>
     <div>
       <h3
-        className="text-sm font-bold uppercase tracking-wider text-neutral-800 dark:text-white"
+        className="text-sm font-bold uppercase tracking-wider text-text-light dark:text-text-dark"
         data-aos="fade-up"
         data-aos-duration="800"
         data-aos-anchor-placement="top-bottom"
@@ -71,14 +71,14 @@ const StatCard = memo(({ icon: Icon, value, label, description, animation }) => 
       </h3>
       <div className="flex justify-between items-end mt-1">
         <p
-          className="text-xs text-neutral-500 dark:text-slate-400"
+          className="text-xs text-text-secondary-light dark:text-text-secondary-dark"
           data-aos="fade-up"
           data-aos-duration="1000"
           data-aos-anchor-placement="top-bottom"
         >
           {description}
         </p>
-        <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-primary dark:group-hover:text-blue-400 transform group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+        <ArrowUpRight className="w-4 h-4 text-text-secondary-light dark:text-text-secondary-dark group-hover:text-primary transform group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
       </div>
     </div>
   </div>
@@ -165,7 +165,7 @@ const AboutPage = () => {
         <div className="lg:col-span-7 flex flex-col space-y-6">
           <div>
             <span
-              className="text-primary dark:text-blue-400 font-mono text-sm tracking-wide mb-2 block font-semibold"
+              className="text-primary font-mono text-sm tracking-wide mb-2 block font-semibold"
               data-aos="fade-right"
               data-aos-duration="800"
             >
@@ -178,7 +178,7 @@ const AboutPage = () => {
             >
               Hello, I'm <br />
               <span
-                className="text-neutral-800 dark:text-white"
+                className="text-text-light dark:text-text-dark"
                 data-aos="fade-right"
                 data-aos-duration="1300"
               >
@@ -188,7 +188,7 @@ const AboutPage = () => {
           </div>
 
           <p
-            className="text-neutral-600 dark:text-slate-300 leading-relaxed text-lg max-w-2xl border-l-2 border-primary dark:border-blue-500 pl-4"
+            className="text-text-secondary-light dark:text-text-secondary-dark leading-relaxed text-lg max-w-2xl border-l-2 border-primary pl-4"
             data-aos="fade-right"
             data-aos-duration="1500"
           >
@@ -206,14 +206,14 @@ const AboutPage = () => {
             data-aos-duration="800"
           >
             <a href="">
-              <button className="flex items-center space-x-2 bg-primary hover:bg-blue-900 text-white px-6 py-3 rounded text-sm font-semibold transition-all shadow-none border border-transparent focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-slate-900 hover:scale-105 duration-300">
+              <button className="flex items-center space-x-2 bg-primary hover:bg-blue-700 text-white px-6 py-3 rounded text-sm font-semibold transition-all shadow-none border border-transparent focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-slate-900 hover:scale-105 duration-300">
                 <FileText className="w-5 h-5" />
                 <span>Download CV</span>
               </button>
             </a>
             <a href="#Portofolio">
               <button
-                className="flex items-center space-x-2 bg-transparent border border-primary dark:border-blue-400 text-primary dark:text-blue-400 hover:bg-primary hover:text-white dark:hover:bg-blue-400 dark:hover:text-slate-900 px-6 py-3 rounded text-sm font-semibold transition-all hover:scale-105 duration-300"
+                className="flex items-center space-x-2 bg-transparent border border-border-light dark:border-border-dark text-text-light dark:text-text-dark hover:bg-surface-light dark:hover:bg-surface-dark hover:border-primary px-6 py-3 rounded text-sm font-semibold transition-all hover:scale-105 duration-300"
                 data-aos="fade-up"
                 data-aos-duration="1000"
               >

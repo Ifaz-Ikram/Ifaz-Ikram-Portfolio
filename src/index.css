@@ -521,7 +521,7 @@ html:not(.dark) body {
 
 /* Dark mode background */
 html.dark body {
-  background: #0D0D15;
+  background: #0F172A;
 }
 
 @keyframes blob {

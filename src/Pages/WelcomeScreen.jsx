@@ -23,7 +23,7 @@ const TypewriterEffect = ({ text }) => {
   return (
     <span className="inline-block">
       {displayText}
-      <span className="animate-pulse">|</span>
+      <span className="animate-pulse text-primary">|</span>
     </span>
   );
 };
@@ -85,7 +85,7 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
           exit="exit"
         >
           {/* Grid Pattern Background */}
-          <div className="absolute inset-0 z-0 opacity-40 pointer-events-none bg-grid-pattern-light dark:bg-grid-pattern-dark bg-grid-pattern"></div>
+          <div className="absolute inset-0 z-0 opacity-40 pointer-events-none bg-grid-light dark:bg-grid-dark" style={{ backgroundSize: '40px 40px' }}></div>
 
           {/* Main Content */}
           <motion.main
@@ -103,10 +103,10 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
 
             {/* Welcome Text */}
             <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-2 text-text-light dark:text-text-dark font-display">
+              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-2 text-text-light dark:text-text-dark font-sans leading-[1.1]">
                 Welcome To My
               </h1>
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-neutral-500 dark:text-neutral-400 font-display">
+              <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-text-secondary-light dark:text-text-secondary-dark font-sans">
                 Portfolio Website
               </h2>
             </div>
