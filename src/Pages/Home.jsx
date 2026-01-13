@@ -146,139 +146,147 @@ const Home = () => {
     },
     style: { width: "100%", height: "100%" },
     className: `w-full h-full transition-all duration-500 ${isHovering
-      ? "scale-[180%] sm:scale-[160%] md:scale-[150%] lg:scale-[145%] rotate-2"
-      : "scale-[175%] sm:scale-[155%] md:scale-[145%] lg:scale-[140%]"
+      ? "scale-100 sm:scale-[160%] md:scale-[150%] lg:scale-[145%] rotate-2"
+      : "scale-100 sm:scale-[155%] md:scale-[145%] lg:scale-[140%]"
       }`,
   };
 
   return (
-    <div className="min-h-screen overflow-hidden font-sans" id="Home">
-      {/* Decorative Elements */}
-      <div className="absolute right-0 top-1/4 w-1/3 h-1/2 border-l border-t border-border-light dark:border-border-dark opacity-50 pointer-events-none hidden lg:block"></div>
-      <div className="absolute right-20 bottom-20 w-24 h-24 border border-dashed border-primary/30 pointer-events-none hidden lg:block"></div>
+    <div className="relative overflow-hidden font-sans" id="Home">
+      {/* Navbar Spacer - Critical for proper layout */}
+      <div className="h-16"></div>
 
-      <div
-        className={`relative z-10 transition-all duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"
-          }`}
-      >
-        <div className="container mx-auto px-[5%] sm:px-6 lg:px-[0%] min-h-screen">
-          <div className="flex flex-col lg:flex-row items-center justify-center h-screen md:justify-between gap-0 sm:gap-12 lg:gap-20">
-            {/* Left Column */}
-            <div
-              className="w-full lg:w-1/2 space-y-6 sm:space-y-8 text-left lg:text-left order-1 lg:order-1 lg:mt-0"
-              data-aos="fade-right"
-              data-aos-delay="200"
-            >
-              <div className="space-y-4 sm:space-y-6">
-                <StatusBadge />
-                <MainTitle />
+      {/* Centered Content Container */}
+      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center">
+        <div className="relative w-full">
+          {/* Decorative Elements */}
+          <div className="absolute right-0 top-1/4 w-1/3 h-1/2 border-l border-t border-border-light dark:border-border-dark opacity-50 pointer-events-none hidden lg:block"></div>
+          <div className="absolute right-20 bottom-20 w-24 h-24 border border-dashed border-primary/30 pointer-events-none hidden lg:block"></div>
 
-                {/* Typing Effect */}
+          <div
+            className={`relative z-10 transition-all duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"
+              }`}
+          >
+            <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 py-8">
+              <div className="w-full flex flex-col md:flex-row items-center md:justify-between gap-12 lg:gap-20">
+                {/* Left Column */}
                 <div
-                  className="h-8 flex items-center"
-                  data-aos="fade-up"
-                  data-aos-delay="800"
+                  className="w-full md:w-1/2 space-y-6 sm:space-y-8 text-left md:text-left order-1 md:order-1"
+                  data-aos="fade-right"
+                  data-aos-delay="200"
                 >
-                  <span className="text-xl md:text-2xl text-text-secondary-light dark:text-text-secondary-dark font-mono font-medium">
-                    {text}
-                  </span>
-                  <span className="w-[3px] h-6 bg-primary ml-1 animate-pulse"></span>
+                  <div className="space-y-4 sm:space-y-6">
+                    <StatusBadge />
+                    <MainTitle />
+
+                    {/* Typing Effect */}
+                    <div
+                      className="h-8 flex items-center"
+                      data-aos="fade-up"
+                      data-aos-delay="800"
+                    >
+                      <span className="text-xl md:text-2xl text-text-secondary-light dark:text-text-secondary-dark font-mono font-medium">
+                        {text}
+                      </span>
+                      <span className="w-[3px] h-6 bg-primary ml-1 animate-pulse"></span>
+                    </div>
+
+                    {/* Description */}
+                    <p
+                      className="text-lg text-text-secondary-light dark:text-text-secondary-dark max-w-2xl leading-relaxed"
+                      data-aos="fade-up"
+                      data-aos-delay="1000"
+                    >
+                      Building scalable full-stack and cross-platform solutions
+                      with modern web technologies. Focused on performance, clean architecture, and maintainable code.
+                    </p>
+
+                    {/* Tech Stack */}
+                    <div
+                      className="flex flex-wrap gap-3 justify-start"
+                      data-aos="fade-up"
+                      data-aos-delay="1200"
+                    >
+                      {TECH_STACK.map((tech, index) => (
+                        <TechStack key={index} tech={tech} />
+                      ))}
+                    </div>
+
+                    {/* CTA Buttons */}
+                    <div
+                      className="flex flex-col sm:flex-row gap-4 w-full justify-start"
+                      data-aos="fade-up"
+                      data-aos-delay="1400"
+                    >
+                      <CTAButton
+                        href="#Portofolio"
+                        text="View Projects"
+                        icon={ExternalLink}
+                        primary={true}
+                      />
+                      <CTAButton href="#Contact" text="Contact Me" icon={Mail} primary={false} />
+                    </div>
+
+                    {/* Social Links */}
+                    <div
+                      className="hidden sm:flex gap-4 justify-start"
+                      data-aos="fade-up"
+                      data-aos-delay="1600"
+                    >
+                      {SOCIAL_LINKS.map((social, index) => (
+                        <SocialLink key={index} {...social} />
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                {/* Description */}
-                <p
-                  className="text-lg text-text-secondary-light dark:text-text-secondary-dark max-w-2xl leading-relaxed"
-                  data-aos="fade-up"
-                  data-aos-delay="1000"
-                >
-                  Building scalable full-stack and cross-platform solutions
-                  with modern web technologies. Focused on performance, clean architecture, and maintainable code.
-                </p>
-
-                {/* Tech Stack */}
+                {/* Right Column - Optimized Lottie Animation */}
                 <div
-                  className="flex flex-wrap gap-3 justify-start"
-                  data-aos="fade-up"
-                  data-aos-delay="1200"
+                  className="w-full py-6 sm:py-0 md:w-1/2 h-[200px] sm:h-[300px] md:h-[500px] lg:h-[600px] xl:h-[750px] relative flex items-center justify-center order-2 md:order-2 mt-4 md:mt-0 overflow-hidden"
+                  onMouseEnter={() => setIsHovering(true)}
+                  onMouseLeave={() => setIsHovering(false)}
+                  data-aos="fade-left"
+                  data-aos-delay="600"
                 >
-                  {TECH_STACK.map((tech, index) => (
-                    <TechStack key={index} tech={tech} />
-                  ))}
-                </div>
+                  <div className="relative w-full opacity-90">
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-r from-primary/10 to-blue-400/10 rounded-3xl blur-3xl transition-all duration-700 ease-in-out ${isHovering ? "opacity-50 scale-105" : "opacity-20 scale-100"
+                        }`}
+                    ></div>
 
-                {/* CTA Buttons */}
-                <div
-                  className="flex flex-col sm:flex-row gap-4 w-full justify-start"
-                  data-aos="fade-up"
-                  data-aos-delay="1400"
-                >
-                  <CTAButton
-                    href="#Portofolio"
-                    text="View Projects"
-                    icon={ExternalLink}
-                    primary={true}
-                  />
-                  <CTAButton href="#Contact" text="Contact Me" icon={Mail} primary={false} />
-                </div>
+                    <div
+                      className={`relative z-10 w-full opacity-90 transform transition-transform duration-500 ${isHovering ? "scale-105" : "scale-100"
+                        }`}
+                    >
+                      <DotLottieReact {...lottieOptions} />
+                    </div>
 
-                {/* Social Links */}
-                <div
-                  className="hidden sm:flex gap-4 justify-start"
-                  data-aos="fade-up"
-                  data-aos-delay="1600"
-                >
-                  {SOCIAL_LINKS.map((social, index) => (
-                    <SocialLink key={index} {...social} />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column - Optimized Lottie Animation */}
-            <div
-              className="w-full py-[10%] sm:py-0 lg:w-1/2 h-auto lg:h-[600px] xl:h-[750px] relative flex items-center justify-center order-2 lg:order-2 mt-8 lg:mt-0"
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
-              data-aos="fade-left"
-              data-aos-delay="600"
-            >
-              <div className="relative w-full opacity-90">
-                <div
-                  className={`absolute inset-0 bg-gradient-to-r from-primary/10 to-blue-400/10 rounded-3xl blur-3xl transition-all duration-700 ease-in-out ${isHovering ? "opacity-50 scale-105" : "opacity-20 scale-100"
-                    }`}
-                ></div>
-
-                <div
-                  className={`relative z-10 w-full opacity-90 transform transition-transform duration-500 ${isHovering ? "scale-105" : "scale-100"
-                    }`}
-                >
-                  <DotLottieReact {...lottieOptions} />
-                </div>
-
-                <div
-                  className={`absolute inset-0 pointer-events-none transition-all duration-700 ${isHovering ? "opacity-50" : "opacity-20"
-                    }`}
-                >
-                  <div
-                    className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-br from-primary/10 to-blue-400/10 blur-3xl animate-[pulse_6s_cubic-bezier(0.4,0,0.6,1)_infinite] transition-all duration-700 ${isHovering ? "scale-110" : "scale-100"
-                      }`}
-                  ></div>
+                    <div
+                      className={`absolute inset-0 pointer-events-none transition-all duration-700 ${isHovering ? "opacity-50" : "opacity-20"
+                        }`}
+                    >
+                      <div
+                        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-br from-primary/10 to-blue-400/10 blur-3xl animate-[pulse_6s_cubic-bezier(0.4,0,0.6,1)_infinite] transition-all duration-700 ${isHovering ? "scale-110" : "scale-100"
+                          }`}
+                      ></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Decorative SVG */}
-      <div className="hidden lg:block absolute right-10 bottom-10 opacity-10 dark:opacity-20 text-text-light dark:text-text-dark">
-        <svg fill="none" height="200" viewBox="0 0 200 200" width="200" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="100" cy="100" r="99" stroke="currentColor" strokeWidth="1"></circle>
-          <circle cx="100" cy="100" r="70" stroke="currentColor" strokeDasharray="4 4" strokeWidth="1"></circle>
-          <path d="M100 0V200" stroke="currentColor" strokeWidth="1"></path>
-          <path d="M0 100H200" stroke="currentColor" strokeWidth="1"></path>
-          <rect height="30" stroke="currentColor" strokeWidth="1" width="30" x="85" y="85"></rect>
-        </svg>
+          {/* Decorative SVG */}
+          <div className="hidden lg:block absolute right-10 bottom-10 opacity-10 dark:opacity-20 text-text-light dark:text-text-dark">
+            <svg fill="none" height="200" viewBox="0 0 200 200" width="200" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="100" cy="100" r="99" stroke="currentColor" strokeWidth="1"></circle>
+              <circle cx="100" cy="100" r="70" stroke="currentColor" strokeDasharray="4 4" strokeWidth="1"></circle>
+              <path d="M100 0V200" stroke="currentColor" strokeWidth="1"></path>
+              <path d="M0 100H200" stroke="currentColor" strokeWidth="1"></path>
+              <rect height="30" stroke="currentColor" strokeWidth="1" width="30" x="85" y="85"></rect>
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   );

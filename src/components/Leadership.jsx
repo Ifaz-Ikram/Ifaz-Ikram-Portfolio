@@ -96,10 +96,10 @@ const Leadership = () => {
 
     return (
         <main
-            className="max-w-7xl mx-auto px-6 pt-12 pb-20 min-h-screen flex flex-col justify-start"
+            className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pt-[clamp(4.5rem,10vh,6rem)] pb-12 lg:pt-16 lg:pb-20 min-h-screen flex flex-col justify-start"
             id="Leadership"
         >
-            <header className="mb-24 text-center max-w-3xl mx-auto">
+            <header className="mb-12 md:mb-24 text-center max-w-3xl mx-auto">
                 <h1
                     className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-text-light dark:text-text-dark"
                     data-aos="zoom-in-up"

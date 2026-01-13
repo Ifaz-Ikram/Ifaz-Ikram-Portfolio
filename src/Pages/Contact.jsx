@@ -74,11 +74,11 @@ const ContactPage = () => {
 
   return (
     <div
-      className="min-h-screen flex flex-col justify-start pt-12 pb-16"
+      className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 w-full min-h-screen flex flex-col justify-start pt-[clamp(4.5rem,10vh,6rem)] pb-12 lg:pt-16 lg:pb-16"
       id="Contact"
     >
       {/* Header */}
-      <div className="text-center sm:px-0 px-[5%] mb-24">
+      <div className="text-center mb-12 md:mb-24">
         <h2
           data-aos="fade-down"
           data-aos-duration="1000"

@@ -75,7 +75,7 @@ const Navbar = () => {
                     : "bg-background-light/50 dark:bg-background-dark/50 backdrop-blur-sm border-border-light/50 dark:border-border-dark/50"
                 }`}
         >
-            <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 h-16 flex items-center justify-between">
 
                 {/* Logo */}
                 <div className="font-bold text-lg tracking-tight text-primary">
