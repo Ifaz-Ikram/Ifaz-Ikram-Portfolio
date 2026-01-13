@@ -79,7 +79,7 @@ const Achievements = () => {
 
     return (
         <main
-            className="max-w-7xl mx-auto px-6 py-16 md:py-24"
+            className="max-w-7xl mx-auto px-6 pt-24 md:pt-32 pb-16 md:pb-24"
             id="Achievements"
         >
             <header className="text-center mb-16">
