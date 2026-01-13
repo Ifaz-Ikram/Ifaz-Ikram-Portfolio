@@ -69,105 +69,73 @@ const Navbar = () => {
 
     return (
         <nav
-            className={`fixed w-full top-0 z-50 transition-all duration-500 ${isOpen
-                ? "bg-[#030014] opacity-100"
-                : scrolled
-                    ? "bg-[#030014]/50 backdrop-blur-xl"
-                    : "bg-transparent"
+            className={`fixed w-full top-0 z-50 transition-all duration-300 border-b
+            ${scrolled || isOpen
+                    ? "bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-border-light dark:border-border-dark shadow-sm"
+                    : "bg-background-light/50 dark:bg-background-dark/50 backdrop-blur-sm border-border-light/50 dark:border-border-dark/50"
                 }`}
         >
-            <div className="mx-auto px-4 sm:px-6 lg:px-[10%]">
-                <div className="flex items-center justify-between h-16">
-                    {/* Logo */}
-                    <div className="flex-shrink-0">
-                        <a
-                            href="#Home"
-                            onClick={(e) => scrollToSection(e, "#Home")}
-                            className="text-xl font-bold bg-gradient-to-r from-[#a855f7] to-[#6366f1] bg-clip-text text-transparent"
-                        >
-                            Ifaz Ikram
-                        </a>
-                    </div>
+            <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
-                    {/* Desktop Navigation */}
-                    <div className="hidden md:block">
-                        <div className="ml-8 flex items-center space-x-8">
-                            {navItems.map((item) => (
-                                <a
-                                    key={item.label}
-                                    href={item.href}
-                                    onClick={(e) => scrollToSection(e, item.href)}
-                                    className="group relative px-1 py-2 text-sm font-medium"
-                                >
-                                    <span
-                                        className={`relative z-10 transition-colors duration-300 ${activeSection === item.href.substring(1)
-                                            ? "bg-gradient-to-r from-[#6366f1] to-[#a855f7] bg-clip-text text-transparent font-semibold"
-                                            : "text-[#e2d3fd] group-hover:text-white"
-                                            }`}
-                                    >
-                                        {item.label}
-                                    </span>
-                                    <span
-                                        className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#6366f1] to-[#a855f7] transform origin-left transition-transform duration-300 ${activeSection === item.href.substring(1)
-                                            ? "scale-x-100"
-                                            : "scale-x-0 group-hover:scale-x-100"
-                                            }`}
-                                    />
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Mobile Menu Button */}
-                    <div className="md:hidden">
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className={`relative p-2 text-[#e2d3fd] hover:text-white transition-transform duration-300 ease-in-out transform ${isOpen ? "rotate-90 scale-125" : "rotate-0 scale-100"
-                                }`}
-                        >
-                            {isOpen ? (
-                                <X className="w-6 h-6" />
-                            ) : (
-                                <Menu className="w-6 h-6" />
-                            )}
-                        </button>
-                    </div>
+                {/* Logo */}
+                <div className="font-bold text-lg tracking-tight text-primary">
+                    <a href="#Home" onClick={(e) => scrollToSection(e, "#Home")}>
+                        Ifaz Ikram
+                    </a>
                 </div>
-            </div>
 
-            {/* Mobile Menu Overlay */}
-            <div
-                className={`md:hidden h-2/5 fixed inset-0 bg-[#030014] transition-all duration-300 ease-in-out ${isOpen
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-[-100%] pointer-events-none"
-                    }`}
-                style={{ top: "64px" }}
-            >
-                <div className="flex flex-col h-full">
-                    <div className="px-4 py-6 space-y-4 flex-1 ">
-                        {navItems.map((item, index) => (
+                {/* Desktop Navigation */}
+                <div className="hidden md:flex space-x-8 text-sm font-medium">
+                    {navItems.map((item) => {
+                        const isActive = activeSection === item.href.substring(1);
+                        return (
                             <a
                                 key={item.label}
                                 href={item.href}
                                 onClick={(e) => scrollToSection(e, item.href)}
-                                className={`block px-4 py-3 text-lg font-medium transition-all duration-300 ease ${activeSection === item.href.substring(1)
-                                    ? "bg-gradient-to-r from-[#6366f1] to-[#a855f7] bg-clip-text text-transparent font-semibold"
-                                    : "text-[#e2d3fd] hover:text-white"
+                                className={`transition-colors duration-200 ${isActive
+                                        ? "text-primary border-b-2 border-primary pb-0.5"
+                                        : "text-neutral-500 hover:text-primary dark:text-slate-400 dark:hover:text-primary"
                                     }`}
-                                style={{
-                                    transitionDelay: `${index * 100}ms`,
-                                    transform: isOpen ? "translateX(0)" : "translateX(50px)",
-                                    opacity: isOpen ? 1 : 0,
-                                }}
                             >
                                 {item.label}
                             </a>
-                        ))}
-                    </div>
+                        );
+                    })}
                 </div>
-            </div>
-        </nav>
 
+                {/* Mobile Menu Button */}
+                <button
+                    className="md:hidden text-neutral-700 dark:text-slate-200 p-1"
+                    onClick={() => setIsOpen(!isOpen)}
+                    aria-label="Toggle menu"
+                >
+                    {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                </button>
+            </div>
+
+            {/* Mobile Menu Overlay */}
+            {isOpen && (
+                <div className="md:hidden absolute top-16 left-0 w-full bg-background-light dark:bg-background-dark border-b border-border-light dark:border-border-dark shadow-lg px-6 py-4 flex flex-col space-y-4 animate-in slide-in-from-top-5 duration-200">
+                    {navItems.map((item) => {
+                        const isActive = activeSection === item.href.substring(1);
+                        return (
+                            <a
+                                key={item.label}
+                                href={item.href}
+                                onClick={(e) => scrollToSection(e, item.href)}
+                                className={`block text-sm font-medium transition-colors ${isActive
+                                        ? "text-primary"
+                                        : "text-neutral-500 hover:text-primary dark:text-slate-400 dark:hover:text-primary"
+                                    }`}
+                            >
+                                {item.label}
+                            </a>
+                        );
+                    })}
+                </div>
+            )}
+        </nav>
     );
 };
 

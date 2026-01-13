@@ -11,6 +11,7 @@ import Leadership from "./components/Leadership";
 import ContactPage from "./Pages/Contact";
 import ProjectDetails from "./components/ProjectDetail";
 import WelcomeScreen from "./Pages/WelcomeScreen";
+import ThemeToggle from "./components/ThemeToggle";
 import { AnimatePresence } from 'framer-motion';
 
 const LandingPage = ({ showWelcome, setShowWelcome }) => {
@@ -26,6 +27,7 @@ const LandingPage = ({ showWelcome, setShowWelcome }) => {
         <>
           <Navbar />
           <AnimatedBackground />
+          <ThemeToggle />
           <Home />
           <About />
           <Portofolio />
