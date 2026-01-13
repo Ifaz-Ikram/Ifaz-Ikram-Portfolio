@@ -223,9 +223,9 @@ export default function FullWidthTabs() {
   const displayedCertificates = showAllCertificates ? certificates : certificates.slice(0, initialItems);
 
   return (
-    <div className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] overflow-hidden pt-4 md:pt-8 pb-32 md:pb-48" id="Portofolio">
+    <div className="md:px-[10%] px-[5%] w-full overflow-hidden min-h-screen flex flex-col justify-start pt-12 pb-20" id="Portofolio">
       {/* Header section */}
-      <div className="text-center pb-10" data-aos="fade-up" data-aos-duration="1000">
+      <div className="text-center pb-24" data-aos="fade-up" data-aos-duration="1000">
         <h2 className="inline-block text-3xl md:text-5xl font-bold text-center mx-auto text-text-light dark:text-text-dark">
           Portfolio Showcase
         </h2>

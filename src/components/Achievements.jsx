@@ -79,12 +79,12 @@ const Achievements = () => {
 
     return (
         <main
-            className="max-w-7xl mx-auto px-6 pt-24 md:pt-32 pb-16 md:pb-24"
+            className="max-w-7xl mx-auto px-6 pt-12 pb-20 min-h-screen flex flex-col justify-start"
             id="Achievements"
         >
-            <header className="text-center mb-16">
+            <header className="text-center mb-24">
                 <h1
-                    className="text-4xl md:text-5xl font-bold tracking-tight text-text-light dark:text-text-dark mb-4"
+                    className="text-3xl md:text-5xl font-bold tracking-tight text-text-light dark:text-text-dark mb-4"
                     data-aos="zoom-in-up"
                     data-aos-duration="600"
                 >

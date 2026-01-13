@@ -73,9 +73,12 @@ const ContactPage = () => {
   };
 
   return (
-    <>
+    <div
+      className="min-h-screen flex flex-col justify-start pt-12 pb-16"
+      id="Contact"
+    >
       {/* Header */}
-      <div className="text-center lg:mt-[5%] mt-10 mb-2 sm:px-0 px-[5%]">
+      <div className="text-center sm:px-0 px-[5%] mb-24">
         <h2
           data-aos="fade-down"
           data-aos-duration="1000"
@@ -92,11 +95,8 @@ const ContactPage = () => {
         </p>
       </div>
 
-      <div
-        className="h-auto py-16 md:py-24 flex items-center justify-center px-[5%] md:px-0"
-        id="Contact"
-      >
-        <div className="container px-[1%] grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-[45%_55%] 2xl:grid-cols-[35%_65%] gap-12">
+      <div className="container mx-auto px-[5%] md:px-0">
+        <div className="grid grid-cols-1 lg:grid-cols-[45%_55%] 2xl:grid-cols-[35%_65%] gap-12">
           {/* Contact Form */}
           <div
             data-aos="fade-right"
@@ -199,12 +199,10 @@ const ContactPage = () => {
       </div>
 
       {/* Footer */}
-      <footer className="w-full border-t border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark py-8 mt-12">
-        <div className="max-w-7xl mx-auto px-6 text-center text-sm text-text-secondary-light dark:text-text-secondary-dark font-mono">
-          <span>© 2024 Ifaz Ikram. Built with engineering precision.</span>
-        </div>
+      <footer className="w-full text-center text-sm text-text-secondary-light dark:text-text-secondary-dark font-mono mt-auto pt-8">
+        <span>© 2024 Ifaz Ikram. Built with engineering precision.</span>
       </footer>
-    </>
+    </div>
   );
 };
 
