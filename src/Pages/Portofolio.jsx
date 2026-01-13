@@ -241,7 +241,7 @@ export default function FullWidthTabs() {
           <button
             onClick={() => setValue(0)}
             className={`flex-1 py-4 px-6 flex items-center justify-center gap-2 font-medium border-r border-border-light dark:border-border-dark last:border-r-0 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors ${value === 0
-              ? "bg-primary dark:bg-blue-900 text-white"
+              ? "bg-primary text-white"
               : "text-text-secondary-light dark:text-text-secondary-dark hover:bg-background-light dark:hover:bg-background-dark"
               }`}
           >
@@ -251,7 +251,7 @@ export default function FullWidthTabs() {
           <button
             onClick={() => setValue(1)}
             className={`flex-1 py-4 px-6 flex items-center justify-center gap-2 font-medium border-r border-border-light dark:border-border-dark last:border-r-0 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors ${value === 1
-              ? "bg-primary dark:bg-blue-900 text-white"
+              ? "bg-primary text-white"
               : "text-text-secondary-light dark:text-text-secondary-dark hover:bg-background-light dark:hover:bg-background-dark"
               }`}
           >
@@ -261,7 +261,7 @@ export default function FullWidthTabs() {
           <button
             onClick={() => setValue(2)}
             className={`flex-1 py-4 px-6 flex items-center justify-center gap-2 font-medium focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors ${value === 2
-              ? "bg-primary dark:bg-blue-900 text-white"
+              ? "bg-primary text-white"
               : "text-text-secondary-light dark:text-text-secondary-dark hover:bg-background-light dark:hover:bg-background-dark"
               }`}
           >

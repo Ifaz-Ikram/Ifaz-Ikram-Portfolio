@@ -5,29 +5,32 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				primary: '#2563EB', // Utilitarian engineer blue
+				primary: '#3B82F6', // Royal Blue for visibility in Dark Mode
 				background: {
-					light: '#F8FAFC', // Slate 50
-					dark: '#0F172A', // Slate 900
+					light: '#F5F5F5', // Keep existing light gray
+					dark: '#1A1A1A', // Deep Charcoal
 				},
 				surface: {
 					light: '#FFFFFF',
-					dark: '#1E293B',
+					dark: '#222222', // Slightly lighter charcoal
 				},
 				border: {
-					light: '#E2E8F0',
-					dark: '#334155',
+					light: '#d4d4d4',
+					dark: '#333333', // Subtle grey border
 				},
 				text: {
-					light: '#0F172A',
-					dark: '#F8FAFC',
+					light: '#171717',
+					dark: '#E0E0E0', // Soft off-white
 					'secondary-light': '#475569',
-					'secondary-dark': '#94A3B8',
+					'secondary-dark': '#A3A3A3',
 				},
 				grid: {
 					light: '#E2E8F0',
-					dark: '#334155',
+					dark: '#333333',
 				}
+			},
+			borderRadius: {
+				DEFAULT: "2px", // Utilitarian slight round
 			},
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],

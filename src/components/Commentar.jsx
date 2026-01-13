@@ -19,7 +19,7 @@ const Comment = memo(({ comment, formatDate, index }) => (
                     loading="lazy"
                 />
             ) : (
-                <div className="p-2 bg-gray-100 dark:bg-gray-800 border border-border-light dark:border-border-dark text-primary group-hover:border-primary transition-colors">
+                <div className="p-2 bg-gray-100 dark:bg-surface-dark border border-border-light dark:border-border-dark text-primary group-hover:border-primary transition-colors">
                     <UserCircle2 className="w-5 h-5" />
                 </div>
             )}
@@ -159,7 +159,7 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
                 type="submit"
                 disabled={isSubmitting}
                 data-aos="fade-up" data-aos-duration="1000"
-                className="w-full h-12 bg-primary hover:bg-blue-900 text-white font-medium transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full h-12 bg-primary hover:bg-blue-700 text-white font-medium transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
                 {isSubmitting ? (
                     <>
@@ -254,7 +254,7 @@ const Komentar = () => {
             {/* Header */}
             <div className="p-6 border-b border-border-light dark:border-border-dark" data-aos="fade-down" data-aos-duration="800">
                 <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gray-100 dark:bg-gray-800 border border-border-light dark:border-border-dark">
+                    <div className="p-2 bg-gray-100 dark:bg-background-dark border border-border-light dark:border-border-dark">
                         <MessageCircle className="w-6 h-6 text-primary" />
                     </div>
                     <h3 className="text-xl font-semibold text-text-light dark:text-text-dark">
@@ -304,10 +304,10 @@ const Komentar = () => {
                     background: rgba(0, 0, 0, 0.05);
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background: rgba(30, 58, 138, 0.5);
+                    background: rgba(59, 130, 246, 0.5);
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                    background: rgba(30, 58, 138, 0.7);
+                    background: rgba(59, 130, 246, 0.7);
                 }
             `}</style>
         </div>

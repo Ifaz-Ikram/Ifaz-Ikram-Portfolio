@@ -39,10 +39,10 @@ const AchievementCard = memo(({ achievement, index }) => {
         <article
             data-aos={animations[index % 3]}
             data-aos-duration={1000 + (index % 3) * 200}
-            className="group bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark p-6 hover:border-primary dark:hover:border-white transition-colors duration-200 cursor-pointer relative flex flex-col h-full"
+            className="group bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark p-6 hover:border-primary dark:hover:border-primary transition-colors duration-200 cursor-pointer relative flex flex-col h-full"
         >
             <div className="flex justify-between items-start mb-6">
-                <div className="bg-gray-100 dark:bg-gray-800 p-3 flex items-center justify-center transition-transform group-hover:rotate-6">
+                <div className="bg-gray-100 dark:bg-background-dark p-3 flex items-center justify-center transition-transform group-hover:rotate-6">
                     <Icon className="w-8 h-8 text-text-light dark:text-text-dark" />
                 </div>
                 <ArrowUpRight className="w-5 h-5 text-text-secondary-light dark:text-text-secondary-dark transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-200" />

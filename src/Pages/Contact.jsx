@@ -50,7 +50,7 @@ const ContactPage = () => {
         title: 'Success!',
         text: 'Your message has been sent successfully!',
         icon: 'success',
-        confirmButtonColor: '#1E3A8A',
+        confirmButtonColor: '#3B82F6',
         timer: 2000,
         timerProgressBar: true
       });
@@ -65,7 +65,7 @@ const ContactPage = () => {
         title: 'Error!',
         text: 'Something went wrong. Please try again later.',
         icon: 'error',
-        confirmButtonColor: '#1E3A8A'
+        confirmButtonColor: '#3B82F6',
       });
     } finally {
       setIsSubmitting(false);
@@ -179,7 +179,7 @@ const ContactPage = () => {
                 data-aos-delay="400"
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-primary hover:bg-blue-900 text-white py-4 font-semibold transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="w-full bg-primary hover:bg-blue-700 text-white py-4 font-semibold transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 <Send className="w-5 h-5" />
                 {isSubmitting ? 'Sending...' : 'Send Message'}
