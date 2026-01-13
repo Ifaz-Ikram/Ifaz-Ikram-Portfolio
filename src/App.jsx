@@ -46,7 +46,7 @@ const ProjectPageLayout = () => (
     <ProjectDetails />
     <footer className="w-full border-t border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark py-8 mt-12">
       <div className="max-w-7xl mx-auto px-6 text-center text-sm text-text-secondary-light dark:text-text-secondary-dark font-mono">
-        <span>© 2024 Ifaz Ikram. Built with engineering precision.</span>
+        <span>© 2026 Ifaz Ikram. Built with engineering precision.</span>
       </div>
     </footer>
   </>
