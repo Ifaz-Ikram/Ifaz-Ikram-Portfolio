@@ -240,22 +240,24 @@ const Home = () => {
                   </div>
                 </div>
 
-                {/* Right Column - Optimized Lottie Animation */}
+                {/* Right Column - Lottie Animation */}
+                {/* Mobile: Absolute positioned as decorative background */}
+                {/* Desktop: Normal flow for side-by-side layout */}
                 <div
-                  className="w-full py-6 sm:py-0 md:w-1/2 h-[200px] sm:h-[300px] md:h-[500px] lg:h-[600px] xl:h-[750px] relative flex items-center justify-center order-2 md:order-2 mt-4 md:mt-0 overflow-hidden"
+                  className="absolute inset-0 md:relative md:w-1/2 md:h-[500px] lg:h-[600px] xl:h-[750px] flex items-center justify-center z-0 md:z-auto opacity-30 md:opacity-100 pointer-events-none md:pointer-events-auto"
                   onMouseEnter={() => setIsHovering(true)}
                   onMouseLeave={() => setIsHovering(false)}
                   data-aos="fade-left"
                   data-aos-delay="600"
                 >
-                  <div className="relative w-full opacity-90">
+                  <div className="relative w-full h-full opacity-90">
                     <div
                       className={`absolute inset-0 bg-gradient-to-r from-primary/10 to-blue-400/10 rounded-3xl blur-3xl transition-all duration-700 ease-in-out ${isHovering ? "opacity-50 scale-105" : "opacity-20 scale-100"
                         }`}
                     ></div>
 
                     <div
-                      className={`relative z-10 w-full opacity-90 transform transition-transform duration-500 ${isHovering ? "scale-105" : "scale-100"
+                      className={`relative z-10 w-full h-full opacity-90 transform transition-transform duration-500 ${isHovering ? "scale-105" : "scale-100"
                         }`}
                     >
                       <DotLottieReact {...lottieOptions} />
