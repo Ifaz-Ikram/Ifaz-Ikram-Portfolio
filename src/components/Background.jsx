@@ -44,7 +44,7 @@ const AnimatedBackground = () => {
 	}, [])
 
 	return (
-		<div className="fixed inset-0 hidden dark:block">
+		<div className="fixed inset-0 hidden dark:block pointer-events-none">
 			<div className="absolute inset-0">
 				{/* 
 				<div

@@ -149,7 +149,7 @@ const AboutPage = () => {
 
   return (
     <main
-      className="flex-grow flex flex-col items-center justify-start min-h-screen max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pt-[clamp(4.5rem,10vh,6rem)] pb-12 lg:pt-16 lg:pb-20 w-full"
+      className="flex-grow flex flex-col items-center justify-start min-h-screen max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pt-6 pb-12 lg:pb-20 w-full"
       id="About"
     >
       <Header />

@@ -171,7 +171,7 @@ const Home = () => {
               <div className="w-full flex flex-col md:flex-row items-center md:justify-between gap-12 lg:gap-20">
                 {/* Left Column */}
                 <div
-                  className="w-full md:w-1/2 space-y-6 sm:space-y-8 text-left md:text-left order-1 md:order-1"
+                  className="w-full md:w-1/2 space-y-6 sm:space-y-8 text-left md:text-left"
                   data-aos="fade-right"
                   data-aos-delay="200"
                 >

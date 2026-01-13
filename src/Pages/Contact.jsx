@@ -74,7 +74,7 @@ const ContactPage = () => {
 
   return (
     <div
-      className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 w-full min-h-screen flex flex-col justify-start pt-[clamp(4.5rem,10vh,6rem)] pb-12 lg:pt-16 lg:pb-16"
+      className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 w-full min-h-screen flex flex-col justify-start pt-6 pb-12 lg:pb-16"
       id="Contact"
     >
       {/* Header */}
