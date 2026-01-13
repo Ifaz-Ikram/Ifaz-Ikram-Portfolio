@@ -52,7 +52,7 @@ const ExperienceCard = memo(({ experience, index }) => {
             className="group relative bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark p-6 flex flex-col hover:border-primary dark:hover:border-primary transition-colors duration-200"
         >
             <div className="flex items-start justify-between mb-4">
-                <div className="p-2 bg-gray-100 dark:bg-background-dark border border-border-light dark:border-border-dark transition-transform group-hover:rotate-6">
+                <div className="p-2 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark transition-transform group-hover:rotate-6">
                     <Icon className="w-6 h-6 text-text-light dark:text-text-dark" />
                 </div>
                 <ArrowUpRight className="w-5 h-5 text-text-secondary-light dark:text-text-secondary-dark transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />

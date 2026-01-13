@@ -85,7 +85,7 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
           exit="exit"
         >
           {/* Grid Pattern Background */}
-          <div className="absolute inset-0 z-0 opacity-40 pointer-events-none bg-grid-light dark:bg-grid-dark" style={{ backgroundSize: '40px 40px' }}></div>
+          <div className="absolute inset-0 z-0 opacity-20 dark:opacity-5 pointer-events-none bg-grid-light dark:bg-grid-dark" style={{ backgroundSize: '40px 40px' }}></div>
 
           {/* Main Content */}
           <motion.main
@@ -106,7 +106,7 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
               <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-2 text-text-light dark:text-text-dark font-sans leading-[1.1]">
                 Welcome To My
               </h1>
-              <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-text-secondary-light dark:text-text-secondary-dark font-sans">
+              <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600 font-sans">
                 Portfolio Website
               </h2>
             </div>

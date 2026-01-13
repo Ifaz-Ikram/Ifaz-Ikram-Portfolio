@@ -42,7 +42,7 @@ const AchievementCard = memo(({ achievement, index }) => {
             className="group bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark p-6 hover:border-primary dark:hover:border-primary transition-colors duration-200 cursor-pointer relative flex flex-col h-full"
         >
             <div className="flex justify-between items-start mb-6">
-                <div className="bg-gray-100 dark:bg-background-dark p-3 flex items-center justify-center transition-transform group-hover:rotate-6">
+                <div className="bg-background-light dark:bg-background-dark p-3 flex items-center justify-center transition-transform group-hover:rotate-6">
                     <Icon className="w-8 h-8 text-text-light dark:text-text-dark" />
                 </div>
                 <ArrowUpRight className="w-5 h-5 text-text-secondary-light dark:text-text-secondary-dark transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-200" />
@@ -79,7 +79,7 @@ const Achievements = () => {
 
     return (
         <main
-            className="w-full max-w-7xl mx-auto px-[5%] sm:px-[5%] lg:px-[10%] py-12"
+            className="max-w-7xl mx-auto px-6 py-16 md:py-24"
             id="Achievements"
         >
             <header className="text-center mb-16">

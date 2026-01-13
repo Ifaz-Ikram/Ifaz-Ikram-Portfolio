@@ -94,8 +94,8 @@ const Navbar = () => {
                                 href={item.href}
                                 onClick={(e) => scrollToSection(e, item.href)}
                                 className={`transition-colors duration-200 ${isActive
-                                        ? "text-primary border-b-2 border-primary pb-0.5"
-                                        : "text-neutral-500 hover:text-primary dark:text-slate-400 dark:hover:text-primary"
+                                    ? "text-primary border-b-2 border-primary pb-0.5"
+                                    : "text-text-secondary-light hover:text-primary dark:text-text-secondary-dark dark:hover:text-primary"
                                     }`}
                             >
                                 {item.label}
@@ -106,7 +106,7 @@ const Navbar = () => {
 
                 {/* Mobile Menu Button */}
                 <button
-                    className="md:hidden text-neutral-700 dark:text-slate-200 p-1"
+                    className="md:hidden text-text-light dark:text-text-dark p-1"
                     onClick={() => setIsOpen(!isOpen)}
                     aria-label="Toggle menu"
                 >
@@ -125,8 +125,8 @@ const Navbar = () => {
                                 href={item.href}
                                 onClick={(e) => scrollToSection(e, item.href)}
                                 className={`block text-sm font-medium transition-colors ${isActive
-                                        ? "text-primary"
-                                        : "text-neutral-500 hover:text-primary dark:text-slate-400 dark:hover:text-primary"
+                                    ? "text-primary"
+                                    : "text-text-secondary-light hover:text-primary dark:text-text-secondary-dark dark:hover:text-primary"
                                     }`}
                             >
                                 {item.label}

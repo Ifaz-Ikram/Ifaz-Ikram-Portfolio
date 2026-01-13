@@ -13,13 +13,7 @@ const Header = memo(() => (
       About Me
     </h2>
     <div className="absolute top-1/2 left-0 w-full h-px bg-border-light dark:bg-border-dark -z-10"></div>
-    <div
-      className="inline-block bg-background-light dark:bg-background-dark px-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs font-mono text-text-secondary-light dark:text-text-secondary-dark uppercase tracking-widest"
-      data-aos="zoom-in-up"
-      data-aos-duration="800"
-    >
-      Engineer Profile
-    </div>
+
   </div>
 ));
 
@@ -34,7 +28,7 @@ const ProfileImage = memo(() => (
       <img
         src="/ifaz.jpeg"
         alt="Ifaz Ikram Headshot"
-        className="w-full h-full object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-500 group-hover:scale-110"
+        className="w-full h-full object-cover rounded-full hover:grayscale-0 transition-all duration-500 group-hover:scale-110"
         loading="lazy"
       />
     </div>
@@ -155,7 +149,7 @@ const AboutPage = () => {
 
   return (
     <main
-      className="flex-grow flex flex-col items-center justify-center max-w-7xl mx-auto px-6 py-12 w-full"
+      className="flex-grow flex flex-col items-center justify-center max-w-7xl mx-auto px-6 py-16 md:py-24 w-full"
       id="About"
     >
       <Header />
@@ -206,7 +200,7 @@ const AboutPage = () => {
             data-aos-duration="800"
           >
             <a href="">
-              <button className="flex items-center space-x-2 bg-primary hover:bg-blue-700 text-white px-6 py-3 rounded text-sm font-semibold transition-all shadow-none border border-transparent focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-slate-900 hover:scale-105 duration-300">
+              <button className="flex items-center space-x-2 bg-primary hover:bg-primary/80 text-white px-6 py-3 rounded text-sm font-semibold transition-all shadow-none border border-transparent focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-slate-900 hover:scale-105 duration-300">
                 <FileText className="w-5 h-5" />
                 <span>Download CV</span>
               </button>

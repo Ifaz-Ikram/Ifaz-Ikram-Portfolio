@@ -19,7 +19,7 @@ const Comment = memo(({ comment, formatDate, index }) => (
                     loading="lazy"
                 />
             ) : (
-                <div className="p-2 bg-gray-100 dark:bg-surface-dark border border-border-light dark:border-border-dark text-primary group-hover:border-primary transition-colors">
+                <div className="p-2 bg-background-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-primary group-hover:border-primary transition-colors">
                     <UserCircle2 className="w-5 h-5" />
                 </div>
             )}
@@ -254,7 +254,7 @@ const Komentar = () => {
             {/* Header */}
             <div className="p-6 border-b border-border-light dark:border-border-dark" data-aos="fade-down" data-aos-duration="800">
                 <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gray-100 dark:bg-background-dark border border-border-light dark:border-border-dark">
+                    <div className="p-2 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark">
                         <MessageCircle className="w-6 h-6 text-primary" />
                     </div>
                     <h3 className="text-xl font-semibold text-text-light dark:text-text-dark">

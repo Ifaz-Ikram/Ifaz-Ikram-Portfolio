@@ -59,7 +59,7 @@ const SocialLinks = () => {
           {/* Content Container */}
           <div className="relative flex items-center gap-4">
             {/* Icon Container */}
-            <div className="relative flex items-center justify-center p-3 bg-gray-100 dark:bg-background-dark border border-border-light dark:border-border-dark group-hover:border-primary/50 transition-colors">
+            <div className="relative flex items-center justify-center p-3 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark group-hover:border-primary/50 transition-colors">
               <linkedIn.icon
                 className="w-8 h-8 text-text-light dark:text-text-dark group-hover:text-primary transition-colors duration-300"
               />
@@ -96,7 +96,7 @@ const SocialLinks = () => {
                        hover:border-primary dark:hover:border-primary 
                        transition-all duration-300"
             >
-              <div className="relative flex items-center justify-center p-2 bg-gray-100 dark:bg-background-dark border border-border-light dark:border-border-dark group-hover:border-primary/50 transition-colors">
+              <div className="relative flex items-center justify-center p-2 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark group-hover:border-primary/50 transition-colors">
                 <link.icon
                   className="w-6 h-6 text-text-light dark:text-text-dark group-hover:text-primary transition-colors duration-300"
                 />

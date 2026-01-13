@@ -18,9 +18,9 @@ const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
   };
 
   return (
-    <div className="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark flex flex-col h-full group hover:border-primary dark:hover:border-blue-400 transition-colors duration-300">
+    <div className="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark flex flex-col h-full group hover:border-primary dark:hover:border-primary transition-colors duration-300">
       {/* Image Container */}
-      <div className="h-48 overflow-hidden border-b border-border-light dark:border-border-dark bg-gray-100 dark:bg-gray-800">
+      <div className="h-48 overflow-hidden border-b border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark">
         <img
           src={Img}
           alt={Title}
@@ -45,7 +45,7 @@ const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleLiveDemo}
-              className="inline-flex items-center text-sm font-medium text-primary dark:text-blue-400 hover:underline"
+              className="inline-flex items-center text-sm font-medium text-primary dark:text-primary hover:underline"
             >
               Live Demo <ExternalLink className="w-4 h-4 ml-1" />
             </a>

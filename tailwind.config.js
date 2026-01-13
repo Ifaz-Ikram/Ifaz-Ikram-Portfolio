@@ -5,28 +5,28 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				primary: '#3B82F6', // Royal Blue for visibility in Dark Mode
+				primary: 'rgb(var(--color-primary) / <alpha-value>)', // Adjusted Navy/Blue for visibility due to dynamic switching
 				background: {
-					light: '#F5F5F5', // Keep existing light gray
+					light: '#FFFFFF',
 					dark: '#1A1A1A', // Deep Charcoal
 				},
 				surface: {
-					light: '#FFFFFF',
-					dark: '#222222', // Slightly lighter charcoal
+					light: '#F9FAFB',
+					dark: '#222222', // Slightly lighter charcoal for cards
 				},
 				border: {
-					light: '#d4d4d4',
+					light: '#E5E7EB',
 					dark: '#333333', // Subtle grey border
 				},
 				text: {
-					light: '#171717',
+					light: '#111827',
 					dark: '#E0E0E0', // Soft off-white
-					'secondary-light': '#475569',
+					'secondary-light': '#4B5563',
 					'secondary-dark': '#A3A3A3',
 				},
 				grid: {
 					light: '#E2E8F0',
-					dark: '#333333',
+					dark: 'rgba(255,255,255,0.05)',
 				}
 			},
 			borderRadius: {
@@ -39,7 +39,7 @@ export default {
 			},
 			backgroundImage: {
 				'grid-light': "linear-gradient(to right, #E2E8F0 1px, transparent 1px), linear-gradient(to bottom, #E2E8F0 1px, transparent 1px)",
-				'grid-dark': "linear-gradient(to right, #334155 1px, transparent 1px), linear-gradient(to bottom, #334155 1px, transparent 1px)",
+				'grid-dark': "linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)",
 			},
 			backdropBlur: {
 				sm: '4px',

@@ -498,6 +498,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --color-primary: 30 58 138;
+    /* #1e3a8a - Light Mode Blue */
+  }
+
+  .dark {
+    --color-primary: 59 130 246;
+    /* #3B82F6 - Dark Mode Blue */
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -521,7 +533,7 @@ html:not(.dark) body {
 
 /* Dark mode background */
 html.dark body {
-  background: #1A1A1A;
+  @apply bg-background-dark;
 }
 
 @keyframes blob {
