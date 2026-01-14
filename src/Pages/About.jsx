@@ -199,7 +199,7 @@ const AboutPage = () => {
             data-aos="fade-up"
             data-aos-duration="800"
           >
-            <a href="">
+            <a href="/Ifaz_Ikram_CV.pdf" download="Ifaz_Ikram_CV.pdf">
               <button className="flex items-center space-x-2 bg-primary hover:bg-primary/80 text-white px-6 py-3 rounded text-sm font-semibold transition-all shadow-none border border-transparent focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-slate-900 hover:scale-105 duration-300">
                 <FileText className="w-5 h-5" />
                 <span>Download CV</span>
