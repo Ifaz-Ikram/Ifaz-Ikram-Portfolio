@@ -1,5 +1,6 @@
-import React, { useEffect, memo, useMemo } from "react";
-import { FileText, Code, Award, Globe, ArrowUpRight } from "lucide-react";
+import React, { useEffect, useState, useCallback, memo, useMemo } from "react";
+import { FileText, Code, Trophy, Globe, ArrowUpRight } from "lucide-react";
+import { db, collection, getDocs } from "../firebase";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -79,28 +80,66 @@ const StatCard = memo(({ icon: Icon, value, label, description, animation }) => 
 ));
 
 const AboutPage = () => {
-  const { totalProjects, totalCertificates, YearExperience } = useMemo(() => {
-    const storedProjects = JSON.parse(localStorage.getItem("projects") || "[]");
-    const storedCertificates = JSON.parse(
-      localStorage.getItem("certificates") || "[]"
-    );
+  const [stats, setStats] = useState({
+    totalProjects: 0,
+    totalAchievements: 0,
+    yearsExperience: 0
+  });
 
-    const startDate = new Date("2023-09-01");
+  // Calculate experience from January 1, 2025
+  const calculateExperience = useCallback(() => {
+    const startDate = new Date("2025-01-01");
     const today = new Date();
-    const experience =
-      today.getFullYear() -
-      startDate.getFullYear() -
-      (today <
-        new Date(today.getFullYear(), startDate.getMonth(), startDate.getDate())
-        ? 1
-        : 0);
 
-    return {
-      totalProjects: storedProjects.length,
-      totalCertificates: storedCertificates.length,
-      YearExperience: experience,
-    };
+    // Calculate years and months
+    let years = today.getFullYear() - startDate.getFullYear();
+    let months = today.getMonth() - startDate.getMonth();
+
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    // Return years, or if less than 1 year, show as fraction
+    if (years < 1) {
+      return months > 0 ? `${months}m` : "New";
+    }
+    return years;
   }, []);
+
+  // Fetch counts from Firestore
+  const fetchStats = useCallback(async () => {
+    try {
+      // Fetch projects count
+      const projectsSnapshot = await getDocs(collection(db, "projects"));
+      const projectsCount = projectsSnapshot.size;
+
+      // Fetch achievements count
+      const achievementsSnapshot = await getDocs(collection(db, "achievements"));
+      const achievementsCount = achievementsSnapshot.size;
+
+      // Calculate experience
+      const experience = calculateExperience();
+
+      setStats({
+        totalProjects: projectsCount || 6, // fallback
+        totalAchievements: achievementsCount || 5, // fallback
+        yearsExperience: experience
+      });
+    } catch (error) {
+      console.error("Error fetching stats:", error);
+      // Fallback values
+      setStats({
+        totalProjects: 6,
+        totalAchievements: 5,
+        yearsExperience: calculateExperience()
+      });
+    }
+  }, [calculateExperience]);
+
+  useEffect(() => {
+    fetchStats();
+  }, [fetchStats]);
 
   useEffect(() => {
     AOS.init({
@@ -124,27 +163,27 @@ const AboutPage = () => {
     () => [
       {
         icon: Code,
-        value: totalProjects,
+        value: stats.totalProjects,
         label: "Total Projects",
         description: "Innovative web solutions crafted",
         animation: "fade-right",
       },
       {
-        icon: Award,
-        value: totalCertificates,
-        label: "Certificates",
-        description: "Professional skills validated",
+        icon: Trophy,
+        value: stats.totalAchievements,
+        label: "Achievements",
+        description: "Competition wins & recognition",
         animation: "fade-up",
       },
       {
         icon: Globe,
-        value: YearExperience,
+        value: stats.yearsExperience,
         label: "Years of Experience",
         description: "Continuous learning journey",
         animation: "fade-left",
       },
     ],
-    [totalProjects, totalCertificates, YearExperience]
+    [stats]
   );
 
   return (

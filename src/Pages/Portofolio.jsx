@@ -9,8 +9,7 @@ import CardProject from "../components/CardProject";
 import TechStackIcon from "../components/TechStackIcon";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Certificate from "../components/Certificate";
-import { Code, Award, Boxes } from "lucide-react";
+import { Code, Boxes } from "lucide-react";
 
 // Separate ShowMore/ShowLess button component
 const ToggleButton = ({ onClick, isShowingMore }) => (
@@ -114,12 +113,45 @@ const techStacks = [
 // Hardcoded projects for Ifaz Ikram
 const hardcodedProjects = [
   {
+    id: "nano-processor",
+    Title: "Nano-Processor",
+    Description: "A 4-bit RISC processor implemented in VHDL with a custom instruction set supporting arithmetic operations (ADD, NEG), bitwise operations (NOT, AND, OR, XOR), immediate load (MOVI), and conditional jumps (JZR), featuring an 8-register bank and seven-segment display interface for FPGA deployment.",
+    Img: "/images/Projects/nanoprocessor/nanoprocessor1.jpg",
+    Link: "", // No live demo
+    Github: "https://github.com/Rashmika-Nawanjana/Nano-Processor",
+    TechStack: ["VHDL", "Vivado", "FPGA Design", "Digital Logic"],
+    Features: [
+      "Custom 13-bit instruction set with 8 opcodes",
+      "8-register bank (R0-R7) with 4-bit data width",
+      "ALU with dual-mode operation (arithmetic/bitwise)",
+      "Bitwise operations: NOT, AND, OR, XOR",
+      "Arithmetic operations: ADD, NEG (two's complement)",
+      "Immediate value loading (MOVI)",
+      "Conditional jump on zero (JZR)",
+      "Seven-segment display decoder for output",
+      "Configurable clock modes (normal/step-by-step)",
+      "Overflow and zero flag detection"
+    ],
+    Gallery: [
+      "/images/Projects/nanoprocessor/nanoprocessor2.jpg",
+      "/images/Projects/nanoprocessor/nanoprocessor3.jpg"
+    ]
+  },
+  {
     id: "leoconnect",
     Title: "LeoConnect",
     Description: "Social networking platform with edge-first backend APIs. Engineered authentication, file storage, and optimized DB migrations using Kotlin Multiplatform and Cloudflare Workers.",
     Img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&auto=format&fit=crop&q=60",
     Link: "https://github.com/Ifaz-Ikram",
-    TechStack: ["Kotlin", "TypeScript", "Cloudflare Workers"]
+    Github: "https://github.com/Ifaz-Ikram",
+    TechStack: ["Kotlin", "TypeScript", "Cloudflare Workers"],
+    Features: [
+      "Edge-first backend architecture",
+      "Authentication system",
+      "File storage integration",
+      "Database migrations"
+    ],
+    Gallery: []
   },
   {
     id: "ceylon-guides",
@@ -127,7 +159,15 @@ const hardcodedProjects = [
     Description: "Tourism & guide discovery platform with responsive web interfaces and scalable backend integrations. Part of the Rexosphere ecosystem.",
     Img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop&q=60",
     Link: "#",
-    TechStack: ["Vue", "Nuxt", "TypeScript"]
+    Github: "Private",
+    TechStack: ["Vue", "Nuxt", "TypeScript"],
+    Features: [
+      "Guide discovery system",
+      "Tour booking interface",
+      "Responsive web design",
+      "Backend integrations"
+    ],
+    Gallery: []
   },
   {
     id: "dept-election",
@@ -135,7 +175,15 @@ const hardcodedProjects = [
     Description: "Internal web application for CSE Department Representative elections. Built for reliability and internal usability with academic election workflows.",
     Img: "https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?w=800&auto=format&fit=crop&q=60",
     Link: "#",
-    TechStack: ["TypeScript", "React", "Firebase"]
+    Github: "Private",
+    TechStack: ["TypeScript", "React", "Firebase"],
+    Features: [
+      "Academic election workflows",
+      "Secure voting system",
+      "Results tabulation",
+      "Admin dashboard"
+    ],
+    Gallery: []
   },
   {
     id: "money-splitter",
@@ -143,7 +191,15 @@ const hardcodedProjects = [
     Description: "Expense management app with designed onboarding flow and undo functionality. Led UI/UX with 7,300+ lines of code refactoring.",
     Img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&auto=format&fit=crop&q=60",
     Link: "https://github.com/Ifaz-Ikram",
-    TechStack: ["Kotlin Multiplatform", "Jetpack Compose"]
+    Github: "https://github.com/Ifaz-Ikram",
+    TechStack: ["Kotlin Multiplatform", "Jetpack Compose"],
+    Features: [
+      "Expense splitting logic",
+      "Undo/redo functionality",
+      "Onboarding flow",
+      "Cross-platform support"
+    ],
+    Gallery: []
   },
   {
     id: "skynest",
@@ -151,15 +207,15 @@ const hardcodedProjects = [
     Description: "Full-stack hotel management system with reservation & guest service workflows, REST API & database schema design.",
     Img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&auto=format&fit=crop&q=60",
     Link: "https://github.com/Ifaz-Ikram",
-    TechStack: ["JavaScript", "PostgreSQL", "PL/pgSQL"]
-  },
-  {
-    id: "nano-processor",
-    Title: "Nano Processor Simulation",
-    Description: "Custom 4-bit nano processor implementing arithmetic, bitwise, and control operations using VHDL and Xilinx Vivado.",
-    Img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop&q=60",
-    Link: "#",
-    TechStack: ["VHDL", "Xilinx Vivado"]
+    Github: "https://github.com/Ifaz-Ikram",
+    TechStack: ["JavaScript", "PostgreSQL", "PL/pgSQL"],
+    Features: [
+      "Reservation system",
+      "Guest service workflows",
+      "REST API design",
+      "Database schema design"
+    ],
+    Gallery: []
   }
 ];
 
@@ -250,7 +306,7 @@ export default function FullWidthTabs() {
           Portfolio Showcase
         </h2>
         <p className="text-text-secondary-light dark:text-text-secondary-dark max-w-2xl mx-auto text-sm md:text-base mt-2">
-          Explore my journey through projects, certifications, and technical expertise.
+          Explore my journey through projects and technical expertise.
           Each section represents a milestone in my continuous learning path.
         </p>
       </div>
@@ -270,17 +326,7 @@ export default function FullWidthTabs() {
           </button>
           <button
             onClick={() => setValue(1)}
-            className={`flex-1 py-4 px-6 flex items-center justify-center gap-2 font-medium border-r border-border-light dark:border-border-dark last:border-r-0 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors ${value === 1
-              ? "bg-primary text-white"
-              : "text-text-secondary-light dark:text-text-secondary-dark hover:bg-background-light dark:hover:bg-background-dark"
-              }`}
-          >
-            <Award className="w-5 h-5" />
-            Certificates
-          </button>
-          <button
-            onClick={() => setValue(2)}
-            className={`flex-1 py-4 px-6 flex items-center justify-center gap-2 font-medium focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors ${value === 2
+            className={`flex-1 py-4 px-6 flex items-center justify-center gap-2 font-medium focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors ${value === 1
               ? "bg-primary text-white"
               : "text-text-secondary-light dark:text-text-secondary-dark hover:bg-background-light dark:hover:bg-background-dark"
               }`}
@@ -326,30 +372,6 @@ export default function FullWidthTabs() {
           </TabPanel>
 
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <div className="container mx-auto flex justify-center items-center overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 gap-4">
-                {displayedCertificates.map((certificate, index) => (
-                  <div
-                    key={index}
-                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
-                    data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
-                  >
-                    <Certificate ImgSertif={certificate.Img} />
-                  </div>
-                ))}
-              </div>
-            </div>
-            {certificates.length > initialItems && (
-              <div className="mt-6 w-full flex justify-start">
-                <ToggleButton
-                  onClick={() => toggleShowMore('certificates')}
-                  isShowingMore={showAllCertificates}
-                />
-              </div>
-            )}
-          </TabPanel>
-
-          <TabPanel value={value} index={2} dir={theme.direction}>
             <div className="container mx-auto flex justify-center items-center overflow-hidden pb-[5%]">
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-8 gap-5">
                 {techStacks.map((stack, index) => (

@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft, ExternalLink, Github, Code2, Star,
-  Layers, Layout, Globe, Package, Cpu, Code, CircuitBoard, Box
+  Layers, Layout, Globe, Package, Cpu, Code, CircuitBoard, Box,
+  ChevronLeft, ChevronRight, Images, Expand
 } from "lucide-react";
 import Swal from 'sweetalert2';
+import ImageLightbox from './ImageLightbox';
 
 const TECH_ICONS = {
   React: Globe,
@@ -28,6 +30,137 @@ const TechBadge = ({ tech }) => {
       <Icon className="w-4 h-4 text-text-secondary-light dark:text-text-secondary-dark group-hover:text-primary transition-colors" />
       <span>{tech}</span>
     </div>
+  );
+};
+
+// Smart Gallery Component - shows single image or carousel based on count
+const SmartGallery = ({ mainImage, gallery = [], title }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  // Combine main image with gallery for all images
+  const allImages = [mainImage, ...gallery].filter(Boolean);
+  const hasMultiple = allImages.length > 1;
+
+  const nextImage = () => {
+    setCurrentIndex((prev) => (prev + 1) % allImages.length);
+  };
+
+  const prevImage = () => {
+    setCurrentIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+  };
+
+  // Auto-advance carousel if multiple images (only when lightbox is closed)
+  useEffect(() => {
+    if (!hasMultiple || lightboxOpen) return;
+    const timer = setInterval(nextImage, 3000);
+    return () => clearInterval(timer);
+  }, [hasMultiple, allImages.length, lightboxOpen]);
+
+  if (allImages.length === 0) {
+    return (
+      <div className="w-full min-h-[300px] bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-sm flex items-center justify-center">
+        <Images className="w-12 h-12 text-text-secondary-light dark:text-text-secondary-dark opacity-50" />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {/* Canvas: Invisible, fixed height, vertically centered */}
+      <div className="w-full relative group grid grid-cols-1 items-center">
+        {allImages.map((imgSrc, idx) => (
+          <div
+            key={idx}
+            className={`col-start-1 row-start-1 w-full relative rounded-sm overflow-hidden border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-sm transition-opacity duration-500 ease-in-out ${idx === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+              }`}
+          >
+            {/* Main Image - object-contain */}
+            <img
+              src={imgSrc}
+              alt={`${title} - Image ${idx + 1}`}
+              className="w-full h-auto object-contain block cursor-pointer"
+              onClick={() => setLightboxOpen(true)}
+              onError={(e) => {
+                e.target.src = 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop&q=60';
+              }}
+            />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20" />
+
+            {/* Expand button - view full image */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxOpen(true);
+              }}
+              className="absolute top-3 left-3 p-2 bg-black/50 hover:bg-primary text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 z-30"
+              title="View full image"
+            >
+              <Expand className="w-5 h-5" />
+            </button>
+
+            {/* Navigation - only show if multiple images */}
+            {hasMultiple && (
+              <>
+                {/* Arrow buttons */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    prevImage();
+                  }}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-primary text-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform hover:scale-110 z-30"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    nextImage();
+                  }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-primary text-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform hover:scale-110 z-30"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+
+                {/* Dots indicator */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+                  {allImages.map((_, dotIdx) => (
+                    <button
+                      key={dotIdx}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentIndex(dotIdx);
+                      }}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${dotIdx === currentIndex
+                        ? "bg-primary w-6"
+                        : "bg-white/70 hover:bg-white"
+                        }`}
+                    />
+                  ))}
+                </div>
+
+                {/* Image counter tag */}
+                <div className="absolute top-3 right-3 px-2 py-1 bg-black/60 backdrop-blur-sm text-white text-xs font-mono rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30">
+                  {idx + 1} / {allImages.length}
+                </div>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
+
+
+      {/* Lightbox for viewing full images */}
+      <ImageLightbox
+        images={allImages}
+        currentIndex={currentIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        title={title}
+      />
+    </>
   );
 };
 
@@ -148,25 +281,45 @@ const ProjectDetails = () => {
             <ProjectStats project={project} />
 
             <div className="flex flex-wrap gap-4">
-              <a
-                href={project.Link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex-1 sm:flex-none flex items-center justify-center gap-2 px-8 py-3 bg-primary border border-primary text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition-all font-semibold min-w-[160px] shadow-sm rounded-sm"
-              >
-                <ExternalLink className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
-                Live Demo
-              </a>
-              <a
-                href={project.Github}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => !handleGithubClick(project.Github) && e.preventDefault()}
-                className="group flex-1 sm:flex-none flex items-center justify-center gap-2 px-8 py-3 bg-white dark:bg-transparent border border-border-light dark:border-border-dark text-text-light dark:text-text-dark hover:border-text-light hover:text-text-light dark:hover:border-white dark:hover:text-white transition-all font-semibold min-w-[160px] rounded-sm"
-              >
-                <Github className="w-5 h-5 fill-current" />
-                Github
-              </a>
+              {/* Only show Live Demo if there's a valid link (not empty, not #) */}
+              {project.Link && project.Link !== '#' && project.Link !== '' && (
+                <a
+                  href={project.Link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex-1 sm:flex-none flex items-center justify-center gap-2 px-8 py-3 bg-primary border border-primary text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition-all font-semibold min-w-[160px] shadow-sm rounded-sm"
+                >
+                  <ExternalLink className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+                  Live Demo
+                </a>
+              )}
+
+              {/* GitHub button - primary style if no live demo, secondary if live demo exists */}
+              {project.Github && project.Github !== 'Private' && (
+                <a
+                  href={project.Github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group flex-1 sm:flex-none flex items-center justify-center gap-2 px-8 py-3 font-semibold min-w-[160px] rounded-sm transition-all ${!project.Link || project.Link === '#' || project.Link === ''
+                    ? 'bg-primary border border-primary text-white hover:bg-blue-700 dark:hover:bg-blue-600 shadow-sm'
+                    : 'bg-white dark:bg-transparent border border-border-light dark:border-border-dark text-text-light dark:text-text-dark hover:border-text-light hover:text-text-light dark:hover:border-white dark:hover:text-white'
+                    }`}
+                >
+                  <Github className="w-5 h-5 fill-current" />
+                  {!project.Link || project.Link === '#' || project.Link === '' ? 'View Repository' : 'Github'}
+                </a>
+              )}
+
+              {/* Private repo indicator */}
+              {project.Github === 'Private' && (
+                <button
+                  onClick={() => handleGithubClick('Private')}
+                  className="group flex-1 sm:flex-none flex items-center justify-center gap-2 px-8 py-3 bg-white dark:bg-transparent border border-border-light dark:border-border-dark text-text-secondary-light dark:text-text-secondary-dark font-semibold min-w-[160px] rounded-sm cursor-not-allowed opacity-70"
+                >
+                  <Github className="w-5 h-5" />
+                  Private Repo
+                </button>
+              )}
             </div>
 
             <div>
@@ -188,15 +341,11 @@ const ProjectDetails = () => {
 
           {/* Right Column */}
           <div className="lg:col-span-5 flex flex-col gap-6 animate-slideInRight">
-            <div className="w-full aspect-video bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-sm overflow-hidden relative group shadow-sm">
-              <img
-                src={project.Img}
-                alt={project.Title}
-                className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                onLoad={() => setIsImageLoaded(true)}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
+            <SmartGallery
+              mainImage={project.Img}
+              gallery={project.Gallery || []}
+              title={project.Title}
+            />
 
             <div className="border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark p-6 shadow-sm rounded-sm">
               <h3 className="flex items-center gap-2 font-bold text-text-light dark:text-text-dark mb-4">

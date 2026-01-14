@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback, memo } from "react";
-import { Users, Calendar, Briefcase, Heart, Wallet } from "lucide-react";
+import { Users, Calendar, Briefcase, Heart, Wallet, Expand } from "lucide-react";
 import { db, collection, getDocs, query, orderBy } from "../firebase";
+import ImageLightbox from "./ImageLightbox";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -8,11 +9,13 @@ import "aos/dist/aos.css";
 const hardcodedExperiences = [
     {
         id: "dept-rep",
-        title: "Department Representative",
-        organization: "CSE Batch '23 – University of Moratuwa",
-        period: "2025 – Present",
-        description: "Representing students for Semesters 2 & 3, strengthening communication between faculty and the student body to ensure academic concerns are addressed effectively.",
+        title: "Department Representative (Semester 2 & 3)",
+        organization: "Department of Computer Science & Engineering - University of Moratuwa",
+        period: "Mar 2025 – Jan 2026",
+        description: "Served as a Department Representative for Semesters 2 & 3 of the Department of Computer Science & Engineering (CSE 23). Represented batch interests, coordinated with lecturers and peers, fostered strong batch unity, and contributed to creating a supportive and memorable student experience through teamwork and leadership.",
         icon: "Users",
+        imageUrl: "/images/Leadership & Volunteer/Rep/Rep1.jpg",
+        gallery: ["/images/Leadership & Volunteer/Rep/Rep2.jpg"],
         order: 1
     },
     {
@@ -71,39 +74,36 @@ const LeadershipCard = memo(({ experience, index, isReversed }) => {
             data-aos-duration="800"
             data-aos-delay={index * 100}
         >
-            <div className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} items-start md:items-center gap-8 md:gap-12`}>
-                {/* Icon Section */}
+            <div className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 md:gap-16`}>
+                {/* Icon/Image Section */}
                 <div
-                    className={`w-full md:w-1/3 flex justify-center ${isReversed ? 'md:justify-start md:pl-4' : 'md:justify-end md:pr-4'}`}
+                    className={`w-full md:w-1/2 flex justify-center ${isReversed ? 'md:justify-start' : 'md:justify-end'}`}
                     data-aos={isReversed ? "fade-left" : "fade-right"}
                     data-aos-duration="1000"
                 >
-                    <div className="relative">
+                    <div className="relative w-full max-w-full">
                         {experience.imageUrl ? (
-                            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border border-border-light dark:border-border-dark group-hover:scale-105 transition-transform duration-300">
-                                <img
-                                    src={experience.imageUrl}
-                                    alt={experience.title}
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                            (() => {
+                                const images = [experience.imageUrl, ...(experience.gallery || [])].filter(Boolean);
+                                return (
+                                    <LeadershipImageCarousel
+                                        experience={experience}
+                                        images={images}
+                                        onClick={(img) => experience.onImageClick && experience.onImageClick(images)}
+                                    />
+                                );
+                            })()
                         ) : (
-                            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-surface-light dark:bg-surface-dark flex items-center justify-center group-hover:scale-105 transition-transform duration-300 border border-border-light dark:border-border-dark">
-                                <Icon className="w-10 h-10 sm:w-12 sm:h-12 text-text-secondary-light dark:text-text-secondary-dark" />
+                            <div className="w-full bg-surface-light dark:bg-surface-dark flex items-center justify-center group-hover:scale-105 transition-transform duration-300 border border-border-light dark:border-border-dark p-8 rounded-xl aspect-video md:aspect-auto min-h-[300px]">
+                                <Icon className="w-16 h-16 text-text-secondary-light dark:text-text-secondary-dark" />
                             </div>
                         )}
-                        {/* Arrow indicator */}
-                        <div className={`absolute -bottom-2 ${isReversed ? '-left-2' : '-right-2'} w-8 h-8 bg-primary rounded-full flex items-center justify-center`}>
-                            <svg className="w-4 h-4 text-white transform -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                            </svg>
-                        </div>
                     </div>
                 </div>
 
                 {/* Content Section */}
                 <div
-                    className={`w-full md:w-2/3 flex flex-col ${isReversed ? 'items-start md:items-end md:text-right' : 'items-start'}`}
+                    className={`w-full md:w-1/2 flex flex-col ${isReversed ? 'items-start md:items-end md:text-right' : 'items-start'}`}
                     data-aos={isReversed ? "fade-right" : "fade-left"}
                     data-aos-duration="1000"
                 >
@@ -134,9 +134,77 @@ const LeadershipCard = memo(({ experience, index, isReversed }) => {
     );
 });
 
+// Helper component for slideshow to adhere to Hook rules
+const LeadershipImageCarousel = ({ experience, images, onClick }) => {
+    const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
+    useEffect(() => {
+        if (images.length <= 1) return;
+        const interval = setInterval(() => {
+            setCurrentImgIndex((prev) => (prev + 1) % images.length);
+        }, 3000);
+        return () => clearInterval(interval);
+    }, [images.length]);
+
+    return (
+        // Canvas: Grid wrapper, invisible, fixed height (by tallest content), vertically centered items
+        <div
+            className="w-full relative group/canvas grid grid-cols-1 items-center cursor-pointer"
+            onClick={() => onClick(images)}
+        >
+            {/* Render all images, each wrapped in its own 'Container' */}
+            {images.map((imgSrc, idx) => (
+                <div
+                    key={idx}
+                    className={`col-start-1 row-start-1 w-full relative rounded-xl overflow-hidden border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-lg transition-all duration-500 ease-in-out group-hover/canvas:scale-105 ${idx === currentImgIndex ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                        }`}
+                >
+                    <img
+                        src={imgSrc}
+                        alt={`${experience.title} - ${idx + 1}`}
+                        className="w-full h-auto object-contain"
+                    />
+
+                    {/* Expand button - inside the container so it stays with the image */}
+                    <button
+                        className="absolute top-3 left-3 p-2 bg-black/50 hover:bg-primary text-white rounded-lg opacity-0 group-hover/canvas:opacity-100 transition-all duration-300 z-20 cursor-pointer"
+                        title="View full image"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onClick(images);
+                        }}
+                    >
+                        <Expand className="w-4 h-4" />
+                    </button>
+
+                    {/* Gallery Indicator */}
+                    {images.length > 1 && (
+                        <div className="absolute top-3 right-3 p-2 bg-black/50 text-white rounded-md z-20 pointer-events-none opacity-0 group-hover/canvas:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M18 22H4a2 2 0 0 1-2-2V6" />
+                                <path d="M22 2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z" />
+                                <path d="M11 14l2.5-3 2.5 3" />
+                                <path d="M8 10l2 4" />
+                            </svg>
+                        </div>
+                    )}
+                </div>
+            ))}
+        </div>
+    );
+};
+
 const Leadership = () => {
     const [experiences, setExperiences] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [lightboxOpen, setLightboxOpen] = useState(false);
+    const [lightboxImage, setLightboxImage] = useState('');
+
+    // Handler for opening lightbox
+    const handleImageClick = useCallback((images) => {
+        setLightboxImage(images); // Now storing array
+        setLightboxOpen(true);
+    }, []);
 
     useEffect(() => {
         AOS.init({
@@ -207,13 +275,22 @@ const Leadership = () => {
                     experiences.map((experience, index) => (
                         <LeadershipCard
                             key={experience.id || index}
-                            experience={experience}
+                            experience={{ ...experience, onImageClick: handleImageClick }}
                             index={index}
                             isReversed={index % 2 !== 0}
                         />
                     ))
                 )}
             </div>
+
+            {/* Lightbox for viewing full images */}
+            <ImageLightbox
+                images={Array.isArray(lightboxImage) ? lightboxImage : [lightboxImage]}
+                currentIndex={0}
+                isOpen={lightboxOpen}
+                onClose={() => setLightboxOpen(false)}
+                title="Leadership"
+            />
         </main>
     );
 };
