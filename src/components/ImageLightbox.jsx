@@ -144,11 +144,11 @@ const ImageLightbox = ({
                     </div>
                 </div>
 
-                {/* Main Image */}
+                {/* Main Image or Video */}
                 <div
                     className={`relative flex items-center justify-center transition-all duration-300 ${isZoomed ? 'cursor-zoom-out overflow-auto max-w-none max-h-none' : 'cursor-zoom-in max-w-full max-h-[85vh]'
                         }`}
-                    onClick={toggleZoom}
+                    onClick={!images[activeIndex]?.match(/\.(mp4|webm|ogg)$/i) ? toggleZoom : undefined}
                 >
                     {/* Loading spinner */}
                     {isLoading && (
@@ -157,17 +157,29 @@ const ImageLightbox = ({
                         </div>
                     )}
 
-                    <img
-                        src={images[activeIndex]}
-                        alt={`${title} - Image ${activeIndex + 1}`}
-                        className={`transition-all duration-300 select-none ${isLoading ? 'opacity-0' : 'opacity-100'
-                            } ${isZoomed
-                                ? 'max-w-none max-h-none'
-                                : 'max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl'
-                            }`}
-                        onLoad={() => setIsLoading(false)}
-                        draggable={false}
-                    />
+                    {images[activeIndex]?.match(/\.(mp4|webm|ogg)$/i) ? (
+                        <video
+                            src={images[activeIndex]}
+                            className="max-w-full max-h-[85vh] shadow-2xl outline-none"
+                            controls
+                            autoPlay
+                            playsInline
+                            onLoadedData={() => setIsLoading(false)}
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    ) : (
+                        <img
+                            src={images[activeIndex]}
+                            alt={`${title} - Image ${activeIndex + 1}`}
+                            className={`transition-all duration-300 select-none ${isLoading ? 'opacity-0' : 'opacity-100'
+                                } ${isZoomed
+                                    ? 'max-w-none max-h-none'
+                                    : 'max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl'
+                                }`}
+                            onLoad={() => setIsLoading(false)}
+                            draggable={false}
+                        />
+                    )}
                 </div>
 
                 {/* Navigation Arrows */}
@@ -198,8 +210,8 @@ const ImageLightbox = ({
                                 key={idx}
                                 onClick={(e) => { e.stopPropagation(); setIsLoading(true); setActiveIndex(idx); }}
                                 className={`transition-all duration-300 rounded-full ${idx === activeIndex
-                                        ? 'w-8 h-2 bg-primary'
-                                        : 'w-2 h-2 bg-white/50 hover:bg-white/80'
+                                    ? 'w-8 h-2 bg-primary'
+                                    : 'w-2 h-2 bg-white/50 hover:bg-white/80'
                                     }`}
                                 title={`Go to image ${idx + 1}`}
                             />

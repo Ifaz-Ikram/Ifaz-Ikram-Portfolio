@@ -33,6 +33,10 @@ const TechBadge = ({ tech }) => {
   );
 };
 
+const isVideo = (url) => {
+  return url?.match(/\.(mp4|webm|ogg)$/i);
+};
+
 // Smart Gallery Component - shows single image or carousel based on count
 const SmartGallery = ({ mainImage, gallery = [], title }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -54,9 +58,13 @@ const SmartGallery = ({ mainImage, gallery = [], title }) => {
   // Auto-advance carousel if multiple images (only when lightbox is closed)
   useEffect(() => {
     if (!hasMultiple || lightboxOpen) return;
+
+    // Don't auto-advance if current slide is a video
+    if (isVideo(allImages[currentIndex])) return;
+
     const timer = setInterval(nextImage, 3000);
     return () => clearInterval(timer);
-  }, [hasMultiple, allImages.length, lightboxOpen]);
+  }, [hasMultiple, allImages.length, lightboxOpen, currentIndex]);
 
   if (allImages.length === 0) {
     return (
@@ -70,85 +78,111 @@ const SmartGallery = ({ mainImage, gallery = [], title }) => {
     <>
       {/* Canvas: Invisible, fixed height, vertically centered */}
       <div className="w-full relative group grid grid-cols-1 items-center">
-        {allImages.map((imgSrc, idx) => (
-          <div
-            key={idx}
-            className={`col-start-1 row-start-1 w-full relative rounded-sm overflow-hidden border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-sm transition-opacity duration-500 ease-in-out ${idx === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-              }`}
-          >
-            {/* Main Image - object-contain */}
-            <img
-              src={imgSrc}
-              alt={`${title} - Image ${idx + 1}`}
-              className="w-full h-auto object-contain block cursor-pointer"
-              onClick={() => setLightboxOpen(true)}
-              onError={(e) => {
-                e.target.src = 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop&q=60';
-              }}
-            />
+        {allImages.map((imgSrc, idx) => {
+          const isVideoFile = isVideo(imgSrc);
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20" />
-
-            {/* Expand button - view full image */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setLightboxOpen(true);
-              }}
-              className="absolute top-3 left-3 p-2 bg-black/50 hover:bg-primary text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 z-30"
-              title="View full image"
+          return (
+            <div
+              key={idx}
+              className={`col-start-1 row-start-1 w-full relative rounded-sm overflow-hidden border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-sm transition-opacity duration-500 ease-in-out ${idx === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                }`}
             >
-              <Expand className="w-5 h-5" />
-            </button>
-
-            {/* Navigation - only show if multiple images */}
-            {hasMultiple && (
-              <>
-                {/* Arrow buttons */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    prevImage();
-                  }}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-primary text-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform hover:scale-110 z-30"
+              {isVideoFile ? (
+                <div
+                  className="w-full h-auto flex items-center justify-center bg-black cursor-pointer relative"
+                  onClick={() => setLightboxOpen(true)}
                 >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    nextImage();
-                  }}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-primary text-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform hover:scale-110 z-30"
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </button>
-
-                {/* Dots indicator */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
-                  {allImages.map((_, dotIdx) => (
-                    <button
-                      key={dotIdx}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setCurrentIndex(dotIdx);
-                      }}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${dotIdx === currentIndex
-                        ? "bg-primary w-6"
-                        : "bg-white/70 hover:bg-white"
-                        }`}
-                    />
-                  ))}
+                  <video
+                    src={imgSrc}
+                    className="w-full h-auto max-h-[500px] object-contain"
+                    muted
+                    loop
+                    playsInline
+                    onMouseOver={e => e.target.play()}
+                    onMouseOut={e => e.target.pause()}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-16 h-16 bg-black/50 rounded-full flex items-center justify-center backdrop-blur-sm">
+                      <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[20px] border-l-white border-b-[10px] border-b-transparent ml-1"></div>
+                    </div>
+                  </div>
                 </div>
+              ) : (
+                <>
+                  <img
+                    src={imgSrc}
+                    alt={`${title} - Image ${idx + 1}`}
+                    className="w-full h-auto object-contain block cursor-pointer"
+                    onClick={() => setLightboxOpen(true)}
+                    onError={(e) => {
+                      e.target.src = 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop&q=60';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20" />
+                </>
+              )}
 
-                {/* Image counter tag */}
-                <div className="absolute top-3 right-3 px-2 py-1 bg-black/60 backdrop-blur-sm text-white text-xs font-mono rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30">
-                  {idx + 1} / {allImages.length}
-                </div>
-              </>
-            )}
-          </div>
-        ))}
+              {/* Expand button - view full image */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxOpen(true);
+                }}
+                className="absolute top-3 left-3 p-2 bg-black/50 hover:bg-primary text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 z-30"
+                title={isVideoFile ? "Play video" : "View full image"}
+              >
+                <Expand className="w-5 h-5" />
+              </button>
+
+              {/* Navigation - only show if multiple images */}
+              {hasMultiple && (
+                <>
+                  {/* Arrow buttons */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      prevImage();
+                    }}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-primary text-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform hover:scale-110 z-30"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      nextImage();
+                    }}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-primary text-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform hover:scale-110 z-30"
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
+
+                  {/* Dots indicator */}
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+                    {allImages.map((_, dotIdx) => (
+                      <button
+                        key={dotIdx}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCurrentIndex(dotIdx);
+                        }}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${dotIdx === currentIndex
+                          ? "bg-primary w-6"
+                          : "bg-white/70 hover:bg-white"
+                          }`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Image counter tag */}
+                  <div className="absolute top-3 right-3 px-2 py-1 bg-black/60 backdrop-blur-sm text-white text-xs font-mono rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30">
+                    {idx + 1} / {allImages.length}
+                  </div>
+                </>
+              )}
+            </div>
+          );
+        })}
       </div>
 
 

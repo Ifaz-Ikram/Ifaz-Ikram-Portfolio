@@ -140,35 +140,58 @@ const hardcodedProjects = [
   {
     id: "leoconnect",
     Title: "LeoConnect",
-    Description: "Social networking platform with edge-first backend APIs. Engineered authentication, file storage, and optimized DB migrations using Kotlin Multiplatform and Cloudflare Workers.",
-    Img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&auto=format&fit=crop&q=60",
-    Link: "https://github.com/Ifaz-Ikram",
-    Github: "https://github.com/Ifaz-Ikram",
-    TechStack: ["Kotlin", "TypeScript", "Cloudflare Workers"],
-    Features: [
-      "Edge-first backend architecture",
-      "Authentication system",
-      "File storage integration",
-      "Database migrations"
+    Description:
+      "A production-ready, cross-platform social and management platform built for Leo Multiple District 306, connecting 200+ Leo Clubs and 4000+ members across Sri Lanka and the Maldives. Developed during AlgoArena 2025, LeoConnect delivers social networking, messaging, notifications, and administrative tools through a single Kotlin Multiplatform codebase with an edge-first backend.",
+    Img: "/images/Projects/leoconnect/leoconnect1.jpg",
+    Link: "", // No public live demo
+    Github: "https://github.com/Rexosphere/LeoConnect",
+    TechStack: [
+      "Kotlin Multiplatform (KMP)",
+      "Jetpack Compose",
+      "Material 3",
+      "Cloudflare Workers",
+      "Cloudflare D1",
+      "Cloudflare R2",
+      "Firebase Authentication",
+      "Google OAuth (PKCE)",
+      "FCM (Push Notifications)",
+      "Koin",
+      "Voyager"
     ],
-    Gallery: []
-  },
-  {
-    id: "ceylon-guides",
-    Title: "Ceylon Guides",
-    Description: "Tourism & guide discovery platform with responsive web interfaces and scalable backend integrations. Part of the Rexosphere ecosystem.",
-    Img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop&q=60",
-    Link: "#",
-    Github: "Private",
-    TechStack: ["Vue", "Nuxt", "TypeScript"],
     Features: [
-      "Guide discovery system",
-      "Tour booking interface",
-      "Responsive web design",
-      "Backend integrations"
+      "Single shared Kotlin Multiplatform codebase for Android, iOS, and Desktop",
+      "Social feed with post creation, likes, comments, and sharing",
+      "Club and district discovery with follow system",
+      "Direct messaging between Leo members",
+      "Real-time push notifications for social and system events",
+      "Leo AI powered by Gemini (RAG) for intelligent interactions",
+      "Secure Google OAuth authentication with PKCE (desktop supported)",
+      "Edge-deployed backend using Cloudflare Workers for ultra-low latency",
+      "D1 (SQLite at edge) for structured data and R2 for media storage",
+      "Admin dashboard for user, club, and district management",
+      "Scalable architecture supporting 12 districts, 200+ clubs, and 4000+ members",
+      "Production-grade API with JWT verification and input validation"
     ],
-    Gallery: []
+    Gallery: [
+      "/images/Projects/leoconnect/demo.mp4"
+    ]
   },
+  // {
+  //   id: "ceylon-guides",
+  //   Title: "Ceylon Guides",
+  //   Description: "Tourism & guide discovery platform with responsive web interfaces and scalable backend integrations. Part of the Rexosphere ecosystem.",
+  //   Img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop&q=60",
+  //   Link: "#",
+  //   Github: "Private",
+  //   TechStack: ["Vue", "Nuxt", "TypeScript"],
+  //   Features: [
+  //     "Guide discovery system",
+  //     "Tour booking interface",
+  //     "Responsive web design",
+  //     "Backend integrations"
+  //   ],
+  //   Gallery: []
+  // },
   {
     id: "cse-election-platform",
     Title: "CSE Department Representative Elections",
@@ -200,22 +223,22 @@ const hardcodedProjects = [
       "/images/Projects/Department Rep Election System/Election9.jpg"
     ]
   },
-  {
-    id: "money-splitter",
-    Title: "Money-Splitter",
-    Description: "Expense management app with designed onboarding flow and undo functionality. Led UI/UX with 7,300+ lines of code refactoring.",
-    Img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&auto=format&fit=crop&q=60",
-    Link: "https://github.com/Ifaz-Ikram",
-    Github: "https://github.com/Ifaz-Ikram",
-    TechStack: ["Kotlin Multiplatform", "Jetpack Compose"],
-    Features: [
-      "Expense splitting logic",
-      "Undo/redo functionality",
-      "Onboarding flow",
-      "Cross-platform support"
-    ],
-    Gallery: []
-  },
+  // {
+  //   id: "money-splitter",
+  //   Title: "Money-Splitter",
+  //   Description: "Expense management app with designed onboarding flow and undo functionality. Led UI/UX with 7,300+ lines of code refactoring.",
+  //   Img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&auto=format&fit=crop&q=60",
+  //   Link: "https://github.com/Ifaz-Ikram",
+  //   Github: "https://github.com/Ifaz-Ikram",
+  //   TechStack: ["Kotlin Multiplatform", "Jetpack Compose"],
+  //   Features: [
+  //     "Expense splitting logic",
+  //     "Undo/redo functionality",
+  //     "Onboarding flow",
+  //     "Cross-platform support"
+  //   ],
+  //   Gallery: []
+  // },
   {
     id: "skynest",
     Title: "SkyNest Hotel Management System",
