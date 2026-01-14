@@ -170,20 +170,35 @@ const hardcodedProjects = [
     Gallery: []
   },
   {
-    id: "dept-election",
-    Title: "Department Rep Election System",
-    Description: "Internal web application for CSE Department Representative elections. Built for reliability and internal usability with academic election workflows.",
-    Img: "https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?w=800&auto=format&fit=crop&q=60",
-    Link: "#",
-    Github: "Private",
-    TechStack: ["TypeScript", "React", "Firebase"],
+    id: "cse-election-platform",
+    Title: "CSE Department Representative Elections",
+    Description: "A secure, role-based digital voting platform built to replace Google Forms for CSE23 Semester 4, 5, and 6 Department Representative elections. Includes domain-restricted Google OAuth, strict voter whitelist, multi-candidate voting with editable ballots before deadline, admin dashboards, live statistics/results controls, exports, and enterprise-grade security (audit logs, rate limiting, CSRF protection, hardened headers).",
+    Img: "/images/Projects/Department Rep Election System/Election1.jpg",
+    Link: "https://election.cse23.org",
+    Github: "https://github.com/Ifaz-Ikram/CSE-Department-Representative-Election",
+    TechStack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth", "Redis", "Tailwind CSS"],
     Features: [
-      "Academic election workflows",
-      "Secure voting system",
-      "Results tabulation",
-      "Admin dashboard"
+      "Google OAuth sign-in restricted to CSE student emails",
+      "Strict voter whitelist (registry-based access control)",
+      "Role-based access control: Voter / Admin / Super Admin",
+      "Multi-candidate voting with unlimited edits until deadline",
+      "Real-time election countdown and status monitoring",
+      "Results visibility controls & Admin dashboards",
+      "Candidate presets system with stream-based representation",
+      "CSV exports for results, ballots, statistics, and voter lists",
+      "Comprehensive audit logs (AUTH, USER, ELECTION, CANDIDATE, VOTE)",
+      "Security: CSRF protection, rate limiting, CSP, input sanitization"
     ],
-    Gallery: []
+    Gallery: [
+      "/images/Projects/Department Rep Election System/Election2.jpg",
+      "/images/Projects/Department Rep Election System/Election3.jpg",
+      "/images/Projects/Department Rep Election System/Election4.jpg",
+      "/images/Projects/Department Rep Election System/Election5.jpg",
+      "/images/Projects/Department Rep Election System/Election6.jpg",
+      "/images/Projects/Department Rep Election System/Election7.jpg",
+      "/images/Projects/Department Rep Election System/Election8.jpg",
+      "/images/Projects/Department Rep Election System/Election9.jpg"
+    ]
   },
   {
     id: "money-splitter",
