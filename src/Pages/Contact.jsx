@@ -53,6 +53,8 @@ const ContactPage = () => {
           name: formData.name,
           email: formData.email,
           message: formData.message,
+          _subject: `New Portfolio Contact from ${formData.name}`,
+          _replyto: formData.email,
           _template: 'table'
         })
       });
