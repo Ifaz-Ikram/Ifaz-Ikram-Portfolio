@@ -218,19 +218,33 @@ const hardcodedProjects = [
   },
   {
     id: "skynest",
-    Title: "SkyNest Hotel Management",
-    Description: "Full-stack hotel management system with reservation & guest service workflows, REST API & database schema design.",
-    Img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&auto=format&fit=crop&q=60",
-    Link: "https://github.com/Ifaz-Ikram",
+    Title: "SkyNest Hotel Management System",
+    Description: "SkyNest is an enterprise-grade, production-ready hotel management platform built with modern web technologies. This full-stack application provides comprehensive hotel operations management including room bookings, guest management, housekeeping, billing, payments, and real-time analytics. The system features a beautiful glassmorphism UI design with interactive charts, role-based access control for 5 user types, and advanced security.",
+    Img: "/images/Projects/skynest/skynest1.png",
+    Link: "",
     Github: "https://github.com/Ifaz-Ikram",
-    TechStack: ["JavaScript", "PostgreSQL", "PL/pgSQL"],
+    TechStack: ["React", "Node.js", "Express.js", "PostgreSQL", "Sequelize", "Tailwind CSS", "Vite", "JWT", "Jest"],
     Features: [
-      "Reservation system",
-      "Guest service workflows",
-      "REST API design",
-      "Database schema design"
+      "Core Hotel Management: Room, Guest, Booking, Check-In/Out",
+      "Role-Based Access Control (RBAC) with 5 user types",
+      "Real-time Analytics Dashboard with sparklines & trends",
+      "Billing & Payments with complex database functions",
+      "Database with 15 tables, 9 functions, 3 triggers",
+      "Glassmorphism UI design with interactive charts",
+      "Secure Authentication (JWT, bcrypt, 2FA support)",
+      "Reporting System (PDF/Excel exports, 5 interactive reports)"
     ],
-    Gallery: []
+    Gallery: [
+      "/images/Projects/skynest/skynest2.png",
+      "/images/Projects/skynest/skynest3.png",
+      "/images/Projects/skynest/skynest4.png",
+      "/images/Projects/skynest/skynest5.png",
+      "/images/Projects/skynest/skynest6.png",
+      "/images/Projects/skynest/skynest7.png",
+      "/images/Projects/skynest/skynest8.png",
+      "/images/Projects/skynest/skynest9.png",
+      "/images/Projects/skynest/skynest10.png"
+    ]
   }
 ];
 
