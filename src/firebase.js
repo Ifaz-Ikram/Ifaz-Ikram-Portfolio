@@ -1,20 +1,34 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore"
-import { collection, addDoc, getDocs } from "@firebase/firestore"; // Perbarui ini
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, doc, getDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-
-// Your web app's Firebase configuration
+// Firebase configuration - using ifaz-portfolio for all portfolio data
 const firebaseConfig = {
-  apiKey: "AIzaSyB-lfUt1adpQ0KYcFFW_oAWTJVfHDOOZy8",
-  authDomain: "portofolio-web-3e8e8.firebaseapp.com",
-  projectId: "portofolio-web-3e8e8",
-  storageBucket: "portofolio-web-3e8e8.appspot.com",
-  messagingSenderId: "25195509306",
-  appId: "1:25195509306:web:2b635dcf997137bf612703"
+  apiKey: "AIzaSyBOFxwKLc65RuUVnQ_G7CCNER4Gw8t-kc8",
+  authDomain: "ifaz-portfolio.firebaseapp.com",
+  projectId: "ifaz-portfolio",
+  storageBucket: "ifaz-portfolio.firebasestorage.app",
+  messagingSenderId: "298499280142",
+  appId: "1:298499280142:web:8381e4a55eb6be59a95b5f",
+  measurementId: "G-71YP3B9GWH"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
-export { db, collection, addDoc };
+export {
+  db,
+  storage,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy,
+  doc,
+  getDoc,
+  ref,
+  uploadBytes,
+  getDownloadURL
+};

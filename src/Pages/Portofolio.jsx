@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { db, collection } from "../firebase";
-import { getDocs } from "firebase/firestore";
+import { db, collection, getDocs, query, orderBy } from "../firebase";
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
@@ -167,8 +166,9 @@ const hardcodedProjects = [
 export default function FullWidthTabs() {
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const [projects, setProjects] = useState(hardcodedProjects);
+  const [projects, setProjects] = useState([]);
   const [certificates, setCertificates] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllCertificates, setShowAllCertificates] = useState(false);
   const isMobile = window.innerWidth < 768;
@@ -182,24 +182,44 @@ export default function FullWidthTabs() {
   }, []);
 
   const fetchData = useCallback(async () => {
+    setIsLoading(true);
     try {
-      // Use hardcoded projects
-      setProjects(hardcodedProjects);
+      // Fetch projects from Firestore
+      const projectsRef = collection(db, "projects");
+      const projectsQuery = query(projectsRef, orderBy("order", "asc"));
+      const projectsSnapshot = await getDocs(projectsQuery);
 
-      // Still fetch certificates from Firebase if available
-      const certificateCollection = collection(db, "certificates");
-      const certificateSnapshot = await getDocs(certificateCollection);
-      const certificateData = certificateSnapshot.docs.map((doc) => doc.data());
-      setCertificates(certificateData);
+      let projectsData = projectsSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      // Fallback to hardcoded projects if no data in Firestore
+      if (projectsData.length === 0) {
+        projectsData = hardcodedProjects;
+      }
+      setProjects(projectsData);
+
+      // Fetch certificates from Firestore
+      const certificatesRef = collection(db, "certificates");
+      const certificatesQuery = query(certificatesRef, orderBy("order", "asc"));
+      const certificatesSnapshot = await getDocs(certificatesQuery);
+      const certificatesData = certificatesSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setCertificates(certificatesData);
 
       // Store in localStorage for About section stats
-      localStorage.setItem("projects", JSON.stringify(hardcodedProjects));
-      localStorage.setItem("certificates", JSON.stringify(certificateData));
+      localStorage.setItem("projects", JSON.stringify(projectsData));
+      localStorage.setItem("certificates", JSON.stringify(certificatesData));
     } catch (error) {
       console.error("Error fetching data:", error);
-      // Fallback - still use hardcoded projects
+      // Fallback - use hardcoded projects
       setProjects(hardcodedProjects);
       localStorage.setItem("projects", JSON.stringify(hardcodedProjects));
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
