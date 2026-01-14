@@ -215,7 +215,12 @@ const ProjectDetails = () => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
+    // Force scroll to top immediately on mount and ID change
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
     window.scrollTo(0, 0);
+
     const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
     const selectedProject = storedProjects.find((p) => String(p.id) === id);
 
@@ -228,6 +233,13 @@ const ProjectDetails = () => {
       };
       setProject(enhancedProject);
     }
+
+    // Fallback: Ensure scroll happens even if browser tries to restore later
+    const timeoutId = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 10);
+
+    return () => clearTimeout(timeoutId);
   }, [id]);
 
   if (!project) {

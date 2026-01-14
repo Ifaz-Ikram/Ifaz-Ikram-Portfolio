@@ -52,11 +52,16 @@ const ProjectPageLayout = () => (
   </>
 );
 
+import ScrollToTop from "./components/ScrollToTop";
+
+// ... imports
+
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage showWelcome={showWelcome} setShowWelcome={setShowWelcome} />} />
         <Route path="/project/:id" element={<ProjectPageLayout />} />
