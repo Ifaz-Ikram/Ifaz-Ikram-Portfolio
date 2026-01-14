@@ -43,23 +43,38 @@ const ContactPage = () => {
     });
 
     try {
-      const form = e.target;
-      await form.submit();
-
-      Swal.fire({
-        title: 'Success!',
-        text: 'Your message has been sent successfully!',
-        icon: 'success',
-        confirmButtonColor: '#3B82F6',
-        timer: 2000,
-        timerProgressBar: true
+      const response = await fetch('https://formsubmit.co/ajax/ifazmohomed@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _template: 'table'
+        })
       });
 
-      setFormData({
-        name: "",
-        email: "",
-        message: "",
-      });
+      if (response.ok) {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Your message has been sent successfully!',
+          icon: 'success',
+          confirmButtonColor: '#3B82F6',
+          timer: 2000,
+          timerProgressBar: true
+        });
+
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        });
+      } else {
+        throw new Error('Form submission failed');
+      }
     } catch (error) {
       Swal.fire({
         title: 'Error!',
@@ -116,7 +131,7 @@ const ContactPage = () => {
             </div>
 
             <form
-              action="https://formsubmit.co/ifazi.23@cse.mrt.ac.lk"
+              action="https://formsubmit.co/ifazmohomed@gmail.com"
               method="POST"
               onSubmit={handleSubmit}
               className="space-y-6"
