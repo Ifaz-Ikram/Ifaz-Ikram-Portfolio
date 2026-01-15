@@ -137,9 +137,7 @@ const techStacks = [
       { icon: "/images/techstack/cloudflareworkers.svg", language: "Cloudflare Workers" },
       { icon: "/images/techstack/vercel.svg", language: "Vercel" },
       { icon: "/images/techstack/vite.svg", language: "Vite" },
-      { icon: "/images/techstack/jest.svg", language: "Jest" },
-      { icon: "/images/techstack/SweetAlert.svg", language: "SweetAlert" },
-    ]
+      { icon: "/images/techstack/jest.svg", language: "Jest" },]
   }
 ];
 
