@@ -11,14 +11,16 @@ const AnimatedBackground = () => {
 
 	useEffect(() => {
 		let currentScroll = 0
-		let requestId
+		let ticking = false
 
-		const handleScroll = () => {
+		const update = () => {
 			const newScroll = window.pageYOffset
 			const scrollDelta = newScroll - currentScroll
 			currentScroll = newScroll
 
 			blobRefs.current.forEach((blob, index) => {
+				if (!blob) return // Safety check if refs are null
+
 				const initialPos = initialPositions[index]
 
 				// Calculating movement in both X and Y direction
@@ -33,13 +35,19 @@ const AnimatedBackground = () => {
 				blob.style.transition = "transform 1.4s ease-out"
 			})
 
-			requestId = requestAnimationFrame(handleScroll)
+			ticking = false
+		}
+
+		const handleScroll = () => {
+			if (!ticking) {
+				window.requestAnimationFrame(update)
+				ticking = true
+			}
 		}
 
 		window.addEventListener("scroll", handleScroll)
 		return () => {
 			window.removeEventListener("scroll", handleScroll)
-			cancelAnimationFrame(requestId)
 		}
 	}, [])
 
