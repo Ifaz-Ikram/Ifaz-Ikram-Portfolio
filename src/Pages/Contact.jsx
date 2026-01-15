@@ -217,7 +217,7 @@ const ContactPage = () => {
 
       {/* Footer */}
       <footer className="w-full text-center text-sm text-text-secondary-light dark:text-text-secondary-dark font-mono mt-auto pt-8">
-        <span>© 2024 Ifaz Ikram. Built with engineering precision.</span>
+        <span>© 2026 Ifaz Ikram. Built with engineering precision.</span>
       </footer>
     </div>
   );
