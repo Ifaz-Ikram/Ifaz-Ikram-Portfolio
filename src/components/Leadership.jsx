@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, memo } from "react";
-import { Users, Calendar, Briefcase, Heart, Wallet, Expand } from "lucide-react";
+import { Users, Calendar, Briefcase, Heart, Wallet, Expand, Calculator, Drama, Truck, Trophy } from "lucide-react";
 import { db, collection, getDocs, query, orderBy } from "../firebase";
 import ImageLightbox from "./ImageLightbox";
 import AOS from "aos";
@@ -7,6 +7,18 @@ import "aos/dist/aos.css";
 
 // Fallback hardcoded leadership experiences
 const hardcodedExperiences = [
+    {
+        id: "csess-finance-committee",
+        title: "Finance Committee Member",
+        organization: "Computer Science & Engineering Student Society (CSESS) – University of Moratuwa",
+        period: "Sep 2025 – Present",
+        description: "Serving as a Finance Committee Member of the Computer Science & Engineering Student Society (CSESS), contributing to financial planning, budgeting support, and coordination for student-led academic and technical initiatives within the Department of Computer Science & Engineering.",
+        icon: "Calculator",
+        gallery: [
+            "/images/Leadership & Volunteer/CSESS Finance Committe Member/CSESS.jpg"
+        ],
+        order: 0
+    },
     {
         id: "dept-rep",
         title: "Department Representative (Semester 2 & 3)",
@@ -18,41 +30,191 @@ const hardcodedExperiences = [
         gallery: ["/images/Leadership & Volunteer/Rep/Rep2.jpg"],
         order: 1
     },
+    // {
+    //     id: "robogames-finance",
+    //     title: "Finance Committee Lead",
+    //     organization: "IESL RoboGames 25/26",
+    //     period: "2025",
+    //     description: "Sponsorship outreach & financial planning for the robotics competition, ensuring strict budget adherence and securing vital funding for event logistics.",
+    //     icon: "Briefcase",
+    //     order: 2
+    // },
+    // {
+    //     id: "sliot-finance",
+    //     title: "Finance Committee Member",
+    //     organization: "SLIoT Challenge 2026",
+    //     period: "2025 – 2026",
+    //     description: "Budgeting and sponsorship coordination for the IoT innovation challenge, managing resource allocation and vendor payments.",
+    //     icon: "Wallet",
+    //     order: 3
+    // },
+
+    // {
+    //     id: "muslim-majlis",
+    //     title: "Executive Member",
+    //     organization: "Muslim Majlis (UoM)",
+    //     period: "2023 – Present",
+    //     description: "Active participation in community organization and events. Planning religious and cultural gatherings to foster community spirit.",
+    //     icon: "Heart",
+    //     order: 5
+    // },
+
+
     {
-        id: "robogames-finance",
-        title: "Finance Committee Lead",
-        organization: "IESL RoboGames 25/26",
-        period: "2025",
-        description: "Sponsorship outreach & financial planning for the robotics competition, ensuring strict budget adherence and securing vital funding for event logistics.",
-        icon: "Briefcase",
+        id: "moramaths-agm-2025",
+        title: "Annual General Meeting (AGM)",
+        organization: "Mathematics Society – University of Moratuwa (MoraMaths)",
+        period: "Oct 2025",
+        description: "Participated in the Annual General Meeting of MoraMaths held on 15th October 2025. The session reflected on past initiatives, discussed future directions, and encouraged active member engagement. Proud to be part of a student-led society that promotes analytical thinking, collaboration, and community involvement.",
+        icon: "Users",
+        gallery: [
+            "/images/Leadership & Volunteer/MORAMATHS AGM/MORAMATHS AGM 1.jpg",
+            "/images/Leadership & Volunteer/MORAMATHS AGM/MORAMATHS AGM 2.jpg",
+            "/images/Leadership & Volunteer/MORAMATHS AGM/MORAMATHS AGM 3.jpg"
+        ],
         order: 2
     },
     {
-        id: "sliot-finance",
-        title: "Finance Committee Member",
-        organization: "SLIoT Challenge 2026",
-        period: "2025 – 2026",
-        description: "Budgeting and sponsorship coordination for the IoT innovation challenge, managing resource allocation and vendor payments.",
-        icon: "Wallet",
+        id: "iumc-finance-committee",
+        title: "Finance Committee Member – Intra-University Mathematics Competition (IUMC)",
+        organization: "Mathematics Society – University of Moratuwa (MoraMaths)",
+        period: "Sep 2025",
+        description: "Contributed to the Intra-University Mathematics Competition (IUMC) organized by MoraMaths as a Finance Committee Member. Responsible for preparing the final budget report of the competition, gaining hands-on experience in financial documentation, budgeting, and supporting large-scale student-led academic events.",
+        icon: "Calculator",
+        gallery: [
+            "/images/Leadership & Volunteer/IUMC/IUMC 1.jpg",
+            "/images/Leadership & Volunteer/IUMC/IUMC 2.jpg"
+        ],
         order: 3
     },
     {
-        id: "adscai-logistics",
-        title: "Organizing Committee",
-        organization: "ADSCAI 2025 (Logistics)",
-        period: "2025",
-        description: "Delegate handling & event logistics for the AI conference. Ensuring smooth operations on-site, including registration and venue management.",
-        icon: "Calendar",
+        id: "enigma-2025-finance-committee",
+        title: "Finance Committee Member – ENIGMA 2025",
+        organization: "Mathematics Society – University of Moratuwa (MoraMaths)",
+        period: "Sep 2025",
+        description: "Contributed to ENIGMA 2025, an inter-university coding competition organized by MoraMaths, as a member of the Organizing Committee under the Finance Committee. Supported sponsorship-related communication and assisted during the preparation and execution phases of the event, gaining valuable experience in coordination, professional communication, and teamwork behind a large-scale academic competition.",
+        icon: "Calculator",
+        gallery: [
+            "/images/Leadership & Volunteer/ENIGMA/ENIGMA 1.jpg",
+            "/images/Leadership & Volunteer/ENIGMA/ENIGMA 2.jpg",
+            "/images/Leadership & Volunteer/ENIGMA/ENIGMA 3.jpg",
+            "/images/Leadership & Volunteer/ENIGMA/ENIGMA 4.jpg"
+        ],
         order: 4
     },
     {
-        id: "muslim-majlis",
-        title: "Executive Member",
-        organization: "Muslim Majlis (UoM)",
-        period: "2023 – Present",
-        description: "Active participation in community organization and events. Planning religious and cultural gatherings to foster community spirit.",
-        icon: "Heart",
+        id: "cse-24-inauguration-organizing-committee",
+        title: "Organizing Committee Member – CSE 24 Inauguration Ceremony",
+        organization: "Department of Computer Science & Engineering – University of Moratuwa",
+        period: "Sep 2025",
+        description: "Served as a member of the Organizing Committee for the Inauguration Ceremony of CSE 24, held on 9th September 2025 and organized by CSE 23. Contributed to planning and executing interactive activities and team-based challenges that fostered a welcoming and engaging environment for the new batch, while gaining valuable experience in coordination, teamwork, and student leadership.",
+        icon: "Users",
+        gallery: [
+            "/images/Leadership & Volunteer/CSE 24 Inaugration/CSE 24 Inaugration 1.jpg",
+            "/images/Leadership & Volunteer/CSE 24 Inaugration/CSE 24 Inaugration 2.jpg",
+            "/images/Leadership & Volunteer/CSE 24 Inaugration/CSE 24 Inaugration 3.jpg"
+        ],
         order: 5
+    },
+    {
+        id: "mawisuru-rangasoba-2025",
+        title: "Drama Performer – මැවිසුරු රඟසොබා 2025",
+        organization: "Engineering Faculty Students’ Union – University of Moratuwa",
+        period: "2025",
+        description: "Participated as a drama performer representing CSE 23 at මැවිසුරු රඟසොබා – 2025, a faculty-wide cultural event involving all 12 engineering departments. Represented the Department of Computer Science & Engineering by performing the drama “Titanic”, contributing to a collaborative production that celebrated batch unity, creativity, and student culture through live performance.",
+        icon: "Theater",
+        gallery: [
+            "/images/Leadership & Volunteer/Mawisuru/Mawisuru 1.jpg",
+            "/images/Leadership & Volunteer/Mawisuru/Mawisuru 2.jpg",
+            "/images/Leadership & Volunteer/Mawisuru/Mawisuru 3.jpg",
+            "/images/Leadership & Volunteer/Mawisuru/Mawisuru 4.jpg"
+        ],
+        order: 6
+    },
+    {
+        id: "csess-first-agm",
+        title: "First Annual General Meeting (AGM)",
+        organization: "Computer Science & Engineering Student Society (CSESS) – University of Moratuwa",
+        period: "2025",
+        description: "Participated in the first Annual General Meeting (AGM) of the Computer Science & Engineering Student Society (CSESS), marking a key milestone in strengthening student representation and collaboration within the department. Engaged in discussions that contributed to shaping a shared vision for student-led initiatives and the future growth of CSESS.",
+        icon: "Users",
+        gallery: [
+            "/images/Leadership & Volunteer/CSESS AGM/CSESS AGM 1.jpg",
+            "/images/Leadership & Volunteer/CSESS AGM/CSESS AGM 2.jpg",
+            "/images/Leadership & Volunteer/CSESS AGM/CSESS AGM 3.jpg"
+        ],
+        order: 7
+    },
+    {
+        id: "hanthana-batch-trip",
+        title: "Hanthana Batch Trip – Finance Committee Representative",
+        organization: "Engineering Faculty Students’ Union, University of Moratuwa",
+        period: "June 2025",
+        description: "Participated in the Hanthana Batch Trip held on June 28 as the Finance Committee Representative from CSE 23. Contributed to financial coordination by supporting departmental communication and assisting with collecting and organizing payments from CSE students. This large-scale event, involving around 500 students from Batch 23, provided valuable experience in coordination, accountability, and teamwork behind the scenes.",
+        icon: "Users",
+        gallery: [
+            "/images/Leadership & Volunteer/Hanthana Batch Trip/Hanthana Batch Trip.jpg"
+        ],
+        order: 8
+    },
+    {
+        id: "sakura-2025",
+        title: "Logistics Team Member",
+        organization: "Department of Computer Science & Engineering - University of Moratuwa",
+        period: "April 2025",
+        description: "Contributed as a member of the Logistics Team for Sakura 2025, an event organized by the Department of Computer Science & Engineering, University of Moratuwa, celebrating 40 years of CSE. Assisted with decorations and on-ground setup while working under the guidance of seniors. Gained hands-on experience in coordination, teamwork, and event execution behind the scenes of a large-scale departmental celebration.",
+        icon: "Truck",
+        gallery: [
+            "/images/Leadership & Volunteer/Sakura/sakura1.jpg",
+            "/images/Leadership & Volunteer/Sakura/sakura2.jpg",
+            "/images/Leadership & Volunteer/Sakura/sakura3.jpg",
+            "/images/Leadership & Volunteer/Sakura/sakura4.jpg",
+            "/images/Leadership & Volunteer/Sakura/sakura5.jpg",
+            "/images/Leadership & Volunteer/Sakura/sakura6.jpg"
+
+        ],
+        order: 9
+    },
+    {
+        id: "cse23-batch-trip-riverston",
+        title: "Organizing Committee Member – Finance & Coordination",
+        organization: "Department of Computer Science & Engineering - University of Moratuwa",
+        period: "April 2025",
+        description: "Served as a member of the Organizing Committee for CSE 23 Batch Trip 1.0 held at Riverston, with participation from approximately 150 students. Primarily handled budget planning, finance coordination, and supported overall trip arrangements. Worked closely with the organizing team to ensure smooth execution, gaining valuable experience in large-scale event coordination, responsibility, leadership, and teamwork.",
+        icon: "Users",
+        gallery: [
+            "/images/Leadership & Volunteer/CSE Reverston Trip 1.0/CSE Reverston Trip 1.0.jpg"
+        ],
+        order: 10
+    },
+    {
+        id: "adscai-2025",
+        title: "Organizing Committee Member – Delegates Handling & Logistics",
+        organization: "Department of Computer Science & Engineering - University of Moratuwa",
+        period: "2025",
+        description: "Served as a member of the Organizing Committee for ADSCAI 2025 (Applied Data Science & Artificial Intelligence Symposium), contributing to delegates handling and logistics coordination. Assisted with on-ground logistics, supported delegates throughout the event, and collaborated with committee members to ensure smooth execution. Gained valuable experience in large-scale academic event coordination, teamwork, and professional communication.",
+        icon: "Users",
+        gallery: [
+            "/images/Leadership & Volunteer/AdscAI/AdscAI1.jpg",
+            "/images/Leadership & Volunteer/AdscAI/AdscAI2.jpg",
+            "/images/Leadership & Volunteer/AdscAI/AdscAI3.jpg"
+        ],
+        order: 11
+    },
+    {
+        id: "meugc-premier-league-2025",
+        title: "Organizing Committee Member – Finance, Sponsorship & Event Coordination",
+        organization: "Moratuwa Engineering Undergraduates – Galle Chapter",
+        period: "January 2025",
+        description: "Served as a member of the Organizing Committee for the MEUGC Premier League Cricket Tournament held on 11th January 2025. Contributed to securing sponsorships, handling financial matters, and supporting overall program organization. Worked closely with multiple teams before and during the event to ensure smooth execution. Gained valuable experience in event management, coordination, responsibility, and teamwork through involvement in this large-scale student-led sports event.",
+        icon: "Trophy",
+        gallery: [
+            "/images/Leadership & Volunteer/MEUGC/MEUGC 1.jpg",
+            "/images/Leadership & Volunteer/MEUGC/MEUGC 2.jpg",
+            "/images/Leadership & Volunteer/MEUGC/MEUGC 3.jpg",
+            "/images/Leadership & Volunteer/MEUGC/MEUGC 4.jpg"
+        ],
+        order: 12
     },
 ];
 
@@ -62,6 +224,10 @@ const ICON_MAP = {
     Briefcase: Briefcase,
     Heart: Heart,
     Wallet: Wallet,
+    Calculator: Calculator,
+    Theater: Drama,
+    Truck: Truck,
+    Trophy: Trophy,
 };
 
 const LeadershipCard = memo(({ experience, index, isReversed }) => {
@@ -82,7 +248,7 @@ const LeadershipCard = memo(({ experience, index, isReversed }) => {
                     data-aos-duration="1000"
                 >
                     <div className="relative w-full max-w-full">
-                        {experience.imageUrl ? (
+                        {experience.imageUrl || (experience.gallery && experience.gallery.length > 0) ? (
                             (() => {
                                 const images = [experience.imageUrl, ...(experience.gallery || [])].filter(Boolean);
                                 return (
