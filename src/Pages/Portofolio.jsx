@@ -321,7 +321,9 @@ export default function FullWidthTabs() {
   useEffect(() => {
     // Initialize AOS once
     AOS.init({
-      once: false, // This will make animations occur only once
+      once: true, // This will make animations occur only once
+      offset: 100,
+      duration: 1000,
     });
   }, []);
 

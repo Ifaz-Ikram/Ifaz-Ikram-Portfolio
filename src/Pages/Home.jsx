@@ -94,6 +94,7 @@ const Home = () => {
       AOS.init({
         once: true,
         offset: 10,
+        duration: 1000,
       });
     };
 
