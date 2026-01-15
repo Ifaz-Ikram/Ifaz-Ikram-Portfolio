@@ -94,56 +94,98 @@ function a11yProps(index) {
 }
 
 const techStacks = [
-  { icon: "kotlin.svg", language: "Kotlin" },
-  { icon: "typescript.svg", language: "TypeScript" },
-  { icon: "javascript.svg", language: "JavaScript" },
-  { icon: "python.svg", language: "Python" },
-  { icon: "java.svg", language: "Java" },
-  { icon: "cplusplus.svg", language: "C++" },
-  { icon: "reactjs.svg", language: "ReactJS" },
-  { icon: "vuejs.svg", language: "Vue.js" },
-  { icon: "nuxt.svg", language: "Nuxt" },
-  { icon: "tailwind.svg", language: "Tailwind CSS" },
-  { icon: "nodejs.svg", language: "Node JS" },
-  { icon: "firebase.svg", language: "Firebase" },
-  { icon: "git.svg", language: "Git" },
-  { icon: "vite.svg", language: "Vite" },
+  { icon: "/images/techstack/kotlin.svg", language: "Kotlin" },
+  { icon: "/images/techstack/typescript.svg", language: "TypeScript" },
+  { icon: "/images/techstack/javascript.svg", language: "JavaScript" },
+  { icon: "/images/techstack/python.svg", language: "Python" },
+  { icon: "/images/techstack/java.svg", language: "Java" },
+  { icon: "/images/techstack/cplusplus.svg", language: "C++" },
+  { icon: "/images/techstack/reactjs.svg", language: "ReactJS" },
+  { icon: "/images/techstack/vuejs.svg", language: "Vue.js" },
+  { icon: "/images/techstack/nuxt.svg", language: "Nuxt" },
+  { icon: "/images/techstack/tailwind.svg", language: "Tailwind CSS" },
+  { icon: "/images/techstack/nodejs.svg", language: "Node JS" },
+  { icon: "/images/techstack/firebase.svg", language: "Firebase" },
+  { icon: "/images/techstack/git.svg", language: "Git" },
+  { icon: "/images/techstack/vite.svg", language: "Vite" },
 ];
 
 // Hardcoded projects for Ifaz Ikram
 const hardcodedProjects = [
+
+  // {
+  //   id: "ceylon-guides",
+  //   Title: "Ceylon Guides",
+  //   Description: "Tourism & guide discovery platform with responsive web interfaces and scalable backend integrations. Part of the Rexosphere ecosystem.",
+  //   Img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop&q=60",
+  //   Link: "#",
+  //   Github: "Private",
+  //   TechStack: ["Vue", "Nuxt", "TypeScript"],
+  //   Features: [
+  //     "Guide discovery system",
+  //     "Tour booking interface",
+  //     "Responsive web design",
+  //     "Backend integrations"
+  //   ],
+  //   Gallery: []
+  // },
+
+  // {
+  //   id: "money-splitter",
+  //   Title: "Money-Splitter",
+  //   Description: "Expense management app with designed onboarding flow and undo functionality. Led UI/UX with 7,300+ lines of code refactoring.",
+  //   Img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&auto=format&fit=crop&q=60",
+  //   Link: "https://github.com/Ifaz-Ikram",
+  //   Github: "https://github.com/Ifaz-Ikram",
+  //   TechStack: ["Kotlin Multiplatform", "Jetpack Compose"],
+  //   Features: [
+  //     "Expense splitting logic",
+  //     "Undo/redo functionality",
+  //     "Onboarding flow",
+  //     "Cross-platform support"
+  //   ],
+  //   Gallery: []
+  // },
+
   {
-    id: "nano-processor",
-    Title: "Nano-Processor",
-    Description: "A 4-bit RISC processor implemented in VHDL with a custom instruction set supporting arithmetic operations (ADD, NEG), bitwise operations (NOT, AND, OR, XOR), immediate load (MOVI), and conditional jumps (JZR), featuring an 8-register bank and seven-segment display interface for FPGA deployment.",
-    Img: "/images/Projects/nanoprocessor/nanoprocessor1.jpg",
-    Link: "", // No live demo
-    Github: "https://github.com/Rashmika-Nawanjana/Nano-Processor",
-    TechStack: ["VHDL", "Vivado", "FPGA Design", "Digital Logic"],
+    id: "cse-election-platform",
+    Title: "CSE Department Representative Elections",
+    Description: "A secure, role-based digital voting platform built to replace Google Forms for CSE23 Semester 4, 5, and 6 Department Representative elections. Includes domain-restricted Google OAuth, strict voter whitelist, multi-candidate voting with editable ballots before deadline, admin dashboards, live statistics/results controls, exports, and enterprise-grade security (audit logs, rate limiting, CSRF protection, hardened headers).",
+    Img: "/images/Projects/Department Rep Election System/Election1.jpg",
+    Link: "https://election.cse23.org",
+    Github: "https://github.com/Ifaz-Ikram/CSE-Department-Representative-Election",
+    TechStack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth", "Redis", "Tailwind CSS"],
     Features: [
-      "Custom 13-bit instruction set with 8 opcodes",
-      "8-register bank (R0-R7) with 4-bit data width",
-      "ALU with dual-mode operation (arithmetic/bitwise)",
-      "Bitwise operations: NOT, AND, OR, XOR",
-      "Arithmetic operations: ADD, NEG (two's complement)",
-      "Immediate value loading (MOVI)",
-      "Conditional jump on zero (JZR)",
-      "Seven-segment display decoder for output",
-      "Configurable clock modes (normal/step-by-step)",
-      "Overflow and zero flag detection"
+      "Google OAuth sign-in restricted to CSE student emails",
+      "Strict voter whitelist (registry-based access control)",
+      "Role-based access control: Voter / Admin / Super Admin",
+      "Multi-candidate voting with unlimited edits until deadline",
+      "Real-time election countdown and status monitoring",
+      "Results visibility controls & Admin dashboards",
+      "Candidate presets system with stream-based representation",
+      "CSV exports for results, ballots, statistics, and voter lists",
+      "Comprehensive audit logs (AUTH, USER, ELECTION, CANDIDATE, VOTE)",
+      "Security: CSRF protection, rate limiting, CSP, input sanitization"
     ],
     Gallery: [
-      "/images/Projects/nanoprocessor/nanoprocessor2.jpg",
-      "/images/Projects/nanoprocessor/nanoprocessor3.jpg"
+      "/images/Projects/Department Rep Election System/Election2.jpg",
+      "/images/Projects/Department Rep Election System/Election3.jpg",
+      "/images/Projects/Department Rep Election System/Election4.jpg",
+      "/images/Projects/Department Rep Election System/Election5.jpg",
+      "/images/Projects/Department Rep Election System/Election6.jpg",
+      "/images/Projects/Department Rep Election System/Election7.jpg",
+      "/images/Projects/Department Rep Election System/Election8.jpg",
+      "/images/Projects/Department Rep Election System/Election9.jpg"
     ]
   },
+
   {
     id: "leoconnect",
     Title: "LeoConnect",
     Description:
       "A production-ready, cross-platform social and management platform built for Leo Multiple District 306, connecting 200+ Leo Clubs and 4000+ members across Sri Lanka and the Maldives. Developed during AlgoArena 2025, LeoConnect delivers social networking, messaging, notifications, and administrative tools through a single Kotlin Multiplatform codebase with an edge-first backend.",
     Img: "/images/Projects/leoconnect/leoconnect1.jpg",
-    Link: "", // No public live demo
+    Link: "https://github.com/Rexosphere/LeoConnect/releases",
     Github: "https://github.com/Rexosphere/LeoConnect",
     TechStack: [
       "Kotlin Multiplatform (KMP)",
@@ -176,69 +218,7 @@ const hardcodedProjects = [
       "/images/Projects/leoconnect/demo.mp4"
     ]
   },
-  // {
-  //   id: "ceylon-guides",
-  //   Title: "Ceylon Guides",
-  //   Description: "Tourism & guide discovery platform with responsive web interfaces and scalable backend integrations. Part of the Rexosphere ecosystem.",
-  //   Img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop&q=60",
-  //   Link: "#",
-  //   Github: "Private",
-  //   TechStack: ["Vue", "Nuxt", "TypeScript"],
-  //   Features: [
-  //     "Guide discovery system",
-  //     "Tour booking interface",
-  //     "Responsive web design",
-  //     "Backend integrations"
-  //   ],
-  //   Gallery: []
-  // },
-  {
-    id: "cse-election-platform",
-    Title: "CSE Department Representative Elections",
-    Description: "A secure, role-based digital voting platform built to replace Google Forms for CSE23 Semester 4, 5, and 6 Department Representative elections. Includes domain-restricted Google OAuth, strict voter whitelist, multi-candidate voting with editable ballots before deadline, admin dashboards, live statistics/results controls, exports, and enterprise-grade security (audit logs, rate limiting, CSRF protection, hardened headers).",
-    Img: "/images/Projects/Department Rep Election System/Election1.jpg",
-    Link: "https://election.cse23.org",
-    Github: "https://github.com/Ifaz-Ikram/CSE-Department-Representative-Election",
-    TechStack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth", "Redis", "Tailwind CSS"],
-    Features: [
-      "Google OAuth sign-in restricted to CSE student emails",
-      "Strict voter whitelist (registry-based access control)",
-      "Role-based access control: Voter / Admin / Super Admin",
-      "Multi-candidate voting with unlimited edits until deadline",
-      "Real-time election countdown and status monitoring",
-      "Results visibility controls & Admin dashboards",
-      "Candidate presets system with stream-based representation",
-      "CSV exports for results, ballots, statistics, and voter lists",
-      "Comprehensive audit logs (AUTH, USER, ELECTION, CANDIDATE, VOTE)",
-      "Security: CSRF protection, rate limiting, CSP, input sanitization"
-    ],
-    Gallery: [
-      "/images/Projects/Department Rep Election System/Election2.jpg",
-      "/images/Projects/Department Rep Election System/Election3.jpg",
-      "/images/Projects/Department Rep Election System/Election4.jpg",
-      "/images/Projects/Department Rep Election System/Election5.jpg",
-      "/images/Projects/Department Rep Election System/Election6.jpg",
-      "/images/Projects/Department Rep Election System/Election7.jpg",
-      "/images/Projects/Department Rep Election System/Election8.jpg",
-      "/images/Projects/Department Rep Election System/Election9.jpg"
-    ]
-  },
-  // {
-  //   id: "money-splitter",
-  //   Title: "Money-Splitter",
-  //   Description: "Expense management app with designed onboarding flow and undo functionality. Led UI/UX with 7,300+ lines of code refactoring.",
-  //   Img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&auto=format&fit=crop&q=60",
-  //   Link: "https://github.com/Ifaz-Ikram",
-  //   Github: "https://github.com/Ifaz-Ikram",
-  //   TechStack: ["Kotlin Multiplatform", "Jetpack Compose"],
-  //   Features: [
-  //     "Expense splitting logic",
-  //     "Undo/redo functionality",
-  //     "Onboarding flow",
-  //     "Cross-platform support"
-  //   ],
-  //   Gallery: []
-  // },
+
   {
     id: "skynest",
     Title: "SkyNest Hotel Management System",
@@ -268,7 +248,32 @@ const hardcodedProjects = [
       "/images/Projects/skynest/skynest9.png",
       "/images/Projects/skynest/skynest10.png"
     ]
-  }
+  },
+  {
+    id: "nano-processor",
+    Title: "Nano-Processor",
+    Description: "A 4-bit RISC processor implemented in VHDL with a custom instruction set supporting arithmetic operations (ADD, NEG), bitwise operations (NOT, AND, OR, XOR), immediate load (MOVI), and conditional jumps (JZR), featuring an 8-register bank and seven-segment display interface for FPGA deployment.",
+    Img: "/images/Projects/nanoprocessor/nanoprocessor1.jpg",
+    Link: "", // No live demo
+    Github: "https://github.com/Rashmika-Nawanjana/Nano-Processor",
+    TechStack: ["VHDL", "Vivado", "FPGA Design", "Digital Logic"],
+    Features: [
+      "Custom 13-bit instruction set with 8 opcodes",
+      "8-register bank (R0-R7) with 4-bit data width",
+      "ALU with dual-mode operation (arithmetic/bitwise)",
+      "Bitwise operations: NOT, AND, OR, XOR",
+      "Arithmetic operations: ADD, NEG (two's complement)",
+      "Immediate value loading (MOVI)",
+      "Conditional jump on zero (JZR)",
+      "Seven-segment display decoder for output",
+      "Configurable clock modes (normal/step-by-step)",
+      "Overflow and zero flag detection"
+    ],
+    Gallery: [
+      "/images/Projects/nanoprocessor/nanoprocessor2.jpg",
+      "/images/Projects/nanoprocessor/nanoprocessor3.jpg"
+    ]
+  },
 ];
 
 export default function FullWidthTabs() {
