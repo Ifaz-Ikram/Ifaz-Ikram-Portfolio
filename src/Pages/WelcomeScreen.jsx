@@ -114,14 +114,14 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
             {/* Website Link */}
             <div className="mt-4">
               <a
-                href="https://portfolio.ifaz.top"
+                href="https://ifaz.top"
                 className="flex items-center space-x-2 text-primary hover:underline transition-all group"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Globe className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 <span className="text-lg font-medium tracking-wide font-mono">
-                  <TypewriterEffect text="portfolio.ifaz.top" />
+                  <TypewriterEffect text="ifaz.top" />
                 </span>
               </a>
             </div>
