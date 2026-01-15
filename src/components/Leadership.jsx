@@ -409,7 +409,7 @@ const Leadership = () => {
 
     return (
         <main
-            className="max-w-5xl mx-auto px-6 md:px-12 lg:px-24 pt-6 lg:pt-20 pb-12 lg:pb-20 min-h-screen flex flex-col justify-start"
+            className="max-w-5xl mx-auto px-6 md:px-12 lg:px-24 pt-6 lg:pt-6 pb-12 lg:pb-20 min-h-screen flex flex-col justify-start"
             id="Leadership"
         >
             {/* Header */}
