@@ -16,8 +16,18 @@ const Navbar = () => {
     ];
 
     useEffect(() => {
+        let isThrottled = false;
+
         const handleScroll = () => {
+            if (isThrottled) return;
+            isThrottled = true;
+
+            setTimeout(() => {
+                isThrottled = false;
+            }, 100); // 100ms throttle
+
             setScrolled(window.scrollY > 20);
+
             const sections = navItems.map(item => {
                 const section = document.querySelector(item.href);
                 if (section) {
@@ -41,7 +51,7 @@ const Navbar = () => {
             }
         };
 
-        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleScroll, { passive: true });
         handleScroll();
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);

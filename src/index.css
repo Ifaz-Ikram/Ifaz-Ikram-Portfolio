@@ -515,7 +515,6 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
-  scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: #3B82F6 rgba(26, 26, 26, 0.5);
 }
@@ -606,9 +605,7 @@ html.dark body {
   background: transparent;
 }
 
-[data-aos] {
-  will-change: transform, opacity !important;
-}
+/* Removed hazardous will-change optimization */
 
 
 

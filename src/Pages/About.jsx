@@ -143,7 +143,9 @@ const AboutPage = () => {
 
   useEffect(() => {
     AOS.init({
-      once: false,
+      once: true,
+      offset: 100,
+      duration: 1000,
     });
 
     let resizeTimer;
