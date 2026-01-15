@@ -94,20 +94,53 @@ function a11yProps(index) {
 }
 
 const techStacks = [
-  { icon: "/images/techstack/kotlin.svg", language: "Kotlin" },
-  { icon: "/images/techstack/typescript.svg", language: "TypeScript" },
-  { icon: "/images/techstack/javascript.svg", language: "JavaScript" },
-  { icon: "/images/techstack/python.svg", language: "Python" },
-  { icon: "/images/techstack/java.svg", language: "Java" },
-  { icon: "/images/techstack/cplusplus.svg", language: "C++" },
-  { icon: "/images/techstack/reactjs.svg", language: "ReactJS" },
-  { icon: "/images/techstack/vuejs.svg", language: "Vue.js" },
-  { icon: "/images/techstack/nuxt.svg", language: "Nuxt" },
-  { icon: "/images/techstack/tailwind.svg", language: "Tailwind CSS" },
-  { icon: "/images/techstack/nodejs.svg", language: "Node JS" },
-  { icon: "/images/techstack/firebase.svg", language: "Firebase" },
-  { icon: "/images/techstack/git.svg", language: "Git" },
-  { icon: "/images/techstack/vite.svg", language: "Vite" },
+  {
+    category: "Frontend & Mobile",
+    items: [
+      { icon: "/images/techstack/reactjs.svg", language: "React" },
+      { icon: "/images/techstack/nextjs.svg", language: "Next.js" },
+      { icon: "/images/techstack/vuejs.svg", language: "Vue.js" },
+      { icon: "/images/techstack/nuxt.svg", language: "Nuxt" },
+      { icon: "/images/techstack/typescript.svg", language: "TypeScript" },
+      { icon: "/images/techstack/javascript.svg", language: "JavaScript" },
+      { icon: "/images/techstack/kotlin.svg", language: "Kotlin" },
+      { icon: "/images/techstack/jetpackcompose.svg", language: "Jetpack Compose" },
+      { icon: "/images/techstack/tailwind.svg", language: "Tailwind CSS" },
+      { icon: "/images/techstack/bootstrap.svg", language: "Bootstrap" },
+      { icon: "/images/techstack/MUI.svg", language: "Material UI" },
+      { icon: "/images/techstack/html.svg", language: "HTML5" },
+      { icon: "/images/techstack/css.svg", language: "CSS3" },
+    ]
+  },
+  {
+    category: "Backend & Database",
+    items: [
+      { icon: "/images/techstack/nodejs.svg", language: "Node.js" },
+      { icon: "/images/techstack/express.svg", language: "Express.js" },
+      { icon: "/images/techstack/python.svg", language: "Python" },
+      { icon: "/images/techstack/java.svg", language: "Java" },
+      { icon: "/images/techstack/cplusplus.svg", language: "C++" },
+      { icon: "/images/techstack/postgresql.svg", language: "PostgreSQL" },
+      { icon: "/images/techstack/firebase.svg", language: "Firebase" },
+      { icon: "/images/techstack/redis.svg", language: "Redis" },
+      { icon: "/images/techstack/sequelize.svg", language: "Sequelize" },
+      { icon: "/images/techstack/prisma.svg", language: "Prisma" },
+      { icon: "/images/techstack/cloudflare.svg", language: "Cloudflare D1" },
+    ]
+  },
+  {
+    category: "DevOps & Tools",
+    items: [
+      { icon: "/images/techstack/git.svg", language: "Git" },
+      { icon: "/images/techstack/github.svg", language: "GitHub" },
+      { icon: "/images/techstack/docker.svg", language: "Docker" },
+      { icon: "/images/techstack/cloudflareworkers.svg", language: "Cloudflare Workers" },
+      { icon: "/images/techstack/vercel.svg", language: "Vercel" },
+      { icon: "/images/techstack/vite.svg", language: "Vite" },
+      { icon: "/images/techstack/jest.svg", language: "Jest" },
+      { icon: "/images/techstack/SweetAlert.svg", language: "SweetAlert" },
+    ]
+  }
 ];
 
 // Hardcoded projects for Ifaz Ikram
@@ -429,18 +462,33 @@ export default function FullWidthTabs() {
           </TabPanel>
 
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <div className="container mx-auto flex justify-center items-center overflow-hidden pb-[5%]">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-8 gap-5">
-                {techStacks.map((stack, index) => (
+            <div className="container mx-auto flex flex-col justify-center items-center overflow-hidden pb-[5%] gap-12">
+              {techStacks.map((category, catIndex) => (
+                <div key={catIndex} className="w-full">
                   <div
-                    key={index}
-                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
-                    data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
+                    data-aos="fade-up"
+                    className="flex items-center gap-4 mb-8"
                   >
-                    <TechStackIcon TechStackIcon={stack.icon} Language={stack.language} />
+                    <h3 className="text-xl md:text-2xl font-bold text-text-light dark:text-text-dark whitespace-nowrap">
+                      {category.category}
+                    </h3>
+                    <div className="h-[1px] w-full bg-border-light dark:bg-border-dark opacity-50"></div>
                   </div>
-                ))}
-              </div>
+
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-8 gap-5">
+                    {category.items.map((stack, index) => (
+                      <div
+                        key={index}
+                        data-aos="fade-up"
+                        data-aos-delay={index * 50}
+                        data-aos-duration="800"
+                      >
+                        <TechStackIcon TechStackIcon={stack.icon} Language={stack.language} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </TabPanel>
         </SwipeableViews>
