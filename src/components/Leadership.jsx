@@ -70,7 +70,6 @@ const hardcodedExperiences = [
         gallery: [
             "/images/Leadership & Volunteer/MORAMATHS AGM/MORAMATHS AGM 1.jpg",
             "/images/Leadership & Volunteer/MORAMATHS AGM/MORAMATHS AGM 2.jpg",
-            "/images/Leadership & Volunteer/MORAMATHS AGM/MORAMATHS AGM 3.jpg"
         ],
         order: 2
     },
