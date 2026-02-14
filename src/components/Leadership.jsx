@@ -5,6 +5,57 @@ import ImageLightbox from "./ImageLightbox";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+// Show More / Show Less button (matches Portfolio UI)
+const ToggleButton = ({ onClick, isShowingMore }) => (
+    <button
+        onClick={onClick}
+        className="
+      px-4 py-2
+      text-text-secondary-light dark:text-text-secondary-dark
+      hover:text-text-light dark:hover:text-text-dark
+      text-sm
+      font-medium
+      transition-all
+      duration-300
+      ease-in-out
+      flex
+      items-center
+      gap-2
+      bg-surface-light dark:bg-surface-dark
+      hover:bg-background-light dark:hover:bg-background-dark
+      border
+      border-border-light dark:border-border-dark
+      hover:border-primary
+      group
+      relative
+      overflow-hidden
+    "
+    >
+        <span className="relative z-10 flex items-center gap-2">
+            {isShowingMore ? "See Less" : "See More"}
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={`
+          transition-transform
+          duration-300
+          ${isShowingMore ? "group-hover:-translate-y-0.5" : "group-hover:translate-y-0.5"}
+        `}
+            >
+                <polyline points={isShowingMore ? "18 15 12 9 6 15" : "6 9 12 15 18 9"}></polyline>
+            </svg>
+        </span>
+        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+    </button>
+);
+
 // Fallback hardcoded leadership experiences
 const hardcodedExperiences = [
     {
@@ -364,6 +415,9 @@ const Leadership = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [lightboxOpen, setLightboxOpen] = useState(false);
     const [lightboxImage, setLightboxImage] = useState('');
+    const [showAll, setShowAll] = useState(false);
+    const isMobile = window.innerWidth < 768;
+    const initialItems = isMobile ? 2 : 3;
 
     // Handler for opening lightbox
     const handleImageClick = useCallback((images) => {
@@ -409,6 +463,8 @@ const Leadership = () => {
         fetchExperiences();
     }, [fetchExperiences]);
 
+    const displayedExperiences = showAll ? experiences : experiences.slice(0, initialItems);
+
     return (
         <main
             className="max-w-5xl mx-auto px-6 md:px-12 lg:px-24 pt-6 lg:pt-6 pb-12 lg:pb-20 min-h-screen flex flex-col justify-start"
@@ -439,7 +495,7 @@ const Leadership = () => {
                         <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
                     </div>
                 ) : (
-                    experiences.map((experience, index) => (
+                    displayedExperiences.map((experience, index) => (
                         <LeadershipCard
                             key={experience.id || index}
                             experience={{ ...experience, onImageClick: handleImageClick }}
@@ -449,6 +505,15 @@ const Leadership = () => {
                     ))
                 )}
             </div>
+
+            {!isLoading && experiences.length > initialItems && (
+                <div className="mt-6 w-full flex justify-start">
+                    <ToggleButton
+                        onClick={() => setShowAll((prev) => !prev)}
+                        isShowingMore={showAll}
+                    />
+                </div>
+            )}
 
             {/* Lightbox for viewing full images */}
             <ImageLightbox

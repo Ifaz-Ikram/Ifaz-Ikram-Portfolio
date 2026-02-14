@@ -5,6 +5,57 @@ import ImageLightbox from "./ImageLightbox";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+// Show More / Show Less button (matches Portfolio UI)
+const ToggleButton = ({ onClick, isShowingMore }) => (
+    <button
+        onClick={onClick}
+        className="
+      px-4 py-2
+      text-text-secondary-light dark:text-text-secondary-dark
+      hover:text-text-light dark:hover:text-text-dark
+      text-sm
+      font-medium
+      transition-all
+      duration-300
+      ease-in-out
+      flex
+      items-center
+      gap-2
+      bg-surface-light dark:bg-surface-dark
+      hover:bg-background-light dark:hover:bg-background-dark
+      border
+      border-border-light dark:border-border-dark
+      hover:border-primary
+      group
+      relative
+      overflow-hidden
+    "
+    >
+        <span className="relative z-10 flex items-center gap-2">
+            {isShowingMore ? "See Less" : "See More"}
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={`
+          transition-transform
+          duration-300
+          ${isShowingMore ? "group-hover:-translate-y-0.5" : "group-hover:translate-y-0.5"}
+        `}
+            >
+                <polyline points={isShowingMore ? "18 15 12 9 6 15" : "6 9 12 15 18 9"}></polyline>
+            </svg>
+        </span>
+        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+    </button>
+);
+
 // Fallback hardcoded achievements (used if Firestore is empty)
 const hardcodedAchievements = [
 
@@ -186,6 +237,9 @@ const Achievements = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [lightboxOpen, setLightboxOpen] = useState(false);
     const [currentImages, setCurrentImages] = useState([]);
+    const [showAll, setShowAll] = useState(false);
+    const isMobile = window.innerWidth < 768;
+    const initialItems = isMobile ? 2 : 3;
 
     // Handler for opening lightbox with specific achievement images
     const handleImageClick = useCallback((achievement) => {
@@ -232,6 +286,8 @@ const Achievements = () => {
         fetchAchievements();
     }, [fetchAchievements]);
 
+    const displayedAchievements = showAll ? achievements : achievements.slice(0, initialItems);
+
     return (
         <>
             <main
@@ -267,7 +323,7 @@ const Achievements = () => {
                             <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
                         </div>
                     ) : (
-                        achievements.map((achievement, index) => (
+                        displayedAchievements.map((achievement, index) => (
                             <AchievementCard
                                 key={achievement.id || index}
                                 achievement={{ ...achievement, onImageClick: handleImageClick }}
@@ -277,6 +333,15 @@ const Achievements = () => {
                         ))
                     )}
                 </div>
+
+                {!isLoading && achievements.length > initialItems && (
+                    <div className="mt-6 w-full flex justify-start">
+                        <ToggleButton
+                            onClick={() => setShowAll((prev) => !prev)}
+                            isShowingMore={showAll}
+                        />
+                    </div>
+                )}
             </main>
 
             {/* Lightbox for viewing full images */}
@@ -292,4 +357,3 @@ const Achievements = () => {
 };
 
 export default memo(Achievements);
-
