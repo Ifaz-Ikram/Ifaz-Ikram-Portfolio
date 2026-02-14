@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink, ArrowRight } from 'lucide-react';
+import OptimizedImage from './OptimizedImage';
 
 const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
   const handleLiveDemo = (e) => {
@@ -21,10 +22,13 @@ const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
     <div className="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark flex flex-col h-full group hover:border-primary dark:hover:border-primary transition-colors duration-300">
       {/* Image Container */}
       <div className="h-48 overflow-hidden border-b border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark">
-        <img
+        <OptimizedImage
           src={Img}
           alt={Title}
           className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+          pictureClassName="block w-full h-full"
+          widths={[320, 640, 960]}
+          sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 360px"
           loading="lazy"
           decoding="async"
         />

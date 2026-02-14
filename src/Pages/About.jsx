@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback, memo, useMemo } from "react";
 import { FileText, Code, Trophy, Globe, ArrowUpRight } from "lucide-react";
 import { db, collection, getDocs } from "../firebase";
+import OptimizedImage from "../components/OptimizedImage";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -26,11 +27,15 @@ const ProfileImage = memo(() => (
   >
     <div className="absolute inset-0 border border-dashed border-border-light dark:border-border-dark rounded-full scale-110 pointer-events-none"></div>
     <div className="relative w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-2 border-border-light dark:border-border-dark p-1 bg-surface-light dark:bg-surface-dark group">
-      <img
+      <OptimizedImage
         src="/ifaz.jpeg"
         alt="Ifaz Ikram Headshot"
         className="w-full h-full object-cover rounded-full hover:grayscale-0 transition-all duration-500 group-hover:scale-110"
+        pictureClassName="block w-full h-full"
+        widths={[320, 640, 960]}
+        sizes="(max-width: 768px) 70vw, 380px"
         loading="lazy"
+        decoding="async"
       />
     </div>
   </div>

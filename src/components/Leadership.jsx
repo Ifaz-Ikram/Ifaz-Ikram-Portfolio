@@ -3,6 +3,7 @@ import { Users, Calendar, Briefcase, Heart, Wallet, Expand, Calculator, Drama, T
 import { db, collection, getDocs, query, orderBy } from "../firebase";
 import ImageLightbox from "./ImageLightbox";
 import useAutoCarousel from "../hooks/useAutoCarousel";
+import OptimizedImage from "./OptimizedImage";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -336,20 +337,23 @@ const LeadershipImageCarousel = ({ experience, images, onClick }) => {
     if (!currentSrc) return null;
 
     return (
-        // Canvas: Grid wrapper, invisible, fixed height (by tallest content), vertically centered items
+        // Canvas: Fixed aspect ratio to avoid layout jumps
         <div
             ref={ref}
-            className="w-full relative group/canvas grid grid-cols-1 items-center cursor-pointer"
+            className="w-full relative group/canvas grid grid-cols-1 items-center cursor-pointer aspect-[4/3]"
             onClick={() => onClick(images)}
         >
             <div
-                className={`col-start-1 row-start-1 w-full relative rounded-xl overflow-hidden border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-lg transition-all duration-500 ease-in-out group-hover/canvas:scale-105 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+                className={`col-start-1 row-start-1 w-full h-full relative rounded-xl overflow-hidden border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-lg transition-all duration-500 ease-in-out group-hover/canvas:scale-105 ${isLoaded ? "opacity-100" : "opacity-0"}`}
             >
-                <img
+                <OptimizedImage
                     key={currentSrc}
                     src={currentSrc}
                     alt={`${experience.title} - ${currentIndex + 1}`}
-                    className="w-full h-auto object-contain"
+                    className="w-full h-full object-contain"
+                    pictureClassName="block w-full"
+                    widths={[320, 640, 960]}
+                    sizes="(max-width: 768px) 90vw, 600px"
                     loading="lazy"
                     decoding="async"
                     onLoad={() => setIsLoaded(true)}

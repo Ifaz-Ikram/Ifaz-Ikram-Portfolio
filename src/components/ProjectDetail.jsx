@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import Swal from 'sweetalert2';
 import ImageLightbox from './ImageLightbox';
+import OptimizedImage from './OptimizedImage';
 
 const TECH_ICONS = {
   React: Globe,
@@ -80,9 +81,9 @@ const SmartGallery = ({ mainImage, gallery = [], title }) => {
   return (
     <>
       {/* Canvas: Invisible, fixed height, vertically centered */}
-      <div className="w-full relative group grid grid-cols-1 items-center">
+      <div className="w-full relative group grid grid-cols-1 items-center aspect-video">
         <div
-          className="col-start-1 row-start-1 w-full relative rounded-sm overflow-hidden border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-sm transition-opacity duration-500 ease-in-out opacity-100"
+          className="col-start-1 row-start-1 w-full h-full relative rounded-sm overflow-hidden border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-sm transition-opacity duration-500 ease-in-out opacity-100"
         >
           {isVideoFile ? (
             <div
@@ -108,10 +109,13 @@ const SmartGallery = ({ mainImage, gallery = [], title }) => {
             </div>
           ) : (
             <>
-              <img
+              <OptimizedImage
                 src={currentSrc}
                 alt={`${title} - Image ${currentIndex + 1}`}
-                className="w-full h-auto object-contain block cursor-pointer"
+                className="w-full h-full object-contain block cursor-pointer"
+                pictureClassName="block w-full"
+                widths={[480, 960, 1600]}
+                sizes="(max-width: 768px) 90vw, (max-width: 1200px) 70vw, 900px"
                 onClick={() => setLightboxOpen(true)}
                 loading="lazy"
                 decoding="async"
