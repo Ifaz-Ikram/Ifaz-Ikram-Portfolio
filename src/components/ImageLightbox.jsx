@@ -1,6 +1,5 @@
-import React, { useEffect, useCallback, useState, useMemo } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { X, ChevronLeft, ChevronRight, ZoomIn, Download } from 'lucide-react';
-import { withCdn } from '../utils/media';
 
 /**
  * ImageLightbox - A reusable lightbox component for viewing full-size images
@@ -24,10 +23,6 @@ const ImageLightbox = ({
     const [activeIndex, setActiveIndex] = useState(currentIndex);
     const [isZoomed, setIsZoomed] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const normalizedImages = useMemo(
-        () => images.map((img) => withCdn(img)),
-        [images]
-    );
 
     // Sync activeIndex with currentIndex prop
     useEffect(() => {
@@ -43,15 +38,15 @@ const ImageLightbox = ({
                 onClose();
                 break;
             case 'ArrowLeft':
-                setActiveIndex((prev) => (prev - 1 + normalizedImages.length) % normalizedImages.length);
+                setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
                 break;
             case 'ArrowRight':
-                setActiveIndex((prev) => (prev + 1) % normalizedImages.length);
+                setActiveIndex((prev) => (prev + 1) % images.length);
                 break;
             default:
                 break;
         }
-    }, [isOpen, onClose, normalizedImages.length]);
+    }, [isOpen, onClose, images.length]);
 
     useEffect(() => {
         document.addEventListener('keydown', handleKeyDown);
@@ -70,18 +65,18 @@ const ImageLightbox = ({
         };
     }, [isOpen]);
 
-    if (!isOpen || normalizedImages.length === 0) return null;
+    if (!isOpen || images.length === 0) return null;
 
-    const hasMultiple = normalizedImages.length > 1;
+    const hasMultiple = images.length > 1;
 
     const goNext = () => {
         setIsLoading(true);
-        setActiveIndex((prev) => (prev + 1) % normalizedImages.length);
+        setActiveIndex((prev) => (prev + 1) % images.length);
     };
 
     const goPrev = () => {
         setIsLoading(true);
-        setActiveIndex((prev) => (prev - 1 + normalizedImages.length) % normalizedImages.length);
+        setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
     };
 
     const toggleZoom = () => {
@@ -115,7 +110,7 @@ const ImageLightbox = ({
                         )}
                         {hasMultiple && (
                             <span className="text-white/70 text-sm font-mono">
-                                {activeIndex + 1} / {normalizedImages.length}
+                                {activeIndex + 1} / {images.length}
                             </span>
                         )}
                     </div>
@@ -130,7 +125,7 @@ const ImageLightbox = ({
                             <ZoomIn className="w-5 h-5" />
                         </button>
                         <a
-                            href={normalizedImages[activeIndex]}
+                            href={images[activeIndex]}
                             download
                             target="_blank"
                             rel="noopener noreferrer"
@@ -153,7 +148,7 @@ const ImageLightbox = ({
                 <div
                     className={`relative flex items-center justify-center transition-all duration-300 ${isZoomed ? 'cursor-zoom-out overflow-auto max-w-none max-h-none' : 'cursor-zoom-in max-w-full max-h-[85vh]'
                         }`}
-                    onClick={!normalizedImages[activeIndex]?.match(/\.(mp4|webm|ogg)$/i) ? toggleZoom : undefined}
+                    onClick={!images[activeIndex]?.match(/\.(mp4|webm|ogg)$/i) ? toggleZoom : undefined}
                 >
                     {/* Loading spinner */}
                     {isLoading && (
@@ -162,9 +157,9 @@ const ImageLightbox = ({
                         </div>
                     )}
 
-                    {normalizedImages[activeIndex]?.match(/\.(mp4|webm|ogg)$/i) ? (
+                    {images[activeIndex]?.match(/\.(mp4|webm|ogg)$/i) ? (
                         <video
-                            src={normalizedImages[activeIndex]}
+                            src={images[activeIndex]}
                             className="max-w-full max-h-[85vh] shadow-2xl outline-none"
                             controls
                             autoPlay
@@ -174,7 +169,7 @@ const ImageLightbox = ({
                         />
                     ) : (
                         <img
-                            src={normalizedImages[activeIndex]}
+                            src={images[activeIndex]}
                             alt={`${title} - Image ${activeIndex + 1}`}
                             className={`transition-all duration-300 select-none ${isLoading ? 'opacity-0' : 'opacity-100'
                                 } ${isZoomed
@@ -210,7 +205,7 @@ const ImageLightbox = ({
                 {/* Thumbnail dots */}
                 {hasMultiple && (
                     <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-                        {normalizedImages.map((_, idx) => (
+                        {images.map((_, idx) => (
                             <button
                                 key={idx}
                                 onClick={(e) => { e.stopPropagation(); setIsLoading(true); setActiveIndex(idx); }}

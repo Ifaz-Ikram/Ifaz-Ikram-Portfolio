@@ -6,6 +6,7 @@ import {
   ExternalLink,
   Instagram,
 } from "lucide-react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -135,6 +136,22 @@ const Home = () => {
     return () => clearTimeout(timeout);
   }, [handleTyping]);
 
+  // Lottie configuration
+  const lottieOptions = {
+    src: "https://lottie.host/58753882-bb6a-49f5-a2c0-950eda1e135a/NLbpVqGegK.lottie",
+    loop: true,
+    autoplay: true,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+      progressiveLoad: true,
+    },
+    style: { width: "100%", height: "100%" },
+    className: `w-full h-full transition-all duration-500 ${isHovering
+      ? "scale-100 sm:scale-[160%] md:scale-[150%] lg:scale-[145%] rotate-2"
+      : "scale-100 sm:scale-[155%] md:scale-[145%] lg:scale-[140%]"
+      }`,
+  };
+
   return (
     <div className="relative overflow-hidden font-sans" id="Home">
       {/* Navbar Spacer - Critical for proper layout */}
@@ -244,16 +261,7 @@ const Home = () => {
                       className={`relative z-10 w-full h-full opacity-90 transform transition-transform duration-500 ${isHovering ? "scale-105" : "scale-100"
                         }`}
                     >
-                      <img
-                        src="/Coding.gif"
-                        alt="Coding animation"
-                        className={`w-full h-full transition-all duration-500 ${isHovering
-                          ? "scale-100 sm:scale-[160%] md:scale-[150%] lg:scale-[145%] rotate-2"
-                          : "scale-100 sm:scale-[155%] md:scale-[145%] lg:scale-[140%]"
-                          }`}
-                        loading="lazy"
-                        decoding="async"
-                      />
+                      <DotLottieReact {...lottieOptions} />
                     </div>
 
                     <div

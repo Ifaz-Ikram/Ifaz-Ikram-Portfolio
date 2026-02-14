@@ -1,20 +1,18 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState } from 'react';
 import "./index.css";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
 import AnimatedBackground from "./components/Background";
 import Navbar from "./components/Navbar";
-import LazySection from "./components/LazySection";
+import Portofolio from "./Pages/Portofolio";
+import Achievements from "./components/Achievements";
+import Leadership from "./components/Leadership";
+import ContactPage from "./Pages/Contact";
 import ProjectDetails from "./components/ProjectDetail";
 import WelcomeScreen from "./Pages/WelcomeScreen";
 import ThemeToggle from "./components/ThemeToggle";
 import { AnimatePresence } from 'framer-motion';
-
-const Portofolio = lazy(() => import("./Pages/Portofolio"));
-const Achievements = lazy(() => import("./components/Achievements"));
-const Leadership = lazy(() => import("./components/Leadership"));
-const ContactPage = lazy(() => import("./Pages/Contact"));
 
 const LandingPage = ({ showWelcome, setShowWelcome }) => {
   return (
@@ -32,26 +30,10 @@ const LandingPage = ({ showWelcome, setShowWelcome }) => {
           <ThemeToggle />
           <Home />
           <About />
-          <LazySection minHeight="800px">
-            <Suspense fallback={null}>
-              <Portofolio />
-            </Suspense>
-          </LazySection>
-          <LazySection minHeight="900px">
-            <Suspense fallback={null}>
-              <Achievements />
-            </Suspense>
-          </LazySection>
-          <LazySection minHeight="900px">
-            <Suspense fallback={null}>
-              <Leadership />
-            </Suspense>
-          </LazySection>
-          <LazySection minHeight="700px">
-            <Suspense fallback={null}>
-              <ContactPage />
-            </Suspense>
-          </LazySection>
+          <Portofolio />
+          <Achievements />
+          <Leadership />
+          <ContactPage />
         </>
       )}
     </>

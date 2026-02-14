@@ -310,24 +310,9 @@ const hardcodedProjects = [
 export default function FullWidthTabs() {
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const [projects, setProjects] = useState(() => {
-    if (typeof window === "undefined") return hardcodedProjects;
-    try {
-      const cached = JSON.parse(localStorage.getItem("projects"));
-      return Array.isArray(cached) && cached.length > 0 ? cached : hardcodedProjects;
-    } catch {
-      return hardcodedProjects;
-    }
-  });
-  const [certificates, setCertificates] = useState(() => {
-    if (typeof window === "undefined") return [];
-    try {
-      const cached = JSON.parse(localStorage.getItem("certificates"));
-      return Array.isArray(cached) ? cached : [];
-    } catch {
-      return [];
-    }
-  });
+  const [projects, setProjects] = useState([]);
+  const [certificates, setCertificates] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllCertificates, setShowAllCertificates] = useState(false);
   const isMobile = window.innerWidth < 768;
@@ -343,6 +328,7 @@ export default function FullWidthTabs() {
   }, []);
 
   const fetchData = useCallback(async () => {
+    setIsLoading(true);
     try {
       // Fetch projects from Firestore
       const projectsRef = collection(db, "projects");
@@ -378,6 +364,8 @@ export default function FullWidthTabs() {
       // Fallback - use hardcoded projects
       setProjects(hardcodedProjects);
       localStorage.setItem("projects", JSON.stringify(hardcodedProjects));
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
