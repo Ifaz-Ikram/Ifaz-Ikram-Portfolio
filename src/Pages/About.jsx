@@ -81,10 +81,44 @@ const StatCard = memo(({ icon: Icon, value, label, description, animation }) => 
 ));
 
 const AboutPage = () => {
-  const [stats, setStats] = useState({
-    totalProjects: 0,
-    totalAchievements: 0,
-    yearsExperience: 0
+  const [stats, setStats] = useState(() => {
+    const experience = (() => {
+      const startDate = new Date("2025-01-01");
+      const today = new Date();
+      let years = today.getFullYear() - startDate.getFullYear();
+      let months = today.getMonth() - startDate.getMonth();
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+      if (years < 1) {
+        return months > 0 ? `${months}m` : "New";
+      }
+      return years;
+    })();
+
+    if (typeof window === "undefined") {
+      return { totalProjects: 6, totalAchievements: 5, yearsExperience: experience };
+    }
+
+    let projectsCount = 6;
+    let achievementsCount = 5;
+
+    try {
+      const cachedProjects = JSON.parse(localStorage.getItem("projects"));
+      if (Array.isArray(cachedProjects)) projectsCount = cachedProjects.length || projectsCount;
+    } catch { }
+
+    try {
+      const cachedAchievements = JSON.parse(localStorage.getItem("achievements_v1"));
+      if (Array.isArray(cachedAchievements)) achievementsCount = cachedAchievements.length || achievementsCount;
+    } catch { }
+
+    return {
+      totalProjects: projectsCount,
+      totalAchievements: achievementsCount,
+      yearsExperience: experience
+    };
   });
 
   // Calculate experience from January 1, 2025
@@ -108,7 +142,7 @@ const AboutPage = () => {
     return years;
   }, []);
 
-  // Fetch counts from Firestore
+  // Fetch counts from Firestore (background refresh)
   const fetchStats = useCallback(async () => {
     try {
       // Fetch projects count
@@ -122,19 +156,19 @@ const AboutPage = () => {
       // Calculate experience
       const experience = calculateExperience();
 
-      setStats({
-        totalProjects: projectsCount || 6, // fallback
-        totalAchievements: achievementsCount || 5, // fallback
+      setStats((prev) => ({
+        totalProjects: projectsCount || prev.totalProjects || 6,
+        totalAchievements: achievementsCount || prev.totalAchievements || 5,
         yearsExperience: experience
-      });
+      }));
     } catch (error) {
       console.error("Error fetching stats:", error);
       // Fallback values
-      setStats({
-        totalProjects: 6,
-        totalAchievements: 5,
+      setStats((prev) => ({
+        totalProjects: prev.totalProjects || 6,
+        totalAchievements: prev.totalAchievements || 5,
         yearsExperience: calculateExperience()
-      });
+      }));
     }
   }, [calculateExperience]);
 
