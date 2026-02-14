@@ -210,8 +210,11 @@ const AchievementCard = memo(({ achievement, index, isReversed }) => {
 });
 
 const Achievements = () => {
-    const [achievements, setAchievements] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [achievements, setAchievements] = useState(() => {
+        const cached = readCache();
+        return cached && cached.length > 0 ? cached : hardcodedAchievements;
+    });
+    const [isLoading, setIsLoading] = useState(false);
     const [lightboxOpen, setLightboxOpen] = useState(false);
     const [currentImages, setCurrentImages] = useState([]);
 
@@ -260,14 +263,11 @@ const Achievements = () => {
 
     useEffect(() => {
         const cached = readCache();
-        const hasCache = Array.isArray(cached) && cached.length > 0;
-
-        if (hasCache) {
+        if (Array.isArray(cached) && cached.length > 0) {
             setAchievements(cached);
-            setIsLoading(false);
         }
 
-        fetchAchievements({ silent: hasCache });
+        fetchAchievements({ silent: true });
     }, [fetchAchievements]);
 
     return (

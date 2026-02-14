@@ -384,8 +384,11 @@ const LeadershipImageCarousel = ({ experience, images, onClick }) => {
 };
 
 const Leadership = () => {
-    const [experiences, setExperiences] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [experiences, setExperiences] = useState(() => {
+        const cached = readCache();
+        return cached && cached.length > 0 ? cached : hardcodedExperiences;
+    });
+    const [isLoading, setIsLoading] = useState(false);
     const [lightboxOpen, setLightboxOpen] = useState(false);
     const [lightboxImage, setLightboxImage] = useState('');
 
@@ -433,14 +436,11 @@ const Leadership = () => {
 
     useEffect(() => {
         const cached = readCache();
-        const hasCache = Array.isArray(cached) && cached.length > 0;
-
-        if (hasCache) {
+        if (Array.isArray(cached) && cached.length > 0) {
             setExperiences(cached);
-            setIsLoading(false);
         }
 
-        fetchExperiences({ silent: hasCache });
+        fetchExperiences({ silent: true });
     }, [fetchExperiences]);
 
     return (
