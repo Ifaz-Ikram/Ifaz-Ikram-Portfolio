@@ -189,6 +189,8 @@ const AchievementCard = memo(({ achievement, index, isReversed }) => {
                                                     src={imgSrc}
                                                     alt={`${achievement.title} - ${idx + 1}`}
                                                     className="w-full h-auto object-contain"
+                                                    loading="lazy"
+                                                    decoding="async"
                                                 />
                                             </div>
                                         ))}

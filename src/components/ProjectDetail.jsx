@@ -102,6 +102,7 @@ const SmartGallery = ({ mainImage, gallery = [], title }) => {
   const allImages = [mainImage, ...limitedGallery].filter(Boolean);
   const hasMore = gallery.length > Math.max(0, initialItems - 1);
   const hasMultiple = allImages.length > 1;
+  const videoPoster = mainImage || "";
 
   const nextImage = () => {
     setCurrentIndex((prev) => (prev + 1) % allImages.length);
@@ -148,15 +149,17 @@ const SmartGallery = ({ mainImage, gallery = [], title }) => {
                   className="w-full h-auto flex items-center justify-center bg-black cursor-pointer relative"
                   onClick={() => setLightboxOpen(true)}
                 >
-                  <video
-                    src={imgSrc}
-                    className="w-full h-auto max-h-[500px] object-contain"
-                    muted
-                    loop
-                    playsInline
-                    onMouseOver={e => e.target.play()}
-                    onMouseOut={e => e.target.pause()}
-                  />
+                  {videoPoster ? (
+                    <img
+                      src={videoPoster}
+                      alt={`${title} - Video preview`}
+                      className="w-full h-auto max-h-[500px] object-contain"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div className="w-full h-[320px] bg-black" />
+                  )}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <div className="w-16 h-16 bg-black/50 rounded-full flex items-center justify-center backdrop-blur-sm">
                       <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[20px] border-l-white border-b-[10px] border-b-transparent ml-1"></div>
@@ -170,6 +173,8 @@ const SmartGallery = ({ mainImage, gallery = [], title }) => {
                     alt={`${title} - Image ${idx + 1}`}
                     className="w-full h-auto object-contain block cursor-pointer"
                     onClick={() => setLightboxOpen(true)}
+                    loading="lazy"
+                    decoding="async"
                     onError={(e) => {
                       e.target.src = 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop&q=60';
                     }}

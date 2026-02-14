@@ -164,6 +164,7 @@ const ImageLightbox = ({
                             controls
                             autoPlay
                             playsInline
+                            preload="metadata"
                             onLoadedData={() => setIsLoading(false)}
                             onClick={(e) => e.stopPropagation()}
                         />

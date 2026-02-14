@@ -68,6 +68,7 @@ const Comment = memo(({ comment, formatDate, index }) => (
                     alt={`${comment.userName}'s profile`}
                     className="w-10 h-10 object-cover border-2 border-primary/30"
                     loading="lazy"
+                    decoding="async"
                 />
             ) : (
                 <div className="p-2 bg-background-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-primary group-hover:border-primary transition-colors">

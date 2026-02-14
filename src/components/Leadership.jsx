@@ -379,6 +379,8 @@ const LeadershipImageCarousel = ({ experience, images, onClick }) => {
                         src={imgSrc}
                         alt={`${experience.title} - ${idx + 1}`}
                         className="w-full h-auto object-contain"
+                        loading="lazy"
+                        decoding="async"
                     />
 
                     {/* Expand button - inside the container so it stays with the image */}

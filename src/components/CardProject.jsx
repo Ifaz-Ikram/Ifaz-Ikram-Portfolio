@@ -25,6 +25,8 @@ const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
           src={Img}
           alt={Title}
           className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
+          decoding="async"
         />
       </div>
 

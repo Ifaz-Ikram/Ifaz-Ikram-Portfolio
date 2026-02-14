@@ -8,6 +8,8 @@ const TechStackIcon = ({ TechStackIcon, Language }) => {
           src={TechStackIcon}
           alt={`${Language} icon`}
           className="relative h-16 w-16 md:h-20 md:w-20 transform transition-transform duration-300 group-hover:scale-110"
+          loading="lazy"
+          decoding="async"
         />
       </div>
       <span className="text-text-secondary-light dark:text-text-secondary-dark font-semibold text-sm md:text-base tracking-wide group-hover:text-text-light dark:group-hover:text-text-dark transition-colors duration-300">
