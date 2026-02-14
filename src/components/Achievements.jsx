@@ -335,7 +335,7 @@ const Achievements = () => {
                 </div>
 
                 {!isLoading && achievements.length > initialItems && (
-                    <div className="mt-6 w-full flex justify-start">
+                    <div className="mt-6 w-full flex justify-center">
                         <ToggleButton
                             onClick={() => setShowAll((prev) => !prev)}
                             isShowingMore={showAll}

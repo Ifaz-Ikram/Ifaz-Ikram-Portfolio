@@ -6,6 +6,57 @@ import { MessageCircle, UserCircle2, Loader2, AlertCircle, Send, ImagePlus, X } 
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+// Show More / Show Less button (matches Portfolio UI)
+const ToggleButton = ({ onClick, isShowingMore }) => (
+    <button
+        onClick={onClick}
+        className="
+      px-4 py-2
+      text-text-secondary-light dark:text-text-secondary-dark
+      hover:text-text-light dark:hover:text-text-dark
+      text-sm
+      font-medium
+      transition-all
+      duration-300
+      ease-in-out
+      flex
+      items-center
+      gap-2
+      bg-surface-light dark:bg-surface-dark
+      hover:bg-background-light dark:hover:bg-background-dark
+      border
+      border-border-light dark:border-border-dark
+      hover:border-primary
+      group
+      relative
+      overflow-hidden
+    "
+    >
+        <span className="relative z-10 flex items-center gap-2">
+            {isShowingMore ? "See Less" : "See More"}
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={`
+          transition-transform
+          duration-300
+          ${isShowingMore ? "group-hover:-translate-y-0.5" : "group-hover:translate-y-0.5"}
+        `}
+            >
+                <polyline points={isShowingMore ? "18 15 12 9 6 15" : "6 9 12 15 18 9"}></polyline>
+            </svg>
+        </span>
+        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+    </button>
+);
+
 const Comment = memo(({ comment, formatDate, index }) => (
     <div
         className="px-4 pt-4 pb-2 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark hover:border-primary dark:hover:border-primary transition-all group"
@@ -181,6 +232,9 @@ const Komentar = () => {
     const [comments, setComments] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState('');
+    const [showAll, setShowAll] = useState(false);
+    const isMobile = window.innerWidth < 768;
+    const initialComments = isMobile ? 2 : 3;
 
     useEffect(() => {
         AOS.init({
@@ -249,6 +303,8 @@ const Komentar = () => {
         }).format(date);
     }, []);
 
+    const displayedComments = showAll ? comments : comments.slice(0, initialComments);
+
     return (
         <div className="w-full" data-aos="fade-up" data-aos-duration="1000">
             {/* Header */}
@@ -284,7 +340,7 @@ const Komentar = () => {
                             <p className="text-text-secondary-light dark:text-text-secondary-dark">No comments yet. Start the conversation!</p>
                         </div>
                     ) : (
-                        comments.map((comment, index) => (
+                        displayedComments.map((comment, index) => (
                             <Comment
                                 key={comment.id}
                                 comment={comment}
@@ -294,6 +350,15 @@ const Komentar = () => {
                         ))
                     )}
                 </div>
+
+                {comments.length > initialComments && (
+                    <div className="pt-2 w-full flex justify-center">
+                        <ToggleButton
+                            onClick={() => setShowAll((prev) => !prev)}
+                            isShowingMore={showAll}
+                        />
+                    </div>
+                )}
             </div>
 
             <style jsx>{`

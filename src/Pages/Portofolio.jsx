@@ -315,8 +315,10 @@ export default function FullWidthTabs() {
   const [isLoading, setIsLoading] = useState(true);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllCertificates, setShowAllCertificates] = useState(false);
+  const [showAllTech, setShowAllTech] = useState(false);
   const isMobile = window.innerWidth < 768;
   const initialItems = isMobile ? 4 : 6;
+  const initialTechItems = isMobile ? 4 : 6;
 
   useEffect(() => {
     // Initialize AOS once
@@ -387,6 +389,7 @@ export default function FullWidthTabs() {
 
   const displayedProjects = showAllProjects ? projects : projects.slice(0, initialItems);
   const displayedCertificates = showAllCertificates ? certificates : certificates.slice(0, initialItems);
+  const hasMoreTech = techStacks.some((category) => category.items.length > initialTechItems);
 
   return (
     <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 w-full overflow-hidden min-h-screen flex flex-col justify-start pt-6 pb-12 lg:pb-20" id="Portofolio">
@@ -452,7 +455,7 @@ export default function FullWidthTabs() {
               </div>
             </div>
             {projects.length > initialItems && (
-              <div className="mt-6 w-full flex justify-start">
+              <div className="mt-6 w-full flex justify-center">
                 <ToggleButton
                   onClick={() => toggleShowMore('projects')}
                   isShowingMore={showAllProjects}
@@ -476,7 +479,7 @@ export default function FullWidthTabs() {
                   </div>
 
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-8 gap-5">
-                    {category.items.map((stack, index) => (
+                    {(showAllTech ? category.items : category.items.slice(0, initialTechItems)).map((stack, index) => (
                       <div
                         key={index}
                         data-aos="fade-up"
@@ -490,6 +493,14 @@ export default function FullWidthTabs() {
                 </div>
               ))}
             </div>
+            {hasMoreTech && (
+              <div className="mt-2 w-full flex justify-center">
+                <ToggleButton
+                  onClick={() => setShowAllTech((prev) => !prev)}
+                  isShowingMore={showAllTech}
+                />
+              </div>
+            )}
           </TabPanel>
         </SwipeableViews>
       </Box>
