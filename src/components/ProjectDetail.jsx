@@ -96,6 +96,7 @@ const SmartGallery = ({ mainImage, gallery = [], title }) => {
   const [showAll, setShowAll] = useState(false);
   const isMobile = window.innerWidth < 768;
   const initialItems = isMobile ? 2 : 3;
+  const [minHeight, setMinHeight] = useState(null);
 
   // Combine main image with gallery for all images
   const limitedGallery = showAll ? gallery : gallery.slice(0, Math.max(0, initialItems - 1));
@@ -134,15 +135,23 @@ const SmartGallery = ({ mainImage, gallery = [], title }) => {
   return (
     <>
       {/* Canvas: Invisible, fixed height, vertically centered */}
-      <div className="w-full relative group grid grid-cols-1 items-center">
-        {allImages.map((imgSrc, idx) => {
-          const isVideoFile = isVideo(imgSrc);
+      <div
+        className="w-full relative group grid grid-cols-1 items-center"
+        style={minHeight ? { minHeight } : undefined}
+      >
+        {(() => {
+          const currentSrc = allImages[currentIndex];
+          const isVideoFile = isVideo(currentSrc);
+
+          const handleImageLoad = (e) => {
+            const height = e.target.getBoundingClientRect().height;
+            if (!height) return;
+            setMinHeight((prev) => Math.max(prev || 0, height));
+          };
 
           return (
             <div
-              key={idx}
-              className={`col-start-1 row-start-1 w-full relative rounded-sm overflow-hidden border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-sm transition-opacity duration-500 ease-in-out ${idx === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-                }`}
+              className="col-start-1 row-start-1 w-full relative rounded-sm overflow-hidden border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-sm transition-opacity duration-500 ease-in-out opacity-100"
             >
               {isVideoFile ? (
                 <div
@@ -156,6 +165,7 @@ const SmartGallery = ({ mainImage, gallery = [], title }) => {
                       className="w-full h-auto max-h-[500px] object-contain"
                       loading="lazy"
                       decoding="async"
+                      onLoad={handleImageLoad}
                     />
                   ) : (
                     <div className="w-full h-[320px] bg-black" />
@@ -169,12 +179,13 @@ const SmartGallery = ({ mainImage, gallery = [], title }) => {
               ) : (
                 <>
                   <img
-                    src={imgSrc}
-                    alt={`${title} - Image ${idx + 1}`}
+                    src={currentSrc}
+                    alt={`${title} - Image ${currentIndex + 1}`}
                     className="w-full h-auto object-contain block cursor-pointer"
                     onClick={() => setLightboxOpen(true)}
                     loading="lazy"
                     decoding="async"
+                    onLoad={handleImageLoad}
                     onError={(e) => {
                       e.target.src = 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop&q=60';
                     }}
@@ -237,13 +248,13 @@ const SmartGallery = ({ mainImage, gallery = [], title }) => {
 
                   {/* Image counter tag */}
                   <div className="absolute top-3 right-3 px-2 py-1 bg-black/60 backdrop-blur-sm text-white text-xs font-mono rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30">
-                    {idx + 1} / {allImages.length}
+                    {currentIndex + 1} / {allImages.length}
                   </div>
                 </>
               )}
             </div>
           );
-        })}
+        })()}
       </div>
 
 

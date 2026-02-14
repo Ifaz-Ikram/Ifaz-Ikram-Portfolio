@@ -31,6 +31,7 @@ const ProfileImage = memo(() => (
         alt="Ifaz Ikram Headshot"
         className="w-full h-full object-cover rounded-full hover:grayscale-0 transition-all duration-500 group-hover:scale-110"
         loading="lazy"
+        decoding="async"
       />
     </div>
   </div>

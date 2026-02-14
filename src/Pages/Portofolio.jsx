@@ -310,9 +310,9 @@ const hardcodedProjects = [
 export default function FullWidthTabs() {
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState(() => hardcodedProjects);
   const [certificates, setCertificates] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllCertificates, setShowAllCertificates] = useState(false);
   const [showAllTech, setShowAllTech] = useState(false);
@@ -330,7 +330,6 @@ export default function FullWidthTabs() {
   }, []);
 
   const fetchData = useCallback(async () => {
-    setIsLoading(true);
     try {
       // Fetch projects from Firestore
       const projectsRef = collection(db, "projects");

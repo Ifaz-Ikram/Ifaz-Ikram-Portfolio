@@ -67,6 +67,8 @@ const Certificate = ({ ImgSertif }) => {
 							filter: "contrast(1.10) brightness(0.9) saturate(1.1)",
 							transition: "filter 0.3s ease",
 						}}
+						loading="lazy"
+						decoding="async"
 						onClick={handleOpen}
 					/>
 				</Box>
@@ -187,6 +189,8 @@ const Certificate = ({ ImgSertif }) => {
 							margin: "0 auto",
 							objectFit: "contain",
 						}}
+						loading="lazy"
+						decoding="async"
 					/>
 				</Box>
 			</Modal>
