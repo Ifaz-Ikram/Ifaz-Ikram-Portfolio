@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback, memo } from "react";
 import { Users, Calendar, Briefcase, Heart, Wallet, Expand, Calculator, Drama, Truck, Trophy } from "lucide-react";
 import { db, collection, getDocs, query, orderBy } from "../firebase";
 import ImageLightbox from "./ImageLightbox";
+import useAutoCarousel from "../hooks/useAutoCarousel";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -229,6 +230,29 @@ const ICON_MAP = {
     Trophy: Trophy,
 };
 
+const CACHE_KEY = "leadership_v1";
+
+const readCache = () => {
+    if (typeof window === "undefined") return null;
+    try {
+        const raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : null;
+    } catch {
+        return null;
+    }
+};
+
+const writeCache = (data) => {
+    if (typeof window === "undefined") return;
+    try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+    } catch {
+        // no-op
+    }
+};
+
 const LeadershipCard = memo(({ experience, index, isReversed }) => {
     const Icon = ICON_MAP[experience.icon] || Users;
 
@@ -301,60 +325,60 @@ const LeadershipCard = memo(({ experience, index, isReversed }) => {
 
 // Helper component for slideshow to adhere to Hook rules
 const LeadershipImageCarousel = ({ experience, images, onClick }) => {
-    const [currentImgIndex, setCurrentImgIndex] = useState(0);
+    const { ref, currentIndex } = useAutoCarousel(images, 3000);
+    const currentSrc = images[currentIndex];
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        if (images.length <= 1) return;
-        const interval = setInterval(() => {
-            setCurrentImgIndex((prev) => (prev + 1) % images.length);
-        }, 3000);
-        return () => clearInterval(interval);
-    }, [images.length]);
+        setIsLoaded(false);
+    }, [currentSrc]);
+
+    if (!currentSrc) return null;
 
     return (
         // Canvas: Grid wrapper, invisible, fixed height (by tallest content), vertically centered items
         <div
+            ref={ref}
             className="w-full relative group/canvas grid grid-cols-1 items-center cursor-pointer"
             onClick={() => onClick(images)}
         >
-            {/* Render all images, each wrapped in its own 'Container' */}
-            {images.map((imgSrc, idx) => (
-                <div
-                    key={idx}
-                    className={`col-start-1 row-start-1 w-full relative rounded-xl overflow-hidden border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-lg transition-all duration-500 ease-in-out group-hover/canvas:scale-105 ${idx === currentImgIndex ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                        }`}
+            <div
+                className={`col-start-1 row-start-1 w-full relative rounded-xl overflow-hidden border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-lg transition-all duration-500 ease-in-out group-hover/canvas:scale-105 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+            >
+                <img
+                    key={currentSrc}
+                    src={currentSrc}
+                    alt={`${experience.title} - ${currentIndex + 1}`}
+                    className="w-full h-auto object-contain"
+                    loading="lazy"
+                    decoding="async"
+                    onLoad={() => setIsLoaded(true)}
+                />
+
+                {/* Expand button - inside the container so it stays with the image */}
+                <button
+                    className="absolute top-3 left-3 p-2 bg-black/50 hover:bg-primary text-white rounded-lg opacity-0 group-hover/canvas:opacity-100 transition-all duration-300 z-20 cursor-pointer"
+                    title="View full image"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onClick(images);
+                    }}
                 >
-                    <img
-                        src={imgSrc}
-                        alt={`${experience.title} - ${idx + 1}`}
-                        className="w-full h-auto object-contain"
-                    />
+                    <Expand className="w-4 h-4" />
+                </button>
 
-                    {/* Expand button - inside the container so it stays with the image */}
-                    <button
-                        className="absolute top-3 left-3 p-2 bg-black/50 hover:bg-primary text-white rounded-lg opacity-0 group-hover/canvas:opacity-100 transition-all duration-300 z-20 cursor-pointer"
-                        title="View full image"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            onClick(images);
-                        }}
-                    >
-                        <Expand className="w-4 h-4" />
-                    </button>
-
-                    {/* Gallery Indicator */}
-                    {images.length > 1 && (
-                        <div className="absolute top-3 right-3 p-2 bg-black/50 text-white rounded-md z-20 pointer-events-none opacity-0 group-hover/canvas:opacity-100 transition-opacity duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M18 22H4a2 2 0 0 1-2-2V6" />
-                                <path d="M22 2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z" />
-                                <path d="M11 14l2.5-3 2.5 3" />
-                                <path d="M8 10l2 4" />
-                            </svg>
-                        </div>
-                    )}
-                </div>
-            ))}
+                {/* Gallery Indicator */}
+                {images.length > 1 && (
+                    <div className="absolute top-3 right-3 p-2 bg-black/50 text-white rounded-md z-20 pointer-events-none opacity-0 group-hover/canvas:opacity-100 transition-opacity duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M18 22H4a2 2 0 0 1-2-2V6" />
+                            <path d="M22 2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z" />
+                            <path d="M11 14l2.5-3 2.5 3" />
+                            <path d="M8 10l2 4" />
+                        </svg>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
@@ -379,8 +403,8 @@ const Leadership = () => {
         });
     }, []);
 
-    const fetchExperiences = useCallback(async () => {
-        setIsLoading(true);
+    const fetchExperiences = useCallback(async ({ silent } = {}) => {
+        if (!silent) setIsLoading(true);
         try {
             const leadershipRef = collection(db, "leadership");
             const leadershipQuery = query(leadershipRef, orderBy("order", "asc"));
@@ -397,16 +421,26 @@ const Leadership = () => {
             }
 
             setExperiences(data);
+            writeCache(data);
         } catch (error) {
             console.error("Error fetching leadership:", error);
             setExperiences(hardcodedExperiences);
+            writeCache(hardcodedExperiences);
         } finally {
-            setIsLoading(false);
+            if (!silent) setIsLoading(false);
         }
     }, []);
 
     useEffect(() => {
-        fetchExperiences();
+        const cached = readCache();
+        const hasCache = Array.isArray(cached) && cached.length > 0;
+
+        if (hasCache) {
+            setExperiences(cached);
+            setIsLoading(false);
+        }
+
+        fetchExperiences({ silent: hasCache });
     }, [fetchExperiences]);
 
     return (

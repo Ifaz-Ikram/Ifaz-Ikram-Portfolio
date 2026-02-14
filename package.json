@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "seed": "node scripts/seedFirebase.js"
+    "seed": "node scripts/seedFirebase.js",
+    "optimize:images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -58,6 +59,7 @@
     "postcss": "^8.4.47",
     "tailwind-scrollbar": "^3.1.0",
     "tailwindcss": "^3.4.14",
-    "vite": "^5.4.10"
+    "vite": "^5.4.10",
+    "sharp": "^0.33.5"
   }
 }

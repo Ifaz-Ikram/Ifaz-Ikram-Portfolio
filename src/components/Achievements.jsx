@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback, memo } from "react";
 import { Trophy, Medal, Award, Expand, Images, Code } from "lucide-react";
 import { db, collection, getDocs, query, orderBy } from "../firebase";
 import ImageLightbox from "./ImageLightbox";
+import useAutoCarousel from "../hooks/useAutoCarousel";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -73,6 +74,62 @@ const ICON_MAP = {
     Code: Code
 };
 
+const CACHE_KEY = "achievements_v1";
+
+const readCache = () => {
+    if (typeof window === "undefined") return null;
+    try {
+        const raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : null;
+    } catch {
+        return null;
+    }
+};
+
+const writeCache = (data) => {
+    if (typeof window === "undefined") return;
+    try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+    } catch {
+        // no-op
+    }
+};
+
+const AchievementImageCarousel = ({ achievement, onImageClick }) => {
+    const images = [achievement.imageUrl, ...(achievement.gallery || [])].filter(Boolean);
+    const { ref, currentIndex } = useAutoCarousel(images, 3000);
+    const currentSrc = images[currentIndex];
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        setIsLoaded(false);
+    }, [currentSrc]);
+
+    if (!currentSrc) return null;
+
+    return (
+        <div ref={ref} className="w-full relative grid grid-cols-1 items-center">
+            <div
+                className={`col-start-1 row-start-1 w-full relative rounded-xl overflow-hidden border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-lg transition-all duration-500 ease-in-out group-hover:scale-105 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+                onClick={() => onImageClick && onImageClick(achievement)}
+            >
+                <img
+                    key={currentSrc}
+                    src={currentSrc}
+                    alt={`${achievement.title} - ${currentIndex + 1}`}
+                    className="w-full h-auto object-contain"
+                    loading="lazy"
+                    decoding="async"
+                    fetchPriority="low"
+                    onLoad={() => setIsLoaded(true)}
+                />
+            </div>
+        </div>
+    );
+};
+
 const AchievementCard = memo(({ achievement, index, isReversed }) => {
     const Icon = ICON_MAP[achievement.icon] || Trophy;
 
@@ -111,39 +168,10 @@ const AchievementCard = memo(({ achievement, index, isReversed }) => {
                 <div className="relative w-full max-w-full">
                     {achievement.imageUrl ? (
                         <>
-                            {(() => {
-                                // Logic for auto-slideshow
-                                const images = [achievement.imageUrl, ...(achievement.gallery || [])].filter(Boolean);
-                                const [currentImgIndex, setCurrentImgIndex] = useState(0);
-
-                                useEffect(() => {
-                                    if (images.length <= 1) return;
-                                    const interval = setInterval(() => {
-                                        setCurrentImgIndex((prev) => (prev + 1) % images.length);
-                                    }, 3000);
-                                    return () => clearInterval(interval);
-                                }, [images.length]);
-
-                                // Canvas: Grid items-center for vertical centering
-                                return (
-                                    <div className="w-full relative grid grid-cols-1 items-center">
-                                        {images.map((imgSrc, idx) => (
-                                            <div
-                                                key={idx}
-                                                className={`col-start-1 row-start-1 w-full relative rounded-xl overflow-hidden border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-lg transition-all duration-500 ease-in-out group-hover:scale-105 ${idx === currentImgIndex ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                                                    }`}
-                                                onClick={() => achievement.onImageClick && achievement.onImageClick(achievement)}
-                                            >
-                                                <img
-                                                    src={imgSrc}
-                                                    alt={`${achievement.title} - ${idx + 1}`}
-                                                    className="w-full h-auto object-contain"
-                                                />
-                                            </div>
-                                        ))}
-                                    </div>
-                                );
-                            })()}
+                            <AchievementImageCarousel
+                                achievement={achievement}
+                                onImageClick={achievement.onImageClick}
+                            />
 
                             {/* Expand button */}
                             <button
@@ -202,8 +230,8 @@ const Achievements = () => {
         });
     }, []);
 
-    const fetchAchievements = useCallback(async () => {
-        setIsLoading(true);
+    const fetchAchievements = useCallback(async ({ silent } = {}) => {
+        if (!silent) setIsLoading(true);
         try {
             const achievementsRef = collection(db, "achievements");
             const achievementsQuery = query(achievementsRef, orderBy("order", "asc"));
@@ -220,16 +248,26 @@ const Achievements = () => {
             }
 
             setAchievements(data);
+            writeCache(data);
         } catch (error) {
             console.error("Error fetching achievements:", error);
             setAchievements(hardcodedAchievements);
+            writeCache(hardcodedAchievements);
         } finally {
-            setIsLoading(false);
+            if (!silent) setIsLoading(false);
         }
     }, []);
 
     useEffect(() => {
-        fetchAchievements();
+        const cached = readCache();
+        const hasCache = Array.isArray(cached) && cached.length > 0;
+
+        if (hasCache) {
+            setAchievements(cached);
+            setIsLoading(false);
+        }
+
+        fetchAchievements({ silent: hasCache });
     }, [fetchAchievements]);
 
     return (
@@ -292,4 +330,3 @@ const Achievements = () => {
 };
 
 export default memo(Achievements);
-
